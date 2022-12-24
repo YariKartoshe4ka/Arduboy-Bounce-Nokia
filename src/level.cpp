@@ -47,7 +47,8 @@ void Level::move_hor(int16_t hor) {
     --right_bound;
     if (right_bound == -1) right_bound += SURFACE_B_W;
 
-    for (uint8_t i = 0; i < SURFACE_B_H; ++i) load_entity(i, right_bound, shift_y + i, shift_x);
+    for (uint8_t i = 0; i < SURFACE_B_H; ++i)
+      load_entity(i, right_bound, shift_y + i, shift_x);
   }
 };
 

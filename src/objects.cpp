@@ -30,12 +30,9 @@ Ball::Ball(int16_t x, int16_t y) {
 void Ball::check_events() {
   uint8_t state = arduboy.buttonsState();
 
-  if (state & LEFT_BUTTON)
-    ac_x = -BALL_AC_X;
-  else if (state & RIGHT_BUTTON)
-    ac_x = BALL_AC_X;
-  else
-    ac_x = 0;
+  if (state & LEFT_BUTTON) ac_x = -BALL_AC_X;
+  else if (state & RIGHT_BUTTON) ac_x = BALL_AC_X;
+  else ac_x = 0;
 
   if (state & UP_BUTTON && !(this->state & BALL_STATE_JUMP)) {
     vel_y = -BALL_MAX_VEL_Y;
@@ -44,15 +41,11 @@ void Ball::check_events() {
 
 void Ball::update() {
   // Horizontal movement
-  if (ac_x > 0)
-    vel_x = min(BALL_MAX_VEL_X, vel_x + ac_x);
-  else if (ac_x < 0)
-    vel_x = max(-BALL_MAX_VEL_X, vel_x + ac_x);
+  if (ac_x > 0) vel_x = min(BALL_MAX_VEL_X, vel_x + ac_x);
+  else if (ac_x < 0) vel_x = max(-BALL_MAX_VEL_X, vel_x + ac_x);
   else {
-    if (vel_x > 0)
-      vel_x = max(0, vel_x - BALL_AC_X);
-    else
-      vel_x = min(0, vel_x + BALL_AC_X);
+    if (vel_x > 0) vel_x = max(0, vel_x - BALL_AC_X);
+    else vel_x = min(0, vel_x + BALL_AC_X);
   }
 
   x += vel_x;
@@ -62,8 +55,8 @@ void Ball::update() {
     for (int8_t j = 0; j < SURFACE_B_W; ++j) {
       if (entities[i][j].type == ENTITY_BLOCK) {
         Rect rect_block = RECT_ENTITY(entities[i][j]);
-        Rect rect_ball
-          = Rect(round(x), round(y), pgm_read_byte(&image[0]), pgm_read_byte(&image[1]));
+        Rect rect_ball =
+          Rect(round(x), round(y), pgm_read_byte(&image[0]), pgm_read_byte(&image[1]));
 
         if (arduboy.collide(rect_ball, rect_block)) {
           if (rect_ball.x > rect_block.x) {
@@ -89,8 +82,8 @@ void Ball::update() {
     for (int8_t j = 0; j < SURFACE_B_W; ++j) {
       if (entities[i][j].type == ENTITY_BLOCK) {
         Rect rect_block = RECT_ENTITY(entities[i][j]);
-        Rect rect_ball
-          = Rect(round(x), round(y), pgm_read_byte(&image[0]), pgm_read_byte(&image[1]));
+        Rect rect_ball =
+          Rect(round(x), round(y), pgm_read_byte(&image[0]), pgm_read_byte(&image[1]));
 
         if (arduboy.collide(rect_ball, rect_block)) {
           if (rect_ball.y > rect_block.y) {
@@ -107,4 +100,6 @@ void Ball::update() {
   }
 };
 
-float Ball::centerx() { return x + pgm_read_byte(&image[0]) / 2.; };
+float Ball::centerx() {
+  return x + pgm_read_byte(&image[0]) / 2.;
+};

@@ -1,9 +1,14 @@
 ---
 BasedOnStyle: Google
-AlignAfterOpenBracket: DontAlign
-BreakBeforeBinaryOperators: All
-ColumnLimit: '100'
-ContinuationIndentWidth: '2'
+AlignAfterOpenBracket: BlockIndent
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLoopsOnASingleLine: false
+BreakBeforeBinaryOperators: NonAssignment
+ColumnLimit: 100
+ContinuationIndentWidth: 2
+IndentWidth: 2
 UseTab: Never
 
 ...
