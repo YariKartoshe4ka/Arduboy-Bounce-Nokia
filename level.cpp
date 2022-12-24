@@ -1,12 +1,12 @@
-#include <Arduboy2.h>
-#include "assets.h"
 #include "level.h"
-#include "objects.h"
 
+#include <Arduboy2.h>
+
+#include "assets.h"
+#include "objects.h"
 
 extern Entity entities[SURFACE_B_H][SURFACE_B_W];
 extern Arduboy2 arduboy;
-
 
 void Level::init(uint8_t level_no) {
   this->level_no = level_no;
@@ -33,8 +33,7 @@ void Level::move_hor(int16_t hor) {
       load_entity(i, right_bound, shift_y + i, shift_x + SURFACE_B_W - 1);
 
     ++right_bound;
-    if (right_bound == SURFACE_B_W)
-      right_bound = 0;
+    if (right_bound == SURFACE_B_W) right_bound = 0;
   }
 
   // Horizontal scrolling (left for ball)
@@ -46,11 +45,9 @@ void Level::move_hor(int16_t hor) {
     --shift_x;
 
     --right_bound;
-    if (right_bound == -1)
-      right_bound += SURFACE_B_W;
+    if (right_bound == -1) right_bound += SURFACE_B_W;
 
-    for (uint8_t i = 0; i < SURFACE_B_H; ++i)
-      load_entity(i, right_bound, shift_y + i, shift_x);
+    for (uint8_t i = 0; i < SURFACE_B_H; ++i) load_entity(i, right_bound, shift_y + i, shift_x);
   }
 };
 

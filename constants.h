@@ -1,6 +1,5 @@
 #pragma once
 
-
 /* bounce.ino */
 #define FPS 30
 
@@ -14,7 +13,6 @@
 #define SURFACE_B_W 12  // Amount of blocks in width
 #define SURFACE_B_H 8   // Amount of blocks in height
 
-
 /* objects.h */
 #define BALL_AC_X .3
 #define BALL_AC_Y .3
@@ -23,4 +21,3 @@
 
 #define BALL_STATE_BIG (1 << 0)
 #define BALL_STATE_JUMP (1 << 1)
-

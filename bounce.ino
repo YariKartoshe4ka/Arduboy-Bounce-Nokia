@@ -1,10 +1,9 @@
 #include <Arduboy2.h>
 
 #include "assets.h"
-#include "objects.h"
 #include "constants.h"
 #include "level.h"
-
+#include "objects.h"
 
 Arduboy2 arduboy;
 Sprites sprites;
@@ -17,9 +16,7 @@ Ball ball;
 uint32_t prev_millis = 0;
 int16_t prev_shift_x = 0;
 
-
 #define modsub(x, m) (x >= 0 ? (x >= m ? x - m : x) : x + m)
-
 
 void setup() {
   arduboy.begin();
@@ -32,16 +29,13 @@ void setup() {
   level.init(0);
 
   for (int8_t i = 0; i < SURFACE_B_H; ++i)
-    for (int8_t j = 0; j < SURFACE_B_W; ++j)
-      level.load_entity(i, j, i, j);
+    for (int8_t j = 0; j < SURFACE_B_W; ++j) level.load_entity(i, j, i, j);
 
-  for (int8_t i = 0; i < 16; ++i)
-    stars[i] = {1, 2, 3, 4, 5, 6, 7};
+  for (int8_t i = 0; i < 16; ++i) stars[i] = {1, 2, 3, 4, 5, 6, 7};
 }
 
 void loop() {
-  if (!arduboy.nextFrame())
-    return;
+  if (!arduboy.nextFrame()) return;
 
   if (millis() < 3000) {
     sprites.drawOverwrite(0, 0, IMAGE_PRESPLASH, 0);
@@ -71,11 +65,7 @@ void loop() {
     for (int16_t i = 0; i < SURFACE_B_H; ++i) {
       if (entities[i][j].type == ENTITY_BLOCK) {
         sprites.drawOverwrite(
-          offset_x + SURFACE_X + entities[i][j].x,
-          entities[i][j].y,
-          entities[i][j].image,
-          0
-        );
+          offset_x + SURFACE_X + entities[i][j].x, entities[i][j].y, entities[i][j].image, 0);
       }
     }
   }
