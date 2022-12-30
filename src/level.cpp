@@ -3,6 +3,7 @@
 #include <Arduboy2.h>
 
 #include "assets.h"
+#include "levels.h"
 #include "objects.h"
 
 extern Entity entities[SURFACE_B_H][SURFACE_B_W];
