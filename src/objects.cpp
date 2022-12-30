@@ -2,6 +2,8 @@
 
 #include <Arduboy2.h>
 
+#include "utils.h"
+
 extern Arduboy2 arduboy;
 extern Entity entities[SURFACE_B_H][SURFACE_B_W];
 

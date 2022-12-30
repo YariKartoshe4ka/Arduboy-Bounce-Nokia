@@ -4,6 +4,7 @@
 #include "src/constants.h"
 #include "src/level.h"
 #include "src/objects.h"
+#include "src/utils.h"
 
 Arduboy2 arduboy;
 Sprites sprites;

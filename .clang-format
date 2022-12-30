@@ -1,6 +1,7 @@
 ---
 BasedOnStyle: Google
 AlignAfterOpenBracket: BlockIndent
+AlwaysBreakTemplateDeclarations: No
 AllowShortBlocksOnASingleLine: Empty
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: AllIfsAndElse
