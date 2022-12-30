@@ -35,13 +35,6 @@ void setup() {
 void loop() {
   if (!arduboy.nextFrame()) return;
 
-  if (millis() < 3000) {
-    sprites.drawOverwrite(0, 0, IMAGE_PRESPLASH, 0);
-    arduboy.delayShort(100);
-    arduboy.display();
-    return;
-  }
-
   arduboy.clear();
 
   ball.check_events();
