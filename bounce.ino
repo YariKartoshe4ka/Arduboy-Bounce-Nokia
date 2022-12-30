@@ -20,8 +20,6 @@ int16_t prev_shift_x = 0;
 
 void setup() {
   arduboy.begin();
-  arduboy.flashlight();
-
   arduboy.setFrameRate(FPS);
 
   ball = Ball(8, 48);
@@ -41,7 +39,8 @@ void loop() {
   ball.check_events();
   ball.update();
 
-  int16_t offset_x = 0, offset_y = 0, ball_centerx = round(ball.centerx());
+  int16_t offset_x = 0, offset_y = 0,
+          ball_centerx = round(ball.x + pgm_read_byte(&ball.image[0]) / 2.);
   if (ball_centerx > SURFACE_W / 2)
     offset_x = max(SURFACE_W / 2 - ball_centerx, SURFACE_W - level.width * 8);
 

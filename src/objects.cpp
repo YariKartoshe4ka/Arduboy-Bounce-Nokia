@@ -7,21 +7,10 @@
 extern Arduboy2 arduboy;
 extern Entity entities[SURFACE_B_H][SURFACE_B_W];
 
-Entity::Entity(){};
-Entity::Entity(int16_t x, int16_t y) {
-  type = ENTITY_EMPTY;
-  this->x = x;
-  this->y = y;
+Rect Entity::rect() {
+  return Rect(x, y, pgm_read_byte(&image[0]), pgm_read_byte(&image[1]));
 };
 
-Block::Block(int16_t x, int16_t y) {
-  type = ENTITY_BLOCK;
-  image = IMAGE_BLOCK;
-  this->x = x;
-  this->y = y;
-};
-
-Ball::Ball(){};
 Ball::Ball(int16_t x, int16_t y) {
   image = IMAGE_BALL;
   vel_x = vel_y = ac_x = ac_y = 0;
@@ -56,9 +45,7 @@ void Ball::update() {
   for (int8_t i = 0; i < SURFACE_B_H; ++i) {
     for (int8_t j = 0; j < SURFACE_B_W; ++j) {
       if (entities[i][j].type == ENTITY_BLOCK) {
-        Rect rect_block = RECT_ENTITY(entities[i][j]);
-        Rect rect_ball =
-          Rect(round(x), round(y), pgm_read_byte(&image[0]), pgm_read_byte(&image[1]));
+        Rect rect_block = entities[i][j].rect(), rect_ball = rect();
 
         if (arduboy.collide(rect_ball, rect_block)) {
           if (rect_ball.x > rect_block.x) {
@@ -83,9 +70,7 @@ void Ball::update() {
   for (int8_t i = 0; i < SURFACE_B_H; ++i) {
     for (int8_t j = 0; j < SURFACE_B_W; ++j) {
       if (entities[i][j].type == ENTITY_BLOCK) {
-        Rect rect_block = RECT_ENTITY(entities[i][j]);
-        Rect rect_ball =
-          Rect(round(x), round(y), pgm_read_byte(&image[0]), pgm_read_byte(&image[1]));
+        Rect rect_block = entities[i][j].rect(), rect_ball = rect();
 
         if (arduboy.collide(rect_ball, rect_block)) {
           if (rect_ball.y > rect_block.y) {
@@ -102,6 +87,6 @@ void Ball::update() {
   }
 };
 
-float Ball::centerx() {
-  return x + pgm_read_byte(&image[0]) / 2.;
+Rect Ball::rect() {
+  return Rect(round(x), round(y), pgm_read_byte(&image[0]), pgm_read_byte(&image[1]));
 };
