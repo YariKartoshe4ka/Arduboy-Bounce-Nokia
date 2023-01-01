@@ -2,10 +2,13 @@
 
 #include <Arduboy2.h>
 
+#include "level.h"
 #include "utils.h"
 
 extern Arduboy2 arduboy;
+extern Sprites sprites;
 extern Entity entities[SURFACE_B_H][SURFACE_B_W];
+extern Level level;
 
 Rect Entity::rect() {
   return Rect(x, y, pgm_read_byte(&image[0]), pgm_read_byte(&image[1]));
@@ -30,8 +33,7 @@ void Ball::check_events() {
   }
 };
 
-void Ball::update() {
-  // Horizontal movement
+void Ball::move_hor() {
   if (ac_x > 0) vel_x = min(BALL_MAX_VEL_X, vel_x + ac_x);
   else if (ac_x < 0) vel_x = max(-BALL_MAX_VEL_X, vel_x + ac_x);
   else {
@@ -40,8 +42,9 @@ void Ball::update() {
   }
 
   x += vel_x;
+};
 
-  // Horizontal collisions
+void Ball::collide_hor() {
   for (int8_t i = 0; i < SURFACE_B_H; ++i) {
     for (int8_t j = 0; j < SURFACE_B_W; ++j) {
       if (entities[i][j].type == ENTITY_BLOCK) {
@@ -59,24 +62,26 @@ void Ball::update() {
       }
     }
   }
+};
 
-  // Vertical movement
+void Ball::move_ver() {
   vel_y += BALL_AC_Y;
   y += vel_y;
 
   if (vel_y < 0) state |= BALL_STATE_JUMP;
+};
 
-  // Vertical collisions
+void Ball::collide_ver() {
   for (int8_t i = 0; i < SURFACE_B_H; ++i) {
     for (int8_t j = 0; j < SURFACE_B_W; ++j) {
       if (entities[i][j].type == ENTITY_BLOCK) {
         Rect rect_block = entities[i][j].rect(), rect_ball = rect();
 
         if (arduboy.collide(rect_ball, rect_block)) {
-          if (rect_ball.y > rect_block.y) {
+          if (vel_y < 0) {
             y = rect_block.y + rect_block.height;
             vel_y = 0;
-          } else if (rect_ball.y < rect_block.y) {
+          } else if (vel_y > 0) {
             y = rect_block.y - rect_ball.height;
             state &= ~BALL_STATE_JUMP;
             vel_y = -vel_y / 1.6;
@@ -85,6 +90,10 @@ void Ball::update() {
       }
     }
   }
+};
+
+void Ball::draw() {
+  sprites.drawPlusMask(level.offset_x + SURFACE_X + round(x), level.offset_y + round(y), image, 0);
 };
 
 Rect Ball::rect() {

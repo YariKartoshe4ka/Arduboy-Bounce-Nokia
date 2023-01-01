@@ -35,6 +35,14 @@ struct Ball {
   Ball(int16_t x, int16_t y);
 
   void check_events();
-  void update();
+
+  void move_hor();
+  void collide_hor();
+
+  void move_ver();
+  void collide_ver();
+
+  void draw();
+
   Rect rect();
 };
