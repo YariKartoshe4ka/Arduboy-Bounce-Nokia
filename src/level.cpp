@@ -3,6 +3,7 @@
 #include <Arduboy2.h>
 
 #include "assets.h"
+#include "ball.h"
 #include "constants.h"
 #include "levels.h"
 #include "objects.h"

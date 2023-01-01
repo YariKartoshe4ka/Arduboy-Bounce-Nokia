@@ -1,6 +1,7 @@
 #include <Arduboy2.h>
 
 #include "src/assets.h"
+#include "src/ball.h"
 #include "src/constants.h"
 #include "src/level.h"
 #include "src/objects.h"
