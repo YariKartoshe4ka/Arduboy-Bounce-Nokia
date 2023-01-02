@@ -10,7 +10,7 @@ Arduboy2 arduboy;
 Sprites sprites;
 
 Level level;
-Entity entities[SURFACE_B_H][SURFACE_B_W];
+Entity *area[COLLIDE_AREA_SIZE];
 
 Ball ball;
 
@@ -48,6 +48,8 @@ void loop() {
   arduboy.drawLine(SURFACE_X + SURFACE_W + 1, 0, SURFACE_X + SURFACE_W + 1, SCREEN_H);
 
   arduboy.println(arduboy.cpuLoad());
+  arduboy.println(ball.x);
+  arduboy.println(ball.y);
 
   arduboy.display();
 }

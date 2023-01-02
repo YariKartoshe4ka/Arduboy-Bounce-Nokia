@@ -3,7 +3,7 @@
 #include <Arduboy2.h>
 
 struct Ball {
-  float x, y, vel_x, vel_y, ac_x, ac_y;
+  float x, y, vel_x, vel_y, ac_x;
 
   uint8_t state;
   const uint8_t *image;

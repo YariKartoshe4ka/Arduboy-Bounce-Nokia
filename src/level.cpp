@@ -8,8 +8,8 @@
 #include "levels.h"
 #include "objects.h"
 
-extern Entity entities[SURFACE_B_H][SURFACE_B_W];
 extern Arduboy2 arduboy;
+extern Entity *area[COLLIDE_AREA_SIZE];
 extern Sprites sprites;
 extern Ball ball;
 
@@ -23,6 +23,10 @@ void Level::load_entity(uint8_t to_i, uint8_t to_j, uint8_t from_i, uint8_t from
     }
     case 0x01: {
       entities[to_i][to_j] = Block(from_j * 8, from_i * 8);
+      break;
+    }
+    case 0x02: {
+      entities[to_i][to_j] = Stair(from_j * 8, from_i * 8);
       break;
     }
   }
@@ -78,11 +82,12 @@ void Level::move_hor() {
 };
 
 void Level::update_offsets() {
-  int16_t ball_centerx = round(ball.x + pgm_read_byte(&ball.image[0]) / 2.);
+  int16_t ball_centerx = round(ball.x) + pgm_read_byte(&ball.image[0]) / 2.;
 
   offset_x = 0;
-  if (ball_centerx > SURFACE_W / 2)
+  if (ball_centerx > SURFACE_W / 2) {
     offset_x = max(SURFACE_W / 2 - ball_centerx, SURFACE_W - width * 8);
+  }
 
   offset_y = -shift_y * 8;
 }
@@ -107,7 +112,33 @@ uint8_t Level::translate_col(uint8_t j) {
   uint8_t col = j + right_bound;
   if (col >= SURFACE_B_W) col -= SURFACE_B_W;
   return col;
-}
+};
+
+void Level::build_collide_area() {
+  Rect rect_ball = ball.rect();
+  int8_t centerx = (rect_ball.x + rect_ball.width / 2) / 8 - shift_x,
+         centery = (rect_ball.y + rect_ball.height / 2) / 8 - shift_y;
+
+  uint8_t l = 0;
+  for (uint8_t k = max(0, centerx - 1); k <= min(SURFACE_B_W - 1, centerx + 1); ++k) {
+    uint8_t j = translate_col(k);
+    for (uint8_t i = max(0, centery - 1); i <= min(SURFACE_B_H - 1, centery + 1); ++i) {
+      area[l] = &entities[i][j];
+      ++l;
+    }
+  }
+  for (; l < COLLIDE_AREA_SIZE; ++l)
+    area[l] = &Entity(0, 0);
+
+  for (uint8_t i = 1; i < COLLIDE_AREA_SIZE; ++i) {  // Insertion sort
+    Entity *tmp = area[i];
+    int8_t j = i - 1;
+    for (; j >= 0 && area[j]->type > tmp->type; --j) {
+      area[j + 1] = area[j];
+    }
+    area[j + 1] = tmp;
+  }
+};
 
 void Level::draw() {
   for (uint8_t k = 0; k < SURFACE_B_W; ++k) {

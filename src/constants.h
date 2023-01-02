@@ -21,3 +21,7 @@
 
 #define BALL_STATE_BIG (1 << 0)
 #define BALL_STATE_JUMP (1 << 1)
+#define BALL_STATE_ON_STAIR (1 << 2)
+
+/* level.h */
+#define COLLIDE_AREA_SIZE 9
