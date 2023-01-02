@@ -5,7 +5,6 @@
 #include "constants.h"
 #include "level.h"
 #include "objects.h"
-#include "utils.h"
 
 extern Arduboy2 arduboy;
 extern Entity entities[SURFACE_B_H][SURFACE_B_W];
@@ -43,10 +42,16 @@ void Ball::move_hor() {
 };
 
 void Ball::collide_hor() {
-  for (int8_t i = 0; i < SURFACE_B_H; ++i) {
-    for (int8_t j = 0; j < SURFACE_B_W; ++j) {
+  Rect rect_ball = rect();
+  int16_t centerx = (rect_ball.x + rect_ball.width / 2) / 8 - level.shift_x,
+          centery = (rect_ball.y + rect_ball.height / 2) / 8 - level.shift_y;
+
+  for (uint8_t k = max(0, centerx - 1); k <= min(SURFACE_B_W - 1, centerx + 1); ++k) {
+    uint8_t j = level.translate_col(k);
+    for (uint8_t i = max(0, centery - 1); i <= min(SURFACE_B_H - 1, centery + 1); ++i) {
       if (entities[i][j].type == ENTITY_BLOCK) {
-        Rect rect_block = entities[i][j].rect(), rect_ball = rect();
+        Rect rect_block = entities[i][j].rect();
+        rect_ball = rect();
 
         if (arduboy.collide(rect_ball, rect_block)) {
           if (rect_ball.x > rect_block.x) {
@@ -70,10 +75,16 @@ void Ball::move_ver() {
 };
 
 void Ball::collide_ver() {
-  for (int8_t i = 0; i < SURFACE_B_H; ++i) {
-    for (int8_t j = 0; j < SURFACE_B_W; ++j) {
+  Rect rect_ball = rect();
+  int16_t centerx = (rect_ball.x + rect_ball.width / 2) / 8 - level.shift_x,
+          centery = (rect_ball.y + rect_ball.height / 2) / 8 - level.shift_y;
+
+  for (uint8_t k = max(0, centerx - 1); k <= min(SURFACE_B_W - 1, centerx + 1); ++k) {
+    uint8_t j = level.translate_col(k);
+    for (uint8_t i = max(0, centery - 1); i <= min(SURFACE_B_H - 1, centery + 1); ++i) {
       if (entities[i][j].type == ENTITY_BLOCK) {
-        Rect rect_block = entities[i][j].rect(), rect_ball = rect();
+        Rect rect_block = entities[i][j].rect();
+        rect_ball = rect();
 
         if (arduboy.collide(rect_ball, rect_block)) {
           if (vel_y < 0) {

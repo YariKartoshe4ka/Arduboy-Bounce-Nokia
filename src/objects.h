@@ -1,7 +1,6 @@
 #pragma once
 
 #include "assets.h"
-#include "constants.h"
 
 enum EntityType : uint8_t { ENTITY_EMPTY, ENTITY_BLOCK };
 

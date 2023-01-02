@@ -13,8 +13,6 @@ extern Arduboy2 arduboy;
 extern Sprites sprites;
 extern Ball ball;
 
-#define modsub(x, m) (x >= 0 ? (x >= m ? x - m : x) : x + m)
-
 void Level::load_entity(uint8_t to_i, uint8_t to_j, uint8_t from_i, uint8_t from_j) {
   uint8_t entity_byte = pgm_read_byte(&LEVELS[level_no][from_i * width + from_j + 2]);
 
@@ -105,10 +103,16 @@ void Level::move_ver() {
   right_bound = 0;
 };
 
+uint8_t Level::translate_col(uint8_t j) {
+  uint8_t col = j + right_bound;
+  if (col >= SURFACE_B_W) col -= SURFACE_B_W;
+  return col;
+}
+
 void Level::draw() {
-  for (int16_t k = right_bound; k < right_bound + SURFACE_B_W; ++k) {
-    int16_t j = modsub(k, SURFACE_B_W);
-    for (int16_t i = 0; i < SURFACE_B_H; ++i) {
+  for (uint8_t k = 0; k < SURFACE_B_W; ++k) {
+    uint8_t j = translate_col(k);
+    for (uint8_t i = 0; i < SURFACE_B_H; ++i) {
       if (entities[i][j].type != ENTITY_EMPTY) {
         sprites.drawOverwrite(
           offset_x + SURFACE_X + entities[i][j].x, offset_y + entities[i][j].y,

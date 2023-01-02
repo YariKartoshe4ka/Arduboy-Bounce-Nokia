@@ -5,7 +5,6 @@
 #include "src/constants.h"
 #include "src/level.h"
 #include "src/objects.h"
-#include "src/utils.h"
 
 Arduboy2 arduboy;
 Sprites sprites;
@@ -43,8 +42,8 @@ void loop() {
   ball.draw();
 
   // Clear outside surface
-  arduboy.fillRect(0, 0, SURFACE_X, SCREEN_H, BLACK);
-  arduboy.fillRect(SURFACE_X + SURFACE_W, 0, SURFACE_X, SCREEN_H, BLACK);
+  arduboy.fillRect(SURFACE_X - 10, 0, 10, SCREEN_H, BLACK);
+  arduboy.fillRect(SURFACE_X + SURFACE_W, 0, 12, SCREEN_H, BLACK);
   arduboy.drawLine(SURFACE_X - 2, 0, SURFACE_X - 2, SCREEN_H);
   arduboy.drawLine(SURFACE_X + SURFACE_W + 1, 0, SURFACE_X + SURFACE_W + 1, SCREEN_H);
 

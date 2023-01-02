@@ -18,6 +18,7 @@ struct Level {
 
   void load_entity(uint8_t to_i, uint8_t to_j, uint8_t from_i, uint8_t from_j);
   void update_offsets();
+  uint8_t translate_col(uint8_t j);
   void move_hor();
   void move_ver();
   void draw();
