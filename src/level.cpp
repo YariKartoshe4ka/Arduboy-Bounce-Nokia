@@ -12,6 +12,7 @@ extern Arduboy2 arduboy;
 extern Entity *area[COLLIDE_AREA_SIZE];
 extern Sprites sprites;
 extern Ball ball;
+extern uint8_t collide_area_size;
 
 void Level::load_entity(uint8_t to_i, uint8_t to_j, uint8_t from_i, uint8_t from_j) {
   uint8_t entity_byte = pgm_read_byte(&LEVELS[level_no][from_i * width + from_j + 2]);
@@ -119,16 +120,14 @@ void Level::build_collide_area() {
   int8_t centerx = (rect_ball.x + rect_ball.width / 2) / 8 - shift_x,
          centery = (rect_ball.y + rect_ball.height / 2) / 8 - shift_y;
 
-  uint8_t l = 0;
+  collide_area_size = 0;
   for (uint8_t k = max(0, centerx - 1); k <= min(SURFACE_B_W - 1, centerx + 1); ++k) {
     uint8_t j = translate_col(k);
     for (uint8_t i = max(0, centery - 1); i <= min(SURFACE_B_H - 1, centery + 1); ++i) {
-      area[l] = &entities[i][j];
-      ++l;
+      area[collide_area_size] = &entities[i][j];
+      ++collide_area_size;
     }
   }
-  for (; l < COLLIDE_AREA_SIZE; ++l)
-    area[l] = &Entity(0, 0);
 
   for (uint8_t i = 1; i < COLLIDE_AREA_SIZE; ++i) {  // Insertion sort
     Entity *tmp = area[i];

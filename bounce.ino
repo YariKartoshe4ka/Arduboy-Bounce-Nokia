@@ -14,7 +14,13 @@ Entity *area[COLLIDE_AREA_SIZE];
 
 Ball ball;
 
+uint8_t collide_area_size = 0;
+
 void setup() {
+  Serial.begin(9600);
+  while (!Serial)
+    delay(100);
+
   arduboy.begin();
   arduboy.setFrameRate(FPS);
 
@@ -46,10 +52,6 @@ void loop() {
   arduboy.fillRect(SURFACE_X + SURFACE_W, 0, 12, SCREEN_H, BLACK);
   arduboy.drawLine(SURFACE_X - 2, 0, SURFACE_X - 2, SCREEN_H);
   arduboy.drawLine(SURFACE_X + SURFACE_W + 1, 0, SURFACE_X + SURFACE_W + 1, SCREEN_H);
-
-  arduboy.println(arduboy.cpuLoad());
-  arduboy.println(ball.x);
-  arduboy.println(ball.y);
 
   arduboy.display();
 }

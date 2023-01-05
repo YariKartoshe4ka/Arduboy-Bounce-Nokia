@@ -10,6 +10,7 @@ extern Arduboy2 arduboy;
 extern Entity *area[COLLIDE_AREA_SIZE];
 extern Level level;
 extern Sprites sprites;
+extern uint8_t collide_area_size;
 
 Ball::Ball(int16_t x, int16_t y) {
   image = IMAGE_BALL;
@@ -45,7 +46,7 @@ void Ball::move_hor() {
 void Ball::collide_hor() {
   level.build_collide_area();
 
-  for (uint8_t i = 0; i < COLLIDE_AREA_SIZE; ++i) {
+  for (uint8_t i = 0; i < collide_area_size; ++i) {
     if (area[i]->type == ENTITY_BLOCK) {
       Rect rect_block = area[i]->rect(), rect_ball = rect();
 
@@ -87,7 +88,7 @@ void Ball::move_ver() {
 void Ball::collide_ver() {
   level.build_collide_area();
 
-  for (uint8_t i = 0; i < COLLIDE_AREA_SIZE; ++i) {
+  for (uint8_t i = 0; i < collide_area_size; ++i) {
     if (area[i]->type == ENTITY_BLOCK && !(state & BALL_STATE_ON_STAIR)) {
       Rect rect_block = area[i]->rect(), rect_ball = rect();
 
@@ -113,7 +114,7 @@ void Ball::collide_ver() {
           } else if (vel_y > 0) {
             state &= ~BALL_STATE_JUMP;
             y = rect_stair.y - h;
-            if (!vel_x) vel_x = -max(vel_y, 1) / 1.6;
+            if (!vel_x && rect_ball.x <= rect_stair.x) vel_x = -max(vel_y, 1.1) / 1.6;
             vel_y = 0;
           }
         }
