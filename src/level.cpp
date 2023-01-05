@@ -27,7 +27,7 @@ void Level::load_entity(uint8_t to_i, uint8_t to_j, uint8_t from_i, uint8_t from
       break;
     }
     case 0x02: {
-      entities[to_i][to_j] = Stair(from_j * 8, from_i * 8);
+      entities[to_i][to_j] = Ramp(from_j * 8, from_i * 8);
       break;
     }
   }

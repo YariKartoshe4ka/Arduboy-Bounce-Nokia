@@ -23,6 +23,7 @@ void setup() {
 
   arduboy.begin();
   arduboy.setFrameRate(FPS);
+  arduboy.audio.on();
 
   ball = Ball(8, 48);
   level = Level(0);

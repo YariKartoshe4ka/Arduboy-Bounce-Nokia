@@ -59,17 +59,17 @@ void Ball::collide_hor() {
           vel_x = -vel_x / 1.6;
         }
       }
-    } else if (area[i]->type == ENTITY_STAIR) {
-      Rect rect_stair = area[i]->rect(), rect_ball = rect();
+    } else if (area[i]->type == ENTITY_RAMP) {
+      Rect rect_ramp = area[i]->rect(), rect_ball = rect();
 
-      if (arduboy.collide(rect_ball, rect_stair)) {
-        int8_t h = min(rect_stair.height, rect_ball.x + rect_ball.width - rect_stair.x);
-        if (rect_ball.y + rect_ball.height - rect_stair.y > rect_stair.height - h) {
+      if (arduboy.collide(rect_ball, rect_ramp)) {
+        int8_t h = min(rect_ramp.height, rect_ball.x + rect_ball.width - rect_ramp.x);
+        if (rect_ball.y + rect_ball.height - rect_ramp.y > rect_ramp.height - h) {
           if (vel_x < 0) {
-            x = rect_stair.x + rect_stair.width;
+            x = rect_ramp.x + rect_ramp.width;
             vel_x = -vel_x / 1.6;
           } else if (vel_x > 0) {
-            y = rect_stair.y - h;
+            y = rect_ramp.y - h;
             vel_y = 0;
           }
         }
@@ -89,7 +89,7 @@ void Ball::collide_ver() {
   level.build_collide_area();
 
   for (uint8_t i = 0; i < collide_area_size; ++i) {
-    if (area[i]->type == ENTITY_BLOCK && !(state & BALL_STATE_ON_STAIR)) {
+    if (area[i]->type == ENTITY_BLOCK) {
       Rect rect_block = area[i]->rect(), rect_ball = rect();
 
       if (arduboy.collide(rect_ball, rect_block)) {
@@ -102,19 +102,19 @@ void Ball::collide_ver() {
           vel_y = -vel_y / 1.6;
         }
       }
-    } else if (area[i]->type == ENTITY_STAIR) {
-      Rect rect_stair = area[i]->rect(), rect_ball = rect();
+    } else if (area[i]->type == ENTITY_RAMP) {
+      Rect rect_ramp = area[i]->rect(), rect_ball = rect();
 
-      if (arduboy.collide(rect_ball, rect_stair)) {
-        int8_t h = min(rect_stair.height, rect_ball.x + rect_ball.width - rect_stair.x);
-        if (rect_ball.y + rect_ball.height - rect_stair.y > rect_stair.height - h) {
+      if (arduboy.collide(rect_ball, rect_ramp)) {
+        int8_t h = min(rect_ramp.height, rect_ball.x + rect_ball.width - rect_ramp.x);
+        if (rect_ball.y + rect_ball.height - rect_ramp.y > rect_ramp.height - h) {
           if (vel_y < 0) {
-            y = rect_stair.y + rect_stair.height;
+            y = rect_ramp.y + rect_ramp.height;
             vel_y = 0;
           } else if (vel_y > 0) {
             state &= ~BALL_STATE_JUMP;
-            y = rect_stair.y - h;
-            if (!vel_x && rect_ball.x <= rect_stair.x) vel_x = -max(vel_y, 1.1) / 1.6;
+            y = rect_ramp.y - h;
+            if (!vel_x && rect_ball.x <= rect_ramp.x) vel_x = -max(vel_y, 1.1) / 1.6;
             vel_y = 0;
           }
         }

@@ -2,7 +2,7 @@
 
 #include "assets.h"
 
-enum EntityType : uint8_t { ENTITY_EMPTY, ENTITY_STAIR, ENTITY_BLOCK };
+enum EntityType : uint8_t { ENTITY_EMPTY, ENTITY_RAMP, ENTITY_BLOCK };
 
 struct Entity {
   EntityType type;
@@ -24,9 +24,9 @@ struct Block : Entity {
   };
 };
 
-struct Stair : Entity {
-  Stair(int16_t x, int16_t y) : Entity(x, y) {
-    type = ENTITY_STAIR;
-    image = IMAGE_STAIR;
+struct Ramp : Entity {
+  Ramp(int16_t x, int16_t y) : Entity(x, y) {
+    type = ENTITY_RAMP;
+    image = IMAGE_RAMP;
   }
 };
