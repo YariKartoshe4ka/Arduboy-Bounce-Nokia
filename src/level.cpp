@@ -12,7 +12,6 @@ extern Arduboy2 arduboy;
 extern Entity *area[COLLIDE_AREA_SIZE];
 extern Sprites sprites;
 extern Ball ball;
-extern uint8_t collide_area_size;
 
 void Level::load_entity(uint8_t to_i, uint8_t to_j, uint8_t from_i, uint8_t from_j) {
   uint8_t entity_byte = pgm_read_byte(&LEVELS[level_no][from_i * width + from_j + 2]);
@@ -60,10 +59,10 @@ void Level::move_hor() {
     ++shift_x;
 
     for (uint8_t i = 0; i < SURFACE_B_H; ++i)
-      load_entity(i, right_bound, shift_y + i, shift_x + SURFACE_B_W - 1);
+      load_entity(i, hor_bound, shift_y + i, shift_x + SURFACE_B_W - 1);
 
-    ++right_bound;
-    if (right_bound == SURFACE_B_W) right_bound = 0;
+    ++hor_bound;
+    if (hor_bound == SURFACE_B_W) hor_bound = 0;
   }
 
   // Horizontal scrolling (left for ball)
@@ -74,11 +73,11 @@ void Level::move_hor() {
   for (; hor < 0; ++hor) {
     --shift_x;
 
-    --right_bound;
-    if (right_bound == -1) right_bound += SURFACE_B_W;
+    --hor_bound;
+    if (hor_bound == -1) hor_bound += SURFACE_B_W;
 
     for (uint8_t i = 0; i < SURFACE_B_H; ++i)
-      load_entity(i, right_bound, shift_y + i, shift_x);
+      load_entity(i, hor_bound, shift_y + i, shift_x);
   }
 };
 
@@ -106,21 +105,21 @@ void Level::move_ver() {
     for (uint8_t j = 0; j < SURFACE_B_W; ++j)
       load_entity(i, j, shift_y + i, shift_x + j);
 
-  right_bound = 0;
+  hor_bound = 0;
 };
 
 uint8_t Level::translate_col(uint8_t j) {
-  uint8_t col = j + right_bound;
+  uint8_t col = j + hor_bound;
   if (col >= SURFACE_B_W) col -= SURFACE_B_W;
   return col;
 };
 
-void Level::build_collide_area() {
+uint8_t Level::build_collide_area() {
   Rect rect_ball = ball.rect();
   int8_t centerx = (rect_ball.x + rect_ball.width / 2) / 8 - shift_x,
          centery = (rect_ball.y + rect_ball.height / 2) / 8 - shift_y;
 
-  collide_area_size = 0;
+  uint8_t collide_area_size = 0;
   for (uint8_t k = max(0, centerx - 1); k <= min(SURFACE_B_W - 1, centerx + 1); ++k) {
     uint8_t j = translate_col(k);
     for (uint8_t i = max(0, centery - 1); i <= min(SURFACE_B_H - 1, centery + 1); ++i) {
@@ -137,6 +136,7 @@ void Level::build_collide_area() {
     }
     area[j + 1] = tmp;
   }
+  return collide_area_size;
 };
 
 void Level::draw() {

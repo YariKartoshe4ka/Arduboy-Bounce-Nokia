@@ -14,8 +14,6 @@ Entity *area[COLLIDE_AREA_SIZE];
 
 Ball ball;
 
-uint8_t collide_area_size = 0;
-
 void setup() {
   Serial.begin(9600);
   while (!Serial)

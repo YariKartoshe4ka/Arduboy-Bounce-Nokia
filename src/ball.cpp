@@ -44,7 +44,7 @@ void Ball::move_hor() {
 };
 
 void Ball::collide_hor() {
-  level.build_collide_area();
+  uint8_t collide_area_size = level.build_collide_area();
 
   for (uint8_t i = 0; i < collide_area_size; ++i) {
     if (area[i]->type == ENTITY_BLOCK) {
@@ -86,7 +86,7 @@ void Ball::move_ver() {
 };
 
 void Ball::collide_ver() {
-  level.build_collide_area();
+  uint8_t collide_area_size = level.build_collide_area();
 
   for (uint8_t i = 0; i < collide_area_size; ++i) {
     if (area[i]->type == ENTITY_BLOCK) {
@@ -114,7 +114,7 @@ void Ball::collide_ver() {
           } else if (vel_y > 0) {
             state &= ~BALL_STATE_JUMP;
             y = rect_ramp.y - h;
-            if (!vel_x && rect_ball.x <= rect_ramp.x) vel_x = -max(vel_y, 1.1) / 1.6;
+            if (!vel_x && rect_ball.x <= rect_ramp.x) vel_x = -max(vel_y, 1.9) / 2;
             vel_y = 0;
           }
         }
