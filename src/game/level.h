@@ -2,7 +2,7 @@
 
 #include <Arduboy2.h>
 
-#include "constants.h"
+#include "../constants.h"
 #include "objects.h"
 
 class Level {

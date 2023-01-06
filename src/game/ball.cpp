@@ -2,15 +2,12 @@
 
 #include <Arduboy2.h>
 
-#include "constants.h"
-#include "level.h"
+#include "../constants.h"
 #include "objects.h"
+#include "scene.h"
 
 extern Arduboy2 arduboy;
-extern Entity *area[COLLIDE_AREA_SIZE];
-extern Level level;
 extern Sprites sprites;
-extern uint8_t collide_area_size;
 
 Ball::Ball(int16_t x, int16_t y) {
   image = IMAGE_BALL;

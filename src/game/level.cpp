@@ -2,16 +2,15 @@
 
 #include <Arduboy2.h>
 
-#include "assets.h"
+#include "../assets/images.h"
+#include "../assets/levels.h"
+#include "../constants.h"
 #include "ball.h"
-#include "constants.h"
-#include "levels.h"
 #include "objects.h"
+#include "scene.h"
 
 extern Arduboy2 arduboy;
-extern Entity *area[COLLIDE_AREA_SIZE];
 extern Sprites sprites;
-extern Ball ball;
 
 void Level::load_entity(uint8_t to_i, uint8_t to_j, uint8_t from_i, uint8_t from_j) {
   uint8_t entity_byte = pgm_read_byte(&LEVELS[level_no][from_i * width + from_j + 2]);

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "assets.h"
+#include "../assets/images.h"
 
 enum EntityType : uint8_t { ENTITY_EMPTY, ENTITY_RAMP, ENTITY_BLOCK };
 

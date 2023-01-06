@@ -1,22 +1,22 @@
 SHELL:=/bin/bash
 
 .PHONY: build clean
-build: assets
+build: images
 clean: assets-clean
 
 
-define ASSETS_H_HEADERS
+define IMAGES_H_HEADERS
 #pragma once
 
 #include <Arduboy2.h>
 
 endef
-export ASSETS_H_HEADERS
+export IMAGES_H_HEADERS
 
-assets: assets-clean
-	python scripts/image-convert.py assets/*.bmp
-	@echo "$$ASSETS_H_HEADERS" > src/assets.h
-	sed -e '$$s/$$/\n/' -s assets/*.h >> src/assets.h
+images: assets-clean
+	python scripts/image-convert.py assets/images/*.bmp
+	@echo "$$IMAGES_H_HEADERS" > src/assets/images.h
+	sed -e '$$s/$$/\n/' -s assets/images/*.h >> src/assets/images.h
 
 assets-clean:
-	rm -f assets/*.h
+	find assets -name "*.h" -exec rm -f {} \;

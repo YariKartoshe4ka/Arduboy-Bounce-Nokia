@@ -6,6 +6,12 @@
 #define SCREEN_W 128
 #define SCREEN_H 64
 
+/* scenes.h */
+#define SCENE_GAME 0
+#define SCENE_NULL 255
+
+/* game */
+
 #define SURFACE_W 84
 #define SURFACE_H SCREEN_H
 #define SURFACE_X 22
