@@ -1,10 +1,18 @@
+#pragma once
+
 #include "constants.h"
 #include "game/scene.h"
+#include "menus/root.h"
 
 typedef void (*funcptr)();
 
-static uint8_t scene = SCENE_GAME;
-static uint8_t prev_scene = SCENE_NULL;
+extern uint8_t scene;
+extern uint8_t prev_scene;
 
-static funcptr scenes_init[] = {scene_init_game};
-static funcptr scenes_update[] = {scene_update_game};
+void scene_null();
+
+const funcptr scenes_init[] PROGMEM = {  //
+  sceneInitRoot, scene_init_game};
+
+const funcptr scenes_update[] PROGMEM = {  //
+  sceneUpdateRoot, scene_update_game};

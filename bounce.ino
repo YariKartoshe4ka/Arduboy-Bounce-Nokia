@@ -17,8 +17,9 @@ void setup() {
 void loop() {
   if (!arduboy.nextFrame()) return;
 
-  if (scene != prev_scene) scenes_init[scene]();
-  scenes_update[scene]();
-
-  prev_scene = scene;
+  if (scene != prev_scene) {
+    funcptr(pgm_read_word(&scenes_init[scene]))();
+    prev_scene = scene;
+  }
+  funcptr(pgm_read_word(&scenes_update[scene]))();
 }

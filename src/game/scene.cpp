@@ -13,6 +13,7 @@ Level level;
 Entity *area[COLLIDE_AREA_SIZE];
 
 void scene_init_game() {
+  Serial.println(1);
   ball = Ball(8, 48);
   level = Level(0);
 };
