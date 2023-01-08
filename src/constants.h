@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 /* bounce.ino */
 #define FPS 30
 
@@ -7,9 +9,7 @@
 #define SCREEN_H 64
 
 /* scenes.h */
-#define SCENE_BOUNCE 0
-#define SCENE_GAME 1
-#define SCENE_NULL 255
+enum Scene : uint8_t { SCENE_BOUNCE, SCENE_GAME, SCENE_NULL };
 
 /* game */
 

@@ -6,8 +6,8 @@
 
 typedef void (*funcptr)();
 
-extern uint8_t scene;
-extern uint8_t prev_scene;
+extern Scene scene;
+extern Scene prev_scene;
 
 void scene_null();
 

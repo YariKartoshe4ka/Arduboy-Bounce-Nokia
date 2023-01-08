@@ -8,9 +8,9 @@ class Menu {
  private:
   uint8_t prevChoice = -1;
 
-  const uint8_t *n, *scenes;
-  const char *title;
-  const uint16_t *text;
+  const uint8_t *n;
+  const char *title, **text;
+  const uint8_t *scenes;
 
   bool justPressedOnce(uint8_t button);
   int8_t centerFString(const char *str);
@@ -25,7 +25,7 @@ class Menu {
   uint8_t choice = 0;
 
   Menu() = default;
-  Menu(const uint8_t *n, const char *title, const uint16_t *text, const uint8_t *scenes)
+  Menu(const uint8_t *n, const char *title, const char **text, const uint8_t *scenes)
       : n(n), title(title), text(text), scenes(scenes){};
 
   void sceneInit();
