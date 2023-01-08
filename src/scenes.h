@@ -2,7 +2,7 @@
 
 #include "constants.h"
 #include "game/scene.h"
-#include "menus/root.h"
+#include "menus/bounce.h"
 
 typedef void (*funcptr)();
 
@@ -12,7 +12,7 @@ extern uint8_t prev_scene;
 void scene_null();
 
 const funcptr scenes_init[] PROGMEM = {  //
-  sceneInitRoot, scene_init_game};
+  sceneInitBounce, scene_init_game};
 
 const funcptr scenes_update[] PROGMEM = {  //
-  sceneUpdateRoot, scene_update_game};
+  sceneUpdateBounce, scene_update_game};

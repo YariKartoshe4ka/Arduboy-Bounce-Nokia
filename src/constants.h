@@ -7,7 +7,7 @@
 #define SCREEN_H 64
 
 /* scenes.h */
-#define SCENE_ROOT 0
+#define SCENE_BOUNCE 0
 #define SCENE_GAME 1
 #define SCENE_NULL 255
 
