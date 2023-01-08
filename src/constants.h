@@ -2,6 +2,15 @@
 
 #include <stdint.h>
 
+/* Font constants */
+#define CHAR_WIDTH 5
+#define CHAR_HEIGHT 8
+#define CHAR_SPACING 1
+
+/* menu.h */
+#define LINE_SPACING 2
+#define TITLE_OFFSET_Y (CHAR_HEIGHT + LINE_SPACING * 3 + 1)
+
 /* bounce.ino */
 #define FPS 30
 
@@ -9,7 +18,7 @@
 #define SCREEN_H 64
 
 /* scenes.h */
-enum Scene : uint8_t { SCENE_BOUNCE, SCENE_GAME, SCENE_NULL };
+enum Scene : uint8_t { SCENE_BOUNCE, SCENE_INSTRUCTIONS, SCENE_GAME, SCENE_NULL };
 
 /* game */
 

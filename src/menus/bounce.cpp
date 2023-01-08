@@ -2,8 +2,8 @@
 
 #include <Arduboy2.h>
 
-Menu menuBounce(
-  &BOUNCE_N, (char *)&BOUNCE_TITLE, (const char **)&BOUNCE_TEXT, (uint8_t *)&BOUNCE_SCENES
+MenuOptions menuBounce(
+  sizeof(BOUNCE_TEXT) / sizeof(BOUNCE_TEXT[0]), (char **)&BOUNCE_TEXT, (uint8_t *)&BOUNCE_SCENES
 );
 
 void sceneInitBounce() {
