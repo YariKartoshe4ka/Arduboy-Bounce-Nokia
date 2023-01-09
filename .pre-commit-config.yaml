@@ -1,12 +1,4 @@
 repos:
-  - repo: local
-    hooks:
-      - id: make-build
-        name: make build
-        entry: make
-        language: system
-        always_run: true
-
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.3.0
     hooks:

@@ -6,7 +6,7 @@ name: Check
 
 jobs:
   pre-commit:
-    name: Run pre-commit
+    name: Check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -15,3 +15,15 @@ jobs:
         uses: actions/setup-python@v4
       - name: Run pre-commit
         uses: pre-commit/action@v3.0.0
+      - name: Build project
+        run: make
+      - name: Print arduino-cli output
+        run: cat bounce-builder-logs.txt
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Bounce
+          path: |
+            build/
+            bounce-builder-logs.txt
+          if-no-files-found: error

@@ -1,3 +1,6 @@
 /assets/**/*.h
-/other/
 /*.hex
+/bounce-builder-logs.txt
+/build
+
+/other
