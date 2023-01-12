@@ -1,11 +1,11 @@
 #include "instructions.h"
 
-#include <Arduboy2.h>
+#include <Arduboy2Ex.h>
 
 #include "../constants.h"
 #include "menu.h"
 
-extern Arduboy2 arduboy;
+extern Arduboy2Ex arduboy;
 
 #define _LINE_SPACING 1
 #define LINE_HEIGHT (CHAR_HEIGHT + _LINE_SPACING)

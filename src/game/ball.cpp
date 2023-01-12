@@ -1,12 +1,12 @@
 #include "ball.h"
 
-#include <Arduboy2.h>
+#include <Arduboy2Ex.h>
 
 #include "../constants.h"
 #include "objects.h"
 #include "scene.h"
 
-extern Arduboy2 arduboy;
+extern Arduboy2Ex arduboy;
 extern Sprites sprites;
 
 Ball::Ball(int16_t x, int16_t y) {

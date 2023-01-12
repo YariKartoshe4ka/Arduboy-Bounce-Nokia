@@ -11,4 +11,6 @@ RUN arduino-cli config init && \
 
 VOLUME /root/bounce
 
-ENTRYPOINT cd /root/bounce && arduino-cli compile -b arduboy-homemade:avr:arduboy -e .
+COPY Arduboy2 /root/.arduino15/packages/arduboy-homemade/hardware/avr/1.3.6/libraries/Arduboy2/src/
+
+ENTRYPOINT cd /root/bounce && arduino-cli compile --warnings all -b arduboy-homemade:avr:arduboy -e .

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Arduboy2.h>
+#include <Arduboy2Ex.h>
 
 const uint8_t IMAGE_BALL[] PROGMEM = {  //
   8,    8,    0x3c, 0x3c, 0x7e, 0x7e, 0xf1, 0xff, 0xe1,

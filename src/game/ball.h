@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Arduboy2.h>
+#include <Arduboy2Ex.h>
 
 struct Ball {
   float x, y, vel_x, vel_y, ac_x;

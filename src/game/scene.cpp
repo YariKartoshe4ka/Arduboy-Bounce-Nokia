@@ -1,12 +1,12 @@
 #include "scene.h"
 
-#include <Arduboy2.h>
+#include <Arduboy2Ex.h>
 
 #include "../constants.h"
 #include "ball.h"
 #include "level.h"
 
-extern Arduboy2 arduboy;
+extern Arduboy2Ex arduboy;
 
 Ball ball;
 Level level;

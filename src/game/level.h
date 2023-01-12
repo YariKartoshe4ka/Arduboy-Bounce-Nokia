@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Arduboy2.h>
+#include <Arduboy2Ex.h>
 
 #include "../constants.h"
 #include "objects.h"

@@ -1,11 +1,11 @@
 #include "menu.h"
 
-#include <Arduboy2.h>
+#include <Arduboy2Ex.h>
 
 #include "../constants.h"
 #include "../scenes.h"
 
-extern Arduboy2 arduboy;
+extern Arduboy2Ex arduboy;
 
 bool MenuBase::justPressedOnce(uint8_t button) {
   bool pressed = arduboy.justPressed(button);

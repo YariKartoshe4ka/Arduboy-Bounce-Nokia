@@ -1,6 +1,6 @@
 #include "level.h"
 
-#include <Arduboy2.h>
+#include <Arduboy2Ex.h>
 
 #include "../assets/images.h"
 #include "../assets/levels.h"
@@ -9,7 +9,7 @@
 #include "objects.h"
 #include "scene.h"
 
-extern Arduboy2 arduboy;
+extern Arduboy2Ex arduboy;
 extern Sprites sprites;
 
 void Level::load_entity(uint8_t to_i, uint8_t to_j, uint8_t from_i, uint8_t from_j) {

@@ -9,7 +9,7 @@ clean: assets-clean compile-clean
 define IMAGES_H_HEADERS
 #pragma once
 
-#include <Arduboy2.h>
+#include <Arduboy2Ex.h>
 
 endef
 export IMAGES_H_HEADERS

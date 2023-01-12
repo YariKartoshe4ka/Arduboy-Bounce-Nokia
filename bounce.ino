@@ -1,8 +1,8 @@
-#include <Arduboy2.h>
+#include <Arduboy2Ex.h>
 
 #include "src/scenes.h"
 
-Arduboy2 arduboy;
+Arduboy2Ex arduboy;
 Sprites sprites;
 
 void setup() {
