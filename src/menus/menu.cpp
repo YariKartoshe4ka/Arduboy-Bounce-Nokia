@@ -22,7 +22,7 @@ int8_t MenuBase::centerFString(const char *str) {
 void MenuBase::checkEvents() {
   arduboy.pollButtons();
 
-  if (justPressedOnce(B_BUTTON)) scene = pgm_read_byte(scenes);
+  if (justPressedOnce(B_BUTTON)) scene = (Scene)pgm_read_byte(scenes);
 };
 
 void MenuBase::drawTitle() {
@@ -57,7 +57,7 @@ void MenuOptions::checkEvents() {
 };
 
 void MenuOptions::choiceCallback() {
-  scene = pgm_read_byte(scenes + choice);
+  scene = (Scene)pgm_read_byte(scenes + choice);
 };
 
 void MenuOptions::drawOptions() {

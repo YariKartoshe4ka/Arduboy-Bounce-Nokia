@@ -8,7 +8,8 @@
 
 const char* const BOUNCE_TEXT[] PROGMEM = {
   TEXT_BOUNCE, TEXT_NEW_GAME, TEXT_HIGH_SCORE, TEXT_INSTRUCTIONS};
-const Scene BOUNCE_SCENES[] PROGMEM = {SCENE_BOUNCE, SCENE_GAME, SCENE_BOUNCE, SCENE_INSTRUCTIONS};
+const Scene BOUNCE_SCENES[] PROGMEM = {
+  Scene::BOUNCE, Scene::GAME, Scene::BOUNCE, Scene::INSTRUCTIONS};
 
 void sceneInitBounce();
 void sceneUpdateBounce();

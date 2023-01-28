@@ -5,7 +5,7 @@
 #include "bounce.h"
 
 const char *const INSTRUCTIONS_TEXT[] PROGMEM = {TEXT_INSTRUCTIONS, TEXT_INSTRUCTIONS_LONG};
-const Scene INSTRUCTIONS_SCENES[] PROGMEM = {SCENE_BOUNCE};
+const Scene INSTRUCTIONS_SCENES[] PROGMEM = {Scene::BOUNCE};
 
 class _MenuInstructions : MenuBase {
  private:

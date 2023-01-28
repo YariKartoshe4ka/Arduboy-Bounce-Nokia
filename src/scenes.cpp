@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-Scene scene = SCENE_BOUNCE;
-Scene prev_scene = SCENE_NULL;
+Scene scene = Scene::BOUNCE;
+Scene prev_scene = Scene::DUMMY;
 
-void scene_null();
+void scene_dummy();
