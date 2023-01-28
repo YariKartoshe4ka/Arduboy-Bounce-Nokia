@@ -14,6 +14,7 @@ extern Arduboy2Ex arduboy;
 #define INSTRUCTIONS_LENGTH (sizeof(TEXT_INSTRUCTIONS_LONG) / sizeof(TEXT_INSTRUCTIONS[0]))
 
 void _MenuInstructions::sceneInit() {
+  prevOffsetY = -1;
   offsetY = 0;
 };
 
@@ -29,6 +30,8 @@ void _MenuInstructions::checkEvents() {
 };
 
 void _MenuInstructions::drawInstructions() {
+  arduboy.setTextColor(WHITE);
+
   char c, *ptr = (char *)pgm_read_word(text + 1);
 
   for (uint8_t i = 0; i < -offsetY / LINE_HEIGHT; ++i) {
@@ -65,6 +68,9 @@ void _MenuInstructions::drawInstructions() {
 
 void _MenuInstructions::sceneUpdate() {
   checkEvents();
+
+  if (prevOffsetY == offsetY) return;
+  prevOffsetY = offsetY;
 
   arduboy.clear();
 

@@ -16,7 +16,7 @@ const Scene INSTRUCTIONS_SCENES[] PROGMEM = {SCENE_BOUNCE};
 
 class _MenuInstructions : MenuBase {
  private:
-  int16_t offsetY;
+  int16_t prevOffsetY, offsetY;
 
  protected:
   void checkEvents();
