@@ -2,38 +2,44 @@
 
 #include <Arduino.h>
 
+/* Postponed due to "optimization/code size" ratio
 void Arduboy2Ex::fillRect(int16_t x, int16_t y, uint8_t w, uint8_t h, uint8_t color) {
   for (int16_t i = x; i < x + w; i++) {
     drawFastVLine(i, y, h, color);
   }
 };
 
-void Arduboy2Ex::drawFastVLine(int16_t x, int16_t y, uint8_t h, uint8_t color) {
-  if (x < 0 || x >= WIDTH || y >= HEIGHT) return;
+void Arduboy2Base::drawFastVLine(int16_t x, int16_t y, uint8_t h, uint8_t color) {
+  // Do bounds checks
+  if ((x < 0) || (x >= WIDTH) || (y >= HEIGHT) || (h == 0)) return;
 
-  color = (color == WHITE ? ~0 : 0);
+  color = (color == WHITE ? 0xff : 0);
 
   if (y < 0) {
     h += y;
     y = 0;
   }
 
-  int16_t end = y + h;
-  uint8_t data, colorUp = 0xff << (y - (y & 0xf8)),
-                colorDown = 0xff >> (8 - (min(end, HEIGHT - 1) & 7));
+  int16_t end = min(y + h, HEIGHT) - 1;
+  uint8_t data, colorUp = 0xff << (y & 7),
+          colorDown = 0xff >> (7 - (end & 7));
 
-  data = sBuffer[(y & 0xf8) * WIDTH / 8 + x] | colorUp;
-  if (!color) data ^= colorUp;
-  sBuffer[(y & 0xf8) * WIDTH / 8 + x] = data;
-
-  for (uint8_t i = max(y + 7, 0) & 0xf8; i <= min(end, HEIGHT - 1) - 7; i += 8) {
-    sBuffer[i * WIDTH / 8 + x] = color;
+  if ((y & 0xf8) == (end & 0xf8)) colorDown &= colorUp;
+  else {
+    data = sBuffer[y / 8 * WIDTH + x] | colorUp;
+    if (!color) data ^= colorUp;
+    sBuffer[y / 8 * WIDTH + x] = data;
   }
 
-  data = sBuffer[(min(end, HEIGHT - 1) & 0xf8) * WIDTH / 8 + x] | colorDown;
+  for (int16_t i = (y + 7) & 0xf8; i < end - 7; i += 8) {
+    sBuffer[i / 8 * WIDTH + x] = color;
+  }
+
+  data = sBuffer[end / 8 * WIDTH + x] | colorDown;
   if (!color) data ^= colorDown;
-  sBuffer[(min(end, HEIGHT - 1) & 0xf8) * WIDTH / 8 + x] = data;
+  sBuffer[end / 8 * WIDTH + x] = data;
 };
+*/
 
 size_t Arduboy2Ex::write(uint8_t c) {
   if (c == '\r') {
