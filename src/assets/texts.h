@@ -7,6 +7,14 @@ const char TEXT_NEW_GAME[] PROGMEM = "New game";
 const char TEXT_HIGH_SCORE[] PROGMEM = "High score";
 const char TEXT_INSTRUCTIONS[] PROGMEM = "Instructions";
 
+const char TEXT_LEVEL_1[] PROGMEM = "Level 1";
+const char TEXT_LEVEL_2[] PROGMEM = "Level 2";
+const char TEXT_LEVEL_3[] PROGMEM = "Level 3";
+const char TEXT_LEVEL_4[] PROGMEM = "Level 4";
+const char TEXT_LEVEL_5[] PROGMEM = "Level 5";
+const char TEXT_LEVEL_6[] PROGMEM = "Level 6";
+const char TEXT_LEVEL_7[] PROGMEM = "Level 7";
+
 const char _TEXT_INSTRUCTIONS_LONG_0[] PROGMEM = "Guide the ball past m-";
 const char _TEXT_INSTRUCTIONS_LONG_1[] PROGMEM = "any obstacles to pass";
 const char _TEXT_INSTRUCTIONS_LONG_2[] PROGMEM = "through all the hoops";
@@ -34,7 +42,7 @@ const char _TEXT_INSTRUCTIONS_LONG_23[] PROGMEM = "temporarily boost you-";
 const char _TEXT_INSTRUCTIONS_LONG_24[] PROGMEM = "r powers while rubber";
 const char _TEXT_INSTRUCTIONS_LONG_25[] PROGMEM = "floors give you extra";
 const char _TEXT_INSTRUCTIONS_LONG_26[] PROGMEM = "bounce.";
-const char* const TEXT_INSTRUCTIONS_LONG[] PROGMEM = {
+const char* const TEXT_INSTRUCTIONS_LONG[] PROGMEM = {  //
   _TEXT_INSTRUCTIONS_LONG_0,  _TEXT_INSTRUCTIONS_LONG_1,  _TEXT_INSTRUCTIONS_LONG_2,
   _TEXT_INSTRUCTIONS_LONG_3,  _TEXT_INSTRUCTIONS_LONG_4,  _TEXT_INSTRUCTIONS_LONG_5,
   _TEXT_INSTRUCTIONS_LONG_6,  _TEXT_INSTRUCTIONS_LONG_7,  _TEXT_INSTRUCTIONS_LONG_8,

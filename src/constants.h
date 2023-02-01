@@ -18,7 +18,7 @@
 #define SCREEN_H 64
 
 /* scenes.h */
-enum class Scene : uint8_t { BOUNCE, INSTRUCTIONS, GAME, DUMMY };
+enum class Scene : uint8_t { BOUNCE, NEW_GAME, INSTRUCTIONS, GAME, DUMMY };
 
 /* game */
 

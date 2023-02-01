@@ -61,11 +61,13 @@ void MenuOptions::choiceCallback() {
 };
 
 void MenuOptions::drawOptions() {
-  for (uint8_t i = 1; i < n; ++i) {
+  uint8_t page = (choice - 1) / 5;
+
+  for (uint8_t i = page * 5 + 1; i < min(n, (page + 1) * 5 + 1); ++i) {
     arduboy.setTextColor(WHITE);
 
     int8_t x = centerFString(pgm_read_word(text + i)),
-           y = TITLE_OFFSET_Y + (LINE_SPACING + CHAR_HEIGHT) * (i - 1);
+           y = TITLE_OFFSET_Y + (LINE_SPACING + CHAR_HEIGHT) * ((i - 1) % 5);
 
     if (i == choice) {
       arduboy.setTextColor(BLACK);
