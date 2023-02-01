@@ -2,45 +2,6 @@
 
 #include <Arduino.h>
 
-/* Postponed due to "optimization/code size" ratio
-void Arduboy2Ex::fillRect(int16_t x, int16_t y, uint8_t w, uint8_t h, uint8_t color) {
-  for (int16_t i = x; i < x + w; i++) {
-    drawFastVLine(i, y, h, color);
-  }
-};
-
-void Arduboy2Base::drawFastVLine(int16_t x, int16_t y, uint8_t h, uint8_t color) {
-  // Do bounds checks
-  if ((x < 0) || (x >= WIDTH) || (y >= HEIGHT) || (h == 0)) return;
-
-  color = (color == WHITE ? 0xff : 0);
-
-  if (y < 0) {
-    h += y;
-    y = 0;
-  }
-
-  int16_t end = min(y + h, HEIGHT) - 1;
-  uint8_t data, colorUp = 0xff << (y & 7),
-          colorDown = 0xff >> (7 - (end & 7));
-
-  if ((y & 0xf8) == (end & 0xf8)) colorDown &= colorUp;
-  else {
-    data = sBuffer[y / 8 * WIDTH + x] | colorUp;
-    if (!color) data ^= colorUp;
-    sBuffer[y / 8 * WIDTH + x] = data;
-  }
-
-  for (int16_t i = (y + 7) & 0xf8; i < end - 7; i += 8) {
-    sBuffer[i / 8 * WIDTH + x] = color;
-  }
-
-  data = sBuffer[end / 8 * WIDTH + x] | colorDown;
-  if (!color) data ^= colorDown;
-  sBuffer[end / 8 * WIDTH + x] = data;
-};
-*/
-
 size_t Arduboy2Ex::write(uint8_t c) {
   if (c == '\r') {
   } else if (c == '\n') {
