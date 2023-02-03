@@ -3,6 +3,7 @@
 #include <Arduboy2Ex.h>
 
 #include "../constants.h"
+#include "../scenes.h"
 #include "objects.h"
 #include "scene.h"
 
@@ -18,6 +19,8 @@ Ball::Ball(int16_t x, int16_t y) {
 
 void Ball::check_events() {
   uint8_t state = arduboy.buttonsState();
+
+  if (state & B_BUTTON) scene = Scene::BOUNCE;
 
   if (state & LEFT_BUTTON) ac_x = -BALL_AC_X;
   else if (state & RIGHT_BUTTON) ac_x = BALL_AC_X;

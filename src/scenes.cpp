@@ -3,6 +3,6 @@
 #include <stdint.h>
 
 Scene scene = Scene::BOUNCE;
-Scene prev_scene = Scene::DUMMY;
+Scene prevScene = Scene::DUMMY;
 
 void scene_dummy();

@@ -3,6 +3,8 @@
 #include <Arduboy2Ex.h>
 
 #include "../constants.h"
+#include "../menus/bounce.h"
+#include "../scenes.h"
 #include "ball.h"
 #include "level.h"
 
@@ -13,6 +15,12 @@ Level level;
 Entity *area[COLLIDE_AREA_SIZE];
 
 void scene_init_game() {
+  if (prevScene == Scene::BOUNCE) return;
+
+  menuBounce = MenuOptions(
+    sizeof(PAUSE_TEXT) / sizeof(PAUSE_TEXT[0]), (char **)&PAUSE_TEXT, (uint8_t *)&PAUSE_SCENES
+  );
+
   ball = Ball(8, 48);
   level = Level(0);
 };

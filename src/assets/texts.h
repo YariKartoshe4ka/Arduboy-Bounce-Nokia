@@ -6,6 +6,7 @@ const char TEXT_BOUNCE[] PROGMEM = "Bounce";
 const char TEXT_NEW_GAME[] PROGMEM = "New game";
 const char TEXT_HIGH_SCORE[] PROGMEM = "High score";
 const char TEXT_INSTRUCTIONS[] PROGMEM = "Instructions";
+const char TEXT_CONTINUE[] PROGMEM = "Continue";
 
 const char TEXT_LEVEL_1[] PROGMEM = "Level 1";
 const char TEXT_LEVEL_2[] PROGMEM = "Level 2";

@@ -11,5 +11,12 @@ const char* const BOUNCE_TEXT[] PROGMEM = {
 const Scene BOUNCE_SCENES[] PROGMEM = {
   Scene::BOUNCE, Scene::NEW_GAME, Scene::BOUNCE, Scene::INSTRUCTIONS};
 
+const char* const PAUSE_TEXT[] PROGMEM = {
+  TEXT_BOUNCE, TEXT_CONTINUE, TEXT_NEW_GAME, TEXT_HIGH_SCORE, TEXT_INSTRUCTIONS};
+const Scene PAUSE_SCENES[] PROGMEM = {
+  Scene::BOUNCE, Scene::GAME, Scene::NEW_GAME, Scene::BOUNCE, Scene::INSTRUCTIONS};
+
+extern MenuOptions menuBounce;
+
 void sceneInitBounce();
 void sceneUpdateBounce();

@@ -9,7 +9,7 @@
 typedef void (*funcptr)();
 
 extern Scene scene;
-extern Scene prev_scene;
+extern Scene prevScene;
 
 void scene_dummy();
 

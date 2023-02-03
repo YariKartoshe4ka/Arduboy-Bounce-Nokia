@@ -11,5 +11,7 @@ const Scene NEW_GAME_SCENES[] PROGMEM = {  //
   Scene::BOUNCE, Scene::GAME, Scene::GAME, Scene::GAME,
   Scene::GAME,   Scene::GAME, Scene::GAME, Scene::GAME};
 
+extern MenuOptions menuNewGame;
+
 void sceneInitNewGame();
 void sceneUpdateNewGame();
