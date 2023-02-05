@@ -23,11 +23,13 @@ class Level {
   Level() = default;
   Level(uint8_t level_no);
 
-  void load_entity(uint8_t to_i, uint8_t to_j, uint8_t from_i, uint8_t from_j);
+  void load_entity(uint8_t to_i, uint8_t to_j, uint16_t from_i, uint16_t from_j);
   void update_offsets();
   uint8_t translate_col(uint8_t j);
   uint8_t build_collide_area();
   void move_hor();
   void move_ver();
   void draw();
+
+  uint8_t operator[](uint16_t i);
 };

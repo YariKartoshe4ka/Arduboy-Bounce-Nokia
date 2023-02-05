@@ -12,8 +12,18 @@
 extern Arduboy2Ex arduboy;
 extern Sprites sprites;
 
-void Level::load_entity(uint8_t to_i, uint8_t to_j, uint8_t from_i, uint8_t from_j) {
-  uint8_t entity_byte = pgm_read_byte(&LEVELS[level_no][from_i * width + from_j + 2]);
+Level::Level(uint8_t level_no) {
+  this->level_no = level_no;
+
+  shift_x = 0;
+  shift_y = -SURFACE_B_H;
+
+  width = (*this)[6];
+  height = (*this)[7];
+};
+
+void Level::load_entity(uint8_t to_i, uint8_t to_j, uint16_t from_i, uint16_t from_j) {
+  uint8_t entity_byte = (*this)[from_i * width + from_j + 8];
 
   switch (entity_byte) {
     case 0x00: {
@@ -29,18 +39,6 @@ void Level::load_entity(uint8_t to_i, uint8_t to_j, uint8_t from_i, uint8_t from
       break;
     }
   }
-};
-
-Level::Level(uint8_t level_no) {
-  this->level_no = level_no;
-
-  shift_x = 0;
-  shift_y = -SURFACE_B_H;
-
-  width = pgm_read_byte(&LEVELS[level_no][0]);
-  height = pgm_read_byte(&LEVELS[level_no][1]);
-
-  move_ver();
 };
 
 void Level::move_hor() {
@@ -151,3 +149,7 @@ void Level::draw() {
     }
   }
 };
+
+uint8_t Level::operator[](uint16_t i) {
+  return pgm_read_byte(&LEVELS[level_no][i]);
+}

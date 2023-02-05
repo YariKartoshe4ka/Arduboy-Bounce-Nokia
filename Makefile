@@ -18,30 +18,17 @@ deps-docker: clean-docker
 
 # BUILD
 build: build-assets compile
-build-assets: build-images
 
-define IMAGES_H_HEADERS
-#pragma once
-
-#include <Arduboy2Ex.h>
-
-endef
-export IMAGES_H_HEADERS
-
-build-images:
-	python scripts/image-convert.py assets/images/*.bmp
-	@echo "$$IMAGES_H_HEADERS" > src/assets/images.h
-	sed -e '$$s/$$/\n/' -s assets/images/*.h >> src/assets/images.h
+build-assets:
+	python scripts/images_convert.py src/assets/images.h assets/images/*.bmp
+	python scripts/levels_convert.py src/assets/levels.h assets/levels/*.bin
 
 compile:
 	docker start -a bounce-builder > bounce-builder-logs.txt
 
 
 # CLEAN
-clean: clean-assets clean-docker
-
-clean-assets:
-	find assets -name "*.h" -exec rm -f {} \;
+clean: clean-docker
 
 clean-docker:
 	docker rm bounce-builder || true

@@ -2,8 +2,9 @@
 
 #include <Arduboy2Ex.h>
 
+#include "../assets/levels.h"
 #include "../constants.h"
-#include "../menus/bounce.h"
+#include "../menus/new_game.h"
 #include "../scenes.h"
 #include "ball.h"
 #include "level.h"
@@ -21,8 +22,9 @@ void scene_init_game() {
     sizeof(PAUSE_TEXT) / sizeof(PAUSE_TEXT[0]), (char **)&PAUSE_TEXT, (uint8_t *)&PAUSE_SCENES
   );
 
-  ball = Ball(8, 48);
-  level = Level(0);
+  level = Level(menuNewGame.choice - 1);
+  ball = Ball(level[0] * 8, level[1] * 8);
+  level.move_ver();
 };
 
 void scene_update_game() {

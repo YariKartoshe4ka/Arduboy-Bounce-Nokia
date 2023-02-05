@@ -13,4 +13,4 @@ VOLUME /root/bounce
 
 COPY Arduboy2 /root/.arduino15/packages/arduboy-homemade/hardware/avr/1.3.7/libraries/Arduboy2/src/
 
-ENTRYPOINT cd /root/bounce && arduino-cli compile --warnings all -b arduboy-homemade:avr:arduboy -e .
+ENTRYPOINT cd /root/bounce && arduino-cli compile --clean --warnings all -b arduboy-homemade:avr:arduboy -e .
