@@ -15,6 +15,9 @@ class Level {
 
   int8_t hor_bound = 0;  // Free bound, if level moves left
 
+  uint8_t *rle;
+  uint16_t rle_i;
+
  public:
   int16_t offset_x, offset_y,
     shift_x,  // Blocks between left level side and surface

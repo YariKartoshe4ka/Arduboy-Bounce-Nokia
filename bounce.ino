@@ -22,6 +22,4 @@ void loop() {
     prevScene = scene;
   }
   funcptr(pgm_read_word(&scenes_update[(uint8_t)scene]))();
-
-  Serial.println(arduboy.cpuLoad());
 }

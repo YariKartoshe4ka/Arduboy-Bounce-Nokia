@@ -18,6 +18,8 @@ Level::Level(uint8_t level_no) {
   shift_x = 0;
   shift_y = -SURFACE_B_H;
 
+  rle_i = 0xff;
+
   width = (*this)[6];
   height = (*this)[7];
 };
@@ -151,5 +153,23 @@ void Level::draw() {
 };
 
 uint8_t Level::operator[](uint16_t i) {
-  return pgm_read_byte(&LEVELS[level_no][i]);
+  if (i < 8) return pgm_read_byte(&LEVELS[level_no][i]);
+  if (rle_i > i) {
+    rle = (uint8_t *)LEVELS[level_no] + 8;
+    rle_i = 8;
+  }
+
+  while (rle_i < i) {
+    if (pgm_read_byte(rle + 1) == 0xff) {
+      uint8_t cnt = pgm_read_byte(rle + 2);
+      if (rle_i + cnt > i) break;
+      rle += 3;
+      rle_i += cnt;
+    } else {
+      ++rle;
+      ++rle_i;
+    }
+  }
+
+  return pgm_read_byte(rle);
 }

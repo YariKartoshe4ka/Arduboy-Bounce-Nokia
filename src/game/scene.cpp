@@ -45,10 +45,12 @@ void scene_update_game() {
   ball.draw();
 
   // Clear outside surface
-  arduboy.fillRect(SURFACE_X - 10, 0, 10, SCREEN_H, BLACK);
-  arduboy.fillRect(SURFACE_X + SURFACE_W, 0, 12, SCREEN_H, BLACK);
+  arduboy.fillRect(SURFACE_X - 15, 0, 15, SCREEN_H, BLACK);
+  arduboy.fillRect(SURFACE_X + SURFACE_W, 0, 17, SCREEN_H, BLACK);
   arduboy.drawLine(SURFACE_X - 2, 0, SURFACE_X - 2, SCREEN_H);
   arduboy.drawLine(SURFACE_X + SURFACE_W + 1, 0, SURFACE_X + SURFACE_W + 1, SCREEN_H);
+
+  arduboy.println(arduboy.cpuLoad());
 
   arduboy.display();
 };
