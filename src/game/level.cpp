@@ -18,7 +18,7 @@ Level::Level(uint8_t level_no) {
   shift_x = 0;
   shift_y = -SURFACE_B_H;
 
-  rle_i = 0xff;
+  rle_i = 0xffff;
 
   width = (*this)[6];
   height = (*this)[7];
