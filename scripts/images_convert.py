@@ -26,7 +26,8 @@ def convert(src_path, out):
                 if y + p == height:
                     break
 
-                pixel = img.getpixel((x, y + p))
+                pixel = list(img.getpixel((x, y + p)))
+                pixel = [255 - i for i in pixel[:3]] + pixel[3:]
 
                 if sum(pixel) - pixel[3] not in (0xff * 3, 0x00):
                     print(f'Warning: pixel at ({x}, {y + p}) is coloured')
@@ -35,7 +36,7 @@ def convert(src_path, out):
                     print(f'Warning: pixel at ({x}, {y + p} has float transparency')
 
                 a |= (pixel[3] == 0xff) << p
-                b |= (sum(pixel) - pixel[3] == 0xff * 3) << p
+                b |= (sum(pixel) - pixel[3] == 0xff * 3 and pixel[3] == 0xff) << p
 
             out.write(f', 0x{b:02x}')
             if is_alpha:
