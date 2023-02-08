@@ -38,6 +38,8 @@ class Level {
  public:
   States states;
 
+  uint8_t rings;
+
   int16_t offset_x, offset_y,
     shift_x,  // Blocks between left level side and surface
     shift_y;  // Blocks between top level sise and surface
@@ -51,7 +53,8 @@ class Level {
   uint8_t build_collide_area();
   void move_hor();
   void move_ver();
-  void draw();
+  void draw_surface();
+  void draw_interface();
 
   uint8_t operator[](uint16_t i);
 };

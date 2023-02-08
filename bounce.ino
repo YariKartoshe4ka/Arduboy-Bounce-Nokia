@@ -12,6 +12,7 @@ void setup() {
 
   arduboy.begin();
   arduboy.setFrameRate(FPS);
+  arduboy.invert(1);
 }
 
 void loop() {

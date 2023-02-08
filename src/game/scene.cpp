@@ -37,15 +37,19 @@ void scene_update_game() {
   ball.collide_ver();
 
   level.update_offsets();
-  level.draw();
+  level.draw_surface();
   ball.draw();
 
   // Clear outside surface
-  arduboy.fillRect(SURFACE_X - 15, 0, 15, SCREEN_H, BLACK);
-  arduboy.fillRect(SURFACE_X + SURFACE_W, 0, 17, SCREEN_H, BLACK);
-  arduboy.drawLine(SURFACE_X - 2, 0, SURFACE_X - 2, SCREEN_H);
-  arduboy.drawLine(SURFACE_X + SURFACE_W + 1, 0, SURFACE_X + SURFACE_W + 1, SCREEN_H);
+  arduboy.fillRect(0, 0, SURFACE_X, SCREEN_H, BLACK);
+  arduboy.fillRect(SCREEN_W - SURFACE_X, 0, SURFACE_X, SCREEN_H, BLACK);
 
+  arduboy.drawFastVLine(SURFACE_X - 2, 0, SCREEN_H, WHITE);
+  arduboy.drawFastVLine(SCREEN_W - SURFACE_X + 1, 0, SCREEN_H, WHITE);
+
+  level.draw_interface();
+
+  arduboy.setCursor(WIDTH - 11, 0);
   arduboy.println(arduboy.cpuLoad());
 
   arduboy.display();

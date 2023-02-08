@@ -47,6 +47,7 @@ Level::Level(uint8_t level_no) {
 
   rle_i = 0xffff;
 
+  rings = (*this)[5];
   width = (*this)[6];
   height = (*this)[7];
 };
@@ -173,7 +174,7 @@ uint8_t Level::build_collide_area() {
   return collide_area_size;
 };
 
-void Level::draw() {
+void Level::draw_surface() {
   for (uint8_t k = 0; k < SURFACE_B_W; ++k) {
     uint8_t j = translate_col(k);
     for (uint8_t i = 0; i < SURFACE_B_H; ++i) {
@@ -185,6 +186,22 @@ void Level::draw() {
       }
     }
   }
+};
+
+void Level::draw_interface() {
+  arduboy.setTextColor(WHITE);
+
+  // Draw rings info
+  arduboy.setCursor(1, 2);
+  arduboy.print(rings);
+  arduboy.print(F("x"));
+  sprites.drawOverwrite(13, 1, IMAGE_RING_INFO, 0);
+
+  // Draw ball info
+  arduboy.setCursor(1, 11);
+  arduboy.print(3);
+  arduboy.print(F("x"));
+  sprites.drawOverwrite(13, 10, IMAGE_BALL_INFO, 0);
 };
 
 uint8_t Level::operator[](uint16_t i) {

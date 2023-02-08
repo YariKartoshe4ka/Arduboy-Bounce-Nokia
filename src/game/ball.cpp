@@ -83,6 +83,7 @@ void Ball::collide_hor() {
       if (arduboy.collide(rect_ball, rect_ring_ver) && !level.states.get(area[i])) {
         level.states.set(area[i], 1);
         area[i]->image = IMAGE_RING_VER_ACT;
+        --level.rings;
       }
     } else if (area[i]->type == ENTITY_RING_HOR) {
       Rect rect_ring_hor = area[i]->rect(), rect_ball = rect();
@@ -90,6 +91,7 @@ void Ball::collide_hor() {
       if (arduboy.collide(rect_ball, rect_ring_hor) && !level.states.get(area[i])) {
         level.states.set(area[i], 1);
         area[i]->image = IMAGE_RING_HOR_ACT;
+        --level.rings;
       }
     }
   }
