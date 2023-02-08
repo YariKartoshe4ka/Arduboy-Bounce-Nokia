@@ -11,6 +11,8 @@
 extern Arduboy2Ex arduboy;
 extern Sprites sprites;
 
+Ball ball;
+
 Ball::Ball(int16_t x, int16_t y) {
   image = IMAGE_BALL;
   vel_x = vel_y = ac_x = 0;

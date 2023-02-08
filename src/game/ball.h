@@ -23,3 +23,5 @@ struct Ball {
 
   Rect rect();
 };
+
+extern Ball ball;

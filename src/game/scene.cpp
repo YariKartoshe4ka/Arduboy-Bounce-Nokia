@@ -11,8 +11,6 @@
 
 extern Arduboy2Ex arduboy;
 
-Ball ball;
-
 void scene_init_game() {
   if (prevScene == Scene::BOUNCE) return;
 
