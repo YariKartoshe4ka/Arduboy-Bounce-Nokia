@@ -8,11 +8,10 @@ struct Entity {
   EntityType type;
   int16_t x, y;
 
-  uint8_t state;
   const uint8_t *image;
 
   Entity() = default;
-  Entity(int16_t x, int16_t y) : type(ENTITY_EMPTY), x(x), y(y), state(0){};
+  Entity(int16_t x, int16_t y) : type(ENTITY_EMPTY), x(x), y(y){};
 
   Rect rect();
 };
@@ -25,10 +24,7 @@ struct Block : Entity {
 };
 
 struct RingVer : Entity {
-  RingVer(int16_t x, int16_t y) : Entity(x, y) {
-    type = ENTITY_RING_VER;
-    image = IMAGE_RING_VER;
-  }
+  RingVer(int16_t x, int16_t y);
 };
 
 struct Ramp : Entity {

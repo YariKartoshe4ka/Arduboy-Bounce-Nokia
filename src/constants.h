@@ -40,3 +40,4 @@ enum class Scene : uint8_t { BOUNCE, NEW_GAME, INSTRUCTIONS, GAME, DUMMY };
 
 /* level.h */
 #define COLLIDE_AREA_SIZE 9
+#define STATES_TABLE_SIZE 50

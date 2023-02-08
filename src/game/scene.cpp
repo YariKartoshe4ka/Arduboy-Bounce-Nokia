@@ -12,8 +12,6 @@
 extern Arduboy2Ex arduboy;
 
 Ball ball;
-Level level;
-Entity *area[COLLIDE_AREA_SIZE];
 
 void scene_init_game() {
   if (prevScene == Scene::BOUNCE) return;

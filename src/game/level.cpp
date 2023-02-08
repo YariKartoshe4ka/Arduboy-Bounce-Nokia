@@ -12,8 +12,35 @@
 extern Arduboy2Ex arduboy;
 extern Sprites sprites;
 
+Level level;
+Entity *area[COLLIDE_AREA_SIZE];
+
+States::States() {
+  size = 0;
+};
+
+uint16_t States::getKey(Entity *entity) {
+  return (entity->y / 8 << 8) + entity->x / 8;
+};
+
+uint8_t States::get(Entity *entity) {
+  uint16_t key = getKey(entity);
+
+  for (uint8_t i = 0; i < size; ++i) {
+    if (table[i].key == key) return table[i].value;
+  }
+  return 0;
+};
+
+void States::set(Entity *entity, uint8_t state) {
+  uint16_t key = getKey(entity);
+  table[size++] = {key, state};
+}
+
 Level::Level(uint8_t level_no) {
   this->level_no = level_no;
+
+  states = States();
 
   shift_x = 0;
   shift_y = -SURFACE_B_H;

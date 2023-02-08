@@ -5,6 +5,23 @@
 #include "../constants.h"
 #include "objects.h"
 
+class States {
+  struct {
+    uint16_t key;
+    uint8_t value;
+  } table[STATES_TABLE_SIZE];
+
+  uint8_t size;
+
+  uint16_t getKey(Entity *entity);
+
+ public:
+  States();
+
+  uint8_t get(Entity *entity);
+  void set(Entity *entity, uint8_t state);
+};
+
 class Level {
  private:
   Entity entities[SURFACE_B_H][SURFACE_B_W];
@@ -19,6 +36,8 @@ class Level {
   uint16_t rle_i;
 
  public:
+  States states;
+
   int16_t offset_x, offset_y,
     shift_x,  // Blocks between left level side and surface
     shift_y;  // Blocks between top level sise and surface
@@ -36,3 +55,6 @@ class Level {
 
   uint8_t operator[](uint16_t i);
 };
+
+extern Level level;
+extern Entity *area[COLLIDE_AREA_SIZE];
