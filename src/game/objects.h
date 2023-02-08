@@ -35,6 +35,7 @@ struct RingVer : Entity {
 
 struct RingHor : Entity {
   RingHor(int16_t x, int16_t y);
+  Rect rect();
 };
 
 struct Ramp : Entity {

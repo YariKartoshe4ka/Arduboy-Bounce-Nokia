@@ -10,6 +10,9 @@ def convert(src_path, out):
     img = Image.open(src).convert('RGBA')
     width, height = img.size
 
+    if height % 8:
+        print('Warning: height of the image isn\'t divisible by 8')
+
     is_alpha = False
     for y in range(height):
         for x in range(width):
