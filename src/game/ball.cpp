@@ -2,6 +2,7 @@
 
 #include <Arduboy2Ex.h>
 
+#include "../assets/images.h"
 #include "../constants.h"
 #include "../scenes.h"
 #include "objects.h"
@@ -73,6 +74,13 @@ void Ball::collide_hor() {
             vel_y = 0;
           }
         }
+      }
+    } else if (area[i]->type == ENTITY_RING_VER) {
+      Rect rect_ring = area[i]->rect(), rect_ball = rect();
+
+      if (arduboy.collide(rect_ball, rect_ring) && !area[i]->state) {
+        area[i]->state = 1;
+        area[i]->image = IMAGE_RING_VER_ACT;
       }
     }
   }

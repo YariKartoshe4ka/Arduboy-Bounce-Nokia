@@ -18,8 +18,8 @@ def convert(src_path, out):
     out.write(f'const uint8_t IMAGE_{src.stem.upper()}[] PROGMEM = {{  //\n')
     out.write(f'{width}, {height}')
 
-    for x in range(width):
-        for y in range(0, height, 8):
+    for y in range(0, height, 8):
+        for x in range(width):
             a = b = 0
 
             for p in range(8):
