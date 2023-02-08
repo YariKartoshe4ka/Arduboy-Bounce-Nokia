@@ -6,7 +6,9 @@ byte_map = {
     0x01: 0x01,  # Block
     0x20: 0x02,  # Ramp left
     0x0d: 0x10,  # Ring vertical
-    0x0e: 0x00   # Ring vertical (down part)
+    0x0e: 0x00,  # Ring vertical (down part)
+    0x0f: 0x11,  # Ring horizontal
+    0x10: 0x00,  # Ring horizontal (right part)
 }
 
 

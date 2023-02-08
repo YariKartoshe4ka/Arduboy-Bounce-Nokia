@@ -78,11 +78,18 @@ void Ball::collide_hor() {
         }
       }
     } else if (area[i]->type == ENTITY_RING_VER) {
-      Rect rect_ring = area[i]->rect(), rect_ball = rect();
+      Rect rect_ring_ver = area[i]->rect(), rect_ball = rect();
 
-      if (arduboy.collide(rect_ball, rect_ring) && !level.states.get(area[i])) {
+      if (arduboy.collide(rect_ball, rect_ring_ver) && !level.states.get(area[i])) {
         level.states.set(area[i], 1);
         area[i]->image = IMAGE_RING_VER_ACT;
+      }
+    } else if (area[i]->type == ENTITY_RING_HOR) {
+      Rect rect_ring_hor = area[i]->rect(), rect_ball = rect();
+
+      if (arduboy.collide(rect_ball, rect_ring_hor) && !level.states.get(area[i])) {
+        level.states.set(area[i], 1);
+        area[i]->image = IMAGE_RING_HOR_ACT;
       }
     }
   }

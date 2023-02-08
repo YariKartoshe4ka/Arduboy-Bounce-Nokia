@@ -71,6 +71,10 @@ void Level::load_entity(uint8_t to_i, uint8_t to_j, uint16_t from_i, uint16_t fr
       entities[to_i][to_j] = RingVer(from_j * 8 + 2, from_i * 8);
       break;
     }
+    case 0x11: {
+      entities[to_i][to_j] = RingHor(from_j * 8, from_i * 8 + 2);
+      break;
+    }
   }
 };
 

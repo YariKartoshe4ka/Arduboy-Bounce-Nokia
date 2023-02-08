@@ -11,4 +11,9 @@ Rect Entity::rect() {
 RingVer::RingVer(int16_t x, int16_t y) : Entity(x, y) {
   type = ENTITY_RING_VER;
   image = (level.states.get(this) ? IMAGE_RING_VER_ACT : IMAGE_RING_VER);
-}
+};
+
+RingHor::RingHor(int16_t x, int16_t y) : Entity(x, y) {
+  type = ENTITY_RING_HOR;
+  image = (level.states.get(this) ? IMAGE_RING_HOR_ACT : IMAGE_RING_HOR);
+};

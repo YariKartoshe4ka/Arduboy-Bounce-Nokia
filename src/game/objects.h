@@ -2,7 +2,13 @@
 
 #include "../assets/images.h"
 
-enum EntityType : uint8_t { ENTITY_EMPTY, ENTITY_RAMP, ENTITY_BLOCK, ENTITY_RING_VER };
+enum EntityType : uint8_t {
+  ENTITY_EMPTY,
+  ENTITY_RAMP,
+  ENTITY_BLOCK,
+  ENTITY_RING_VER,
+  ENTITY_RING_HOR
+};
 
 struct Entity {
   EntityType type;
@@ -25,6 +31,10 @@ struct Block : Entity {
 
 struct RingVer : Entity {
   RingVer(int16_t x, int16_t y);
+};
+
+struct RingHor : Entity {
+  RingHor(int16_t x, int16_t y);
 };
 
 struct Ramp : Entity {
