@@ -20,7 +20,7 @@ deps-docker: clean-docker
 build: build-assets compile
 
 build-assets:
-	python scripts/images_convert.py src/assets/images.h assets/images/*.bmp
+	python scripts/images_convert.py src/assets/images.h assets/images/*
 	python scripts/levels_convert.py src/assets/levels.h assets/levels/*.bin
 
 compile:

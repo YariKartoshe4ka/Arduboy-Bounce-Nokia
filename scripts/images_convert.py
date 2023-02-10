@@ -4,9 +4,7 @@ from sys import argv
 from PIL import Image
 
 
-def convert(src_path, out):
-    src = Path(src_path).absolute()
-
+def convert(src, out, write_size=True):
     img = Image.open(src).convert('RGBA')
     width, height = img.size
 
@@ -18,8 +16,8 @@ def convert(src_path, out):
         for x in range(width):
             is_alpha = is_alpha or img.getpixel((x, y))[3] != 0xff
 
-    out.write(f'const uint8_t IMAGE_{src.stem.upper()}[] PROGMEM = {{  //\n')
-    out.write(f'{width}, {height}')
+    if write_size:
+        out.write(f'{width}, {height}')
 
     for y in range(0, height, 8):
         for x in range(width):
@@ -45,6 +43,19 @@ def convert(src_path, out):
             if is_alpha:
                 out.write(f', 0x{a:02x}')
 
+
+def process(src, out):
+    # Write new images sequence
+    out.write(f'const uint8_t IMAGE_{src.stem.upper()}[] PROGMEM = {{  //\n')
+
+    if src.is_dir():
+        # If directory present, proccess files as one sequence
+        for i, file in enumerate(sorted(src.glob('*'))):
+            convert(file, out, not i)
+
+    else:
+        convert(src, out)
+
     out.write('};\n')
 
 
@@ -57,9 +68,9 @@ def main():
             '\n'
         )
 
-        for src in argv[2:]:
+        for src in map(Path, argv[2:]):
             print(f'Processing {src}')
-            convert(src, out)
+            process(src, out)
             out.write('\n')
 
 

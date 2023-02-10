@@ -181,7 +181,7 @@ void Level::draw_surface() {
       if (entities[i][j].type != ENTITY_EMPTY) {
         sprites.drawOverwrite(
           offset_x + SURFACE_X + entities[i][j].x, offset_y + entities[i][j].y,
-          entities[i][j].image, 0
+          entities[i][j].image, states.get(&entities[i][j])
         );
       }
     }

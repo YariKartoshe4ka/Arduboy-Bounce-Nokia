@@ -30,11 +30,17 @@ struct Block : Entity {
 };
 
 struct RingVer : Entity {
-  RingVer(int16_t x, int16_t y);
+  RingVer(int16_t x, int16_t y) : Entity(x, y) {
+    type = ENTITY_RING_VER;
+    image = IMAGE_RING_VER;
+  };
 };
 
 struct RingHor : Entity {
-  RingHor(int16_t x, int16_t y);
+  RingHor(int16_t x, int16_t y) : Entity(x, y) {
+    type = ENTITY_RING_HOR;
+    image = IMAGE_RING_HOR;
+  };
   Rect rect();
 };
 
