@@ -1,6 +1,9 @@
-/assets/**/*.h
+# Build artifacts and auto-generated data
 /*.hex
 /bounce-builder-logs.txt
 /build
+/src/assets/images.h
+/src/assets/levels.h
 
+# Other files
 /other
