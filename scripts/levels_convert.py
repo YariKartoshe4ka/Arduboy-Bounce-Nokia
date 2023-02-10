@@ -9,35 +9,37 @@ byte_map = {
     0x0e: 0x00,  # Ring vertical (down part)
     0x0f: 0x11,  # Ring horizontal
     0x10: 0x00,  # Ring horizontal (right part)
+    0x09: 0xa0,  # End
 }
 
 
-def convert(data):
-    width, height = data[6:8]
+class Meta:
+    def __init__(self, meta):
+        self.__meta = meta
 
-    # Copy metadata
-    res = data[:8]
+        (self.pos_x, self.pos_y, self.big_ball, self.end_x, self.end_y, self.rings,
+            self.width, self.height) = meta
 
-    # Convert level objects
-    res += bytes(byte_map.get(i, 0) for i in data[8:8 + width * height])
-
-    # Copy spider objects
-    # res += data[8 + width * height:]
-
-    return res
+    def __bytes__(self):
+        return self.__meta
 
 
-def compress(data):
-    width, height = data[6:8]
+def convert(objects):
+    """Convert level objects"""
 
-    # Metadata isn't compressed
-    res = data[:8]
+    objects = objects.replace(b'\x09\x09', b'\x09\x00', 1).replace(b'\x09\x09', b'\x00\x00')
+    return bytes(byte_map.get(i, 0) for i in objects)
 
-    # Copmress level objects
+
+def compress(objects):
+    """Copmress level objects"""
+
+    res = b''
+
     prev_byte = b'\x00'
     byte_cnt = 0
 
-    for byte in data[8:8 + width * height]:
+    for byte in objects:
         byte = bytes([byte])
 
         if byte == prev_byte and byte_cnt < 255:
@@ -57,16 +59,25 @@ def compress(data):
     else:
         res += prev_byte * byte_cnt
 
-    # Spider objects aren't compressed
-    # res += data[8 + width * height:]
-
     return res
 
 
 def process(src, out):
     with open(src, 'rb') as file:
-        data = compress(convert(file.read()))
+        data = file.read()
 
+    # Parse level byte stream to parts
+    meta = Meta(data[:8])
+    objects = data[8:8 + meta.width * meta.height]
+    spiders = data[8 + meta.width * meta.height:]  # noqa: F841
+
+    # Convert objects with our schema and compress
+    objects = compress(convert(objects))
+
+    # Combine all data in one byte stream
+    data = bytes(meta) + objects
+
+    # Write data in hex format to file
     out.write(f'const uint8_t LEVEL_{src.stem}[] PROGMEM = {{  //\n')
     out.write(', '.join(f'0x{i:02x}' for i in data))
     out.write('};\n')

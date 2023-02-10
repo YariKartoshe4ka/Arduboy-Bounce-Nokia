@@ -83,6 +83,10 @@ void Ball::collide_hor() {
       if (arduboy.collide(rect_ball, rect_ring_ver) && !level.states.get(area[i])) {
         level.states.set(area[i], 1);
         --level.rings;
+        if (!level.rings) {
+          Entity entityEnd = Entity(level.endX * 8l, level.endY * 8l);
+          level.states.set(&entityEnd, 1);
+        }
       }
     }
   }

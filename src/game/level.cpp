@@ -47,6 +47,8 @@ Level::Level(uint8_t level_no) {
 
   rle_i = 0xffff;
 
+  endX = (*this)[3];
+  endY = (*this)[4];
   rings = (*this)[5];
   width = (*this)[6];
   height = (*this)[7];
@@ -74,6 +76,10 @@ void Level::load_entity(uint8_t to_i, uint8_t to_j, uint16_t from_i, uint16_t fr
     }
     case 0x11: {
       entities[to_i][to_j] = RingHor(from_j * 8, from_i * 8);
+      break;
+    }
+    case 0xa0: {
+      entities[to_i][to_j] = End(from_j * 8, from_i * 8);
       break;
     }
   }

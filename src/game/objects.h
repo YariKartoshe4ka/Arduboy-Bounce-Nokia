@@ -7,7 +7,8 @@ enum EntityType : uint8_t {
   ENTITY_RAMP,
   ENTITY_BLOCK,
   ENTITY_RING_VER,
-  ENTITY_RING_HOR
+  ENTITY_RING_HOR,
+  ENTITY_END
 };
 
 struct Entity {
@@ -49,4 +50,12 @@ struct Ramp : Entity {
     type = ENTITY_RAMP;
     image = IMAGE_RAMP;
   }
+};
+
+struct End : Entity {
+  End(int16_t x, int16_t y) : Entity(x, y) {
+    type = ENTITY_END;
+    image = IMAGE_END;
+  }
+  Rect rect();
 };

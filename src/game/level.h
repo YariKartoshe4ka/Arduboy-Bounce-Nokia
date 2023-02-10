@@ -38,7 +38,8 @@ class Level {
  public:
   States states;
 
-  uint8_t rings;
+  /* Meta vars */
+  uint8_t endX, endY, rings;
 
   int16_t offset_x, offset_y,
     shift_x,  // Blocks between left level side and surface
