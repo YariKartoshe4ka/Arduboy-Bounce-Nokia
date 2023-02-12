@@ -22,6 +22,8 @@ struct Ball {
   void draw();
 
   Rect rect();
+
+  void _collide_block_hor(Rect &rect_ball, Rect &rect_block);
 };
 
 extern Ball ball;

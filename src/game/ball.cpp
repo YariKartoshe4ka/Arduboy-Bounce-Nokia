@@ -46,41 +46,39 @@ void Ball::move_hor() {
   x += vel_x;
 };
 
+void Ball::_collide_block_hor(Rect &rect_ball, Rect &rect_block) {
+  if (rect_ball.x > rect_block.x) {  // Left collision
+    x = rect_block.x + rect_block.width;
+    vel_x = -vel_x / 1.6;
+  } else if (rect_ball.x < rect_block.x) {  // Right collision
+    x = rect_block.x - rect_ball.width;
+    vel_x = -vel_x / 1.6;
+  }
+};
+
 void Ball::collide_hor() {
   uint8_t collide_area_size = level.build_collide_area();
 
   for (uint8_t i = 0; i < collide_area_size; ++i) {
+    Rect rect_ball = rect(), rect_entity = area[i]->rect();
+
+    if (!arduboy.collide(rect_ball, rect_entity)) continue;
+
     if (area[i]->type == ENTITY_BLOCK) {
-      Rect rect_block = area[i]->rect(), rect_ball = rect();
-
-      if (arduboy.collide(rect_ball, rect_block)) {
-        if (rect_ball.x > rect_block.x) {  // Left collision
-          x = rect_block.x + rect_block.width;
-          vel_x = -vel_x / 1.6;
-        } else if (rect_ball.x < rect_block.x) {  // Right collision
-          x = rect_block.x - rect_ball.width;
-          vel_x = -vel_x / 1.6;
-        }
-      }
+      _collide_block_hor(rect_ball, rect_entity);
     } else if (area[i]->type == ENTITY_RAMP) {
-      Rect rect_ramp = area[i]->rect(), rect_ball = rect();
-
-      if (arduboy.collide(rect_ball, rect_ramp)) {
-        int8_t h = min(rect_ramp.height, rect_ball.x + rect_ball.width - rect_ramp.x);
-        if (rect_ball.y + rect_ball.height - rect_ramp.y > rect_ramp.height - h) {
-          if (vel_x < 0) {
-            x = rect_ramp.x + rect_ramp.width;
-            vel_x = -vel_x / 1.6;
-          } else if (vel_x > 0) {
-            y = rect_ramp.y - h;
-            vel_y = 0;
-          }
+      int8_t h = min(rect_entity.height, rect_ball.x + rect_ball.width - rect_entity.x);
+      if (rect_ball.y + rect_ball.height - rect_entity.y > rect_entity.height - h) {
+        if (vel_x < 0) {
+          x = rect_entity.x + rect_entity.width;
+          vel_x = -vel_x / 1.6;
+        } else if (vel_x > 0) {
+          y = rect_entity.y - h;
+          vel_y = 0;
         }
       }
     } else if (area[i]->type >= ENTITY_RING_VER && area[i]->type <= ENTITY_RING_HOR) {
-      Rect rect_ring_ver = area[i]->rect(), rect_ball = rect();
-
-      if (arduboy.collide(rect_ball, rect_ring_ver) && !level.states.get(area[i])) {
+      if (!level.states.get(area[i])) {
         level.states.set(area[i], 1);
         --level.rings;
         if (!level.rings) {
@@ -103,34 +101,30 @@ void Ball::collide_ver() {
   uint8_t collide_area_size = level.build_collide_area();
 
   for (uint8_t i = 0; i < collide_area_size; ++i) {
-    if (area[i]->type == ENTITY_BLOCK) {
-      Rect rect_block = area[i]->rect(), rect_ball = rect();
+    Rect rect_ball = rect(), rect_entity = area[i]->rect();
 
-      if (arduboy.collide(rect_ball, rect_block)) {
+    if (!arduboy.collide(rect_ball, rect_entity)) continue;
+
+    if (area[i]->type == ENTITY_BLOCK) {
+      if (vel_y < 0) {
+        y = rect_entity.y + rect_entity.height;
+        vel_y = 0;
+      } else if (vel_y > 0) {
+        state &= ~BALL_STATE_JUMP;
+        y = rect_entity.y - rect_ball.height;
+        vel_y = -vel_y / 1.6;
+      }
+    } else if (area[i]->type == ENTITY_RAMP) {
+      int8_t h = min(rect_entity.height, rect_ball.x + rect_ball.width - rect_entity.x);
+      if (rect_ball.y + rect_ball.height - rect_entity.y > rect_entity.height - h) {
         if (vel_y < 0) {
-          y = rect_block.y + rect_block.height;
+          y = rect_entity.y + rect_entity.height;
           vel_y = 0;
         } else if (vel_y > 0) {
           state &= ~BALL_STATE_JUMP;
-          y = rect_block.y - rect_ball.height;
-          vel_y = -vel_y / 1.6;
-        }
-      }
-    } else if (area[i]->type == ENTITY_RAMP) {
-      Rect rect_ramp = area[i]->rect(), rect_ball = rect();
-
-      if (arduboy.collide(rect_ball, rect_ramp)) {
-        int8_t h = min(rect_ramp.height, rect_ball.x + rect_ball.width - rect_ramp.x);
-        if (rect_ball.y + rect_ball.height - rect_ramp.y > rect_ramp.height - h) {
-          if (vel_y < 0) {
-            y = rect_ramp.y + rect_ramp.height;
-            vel_y = 0;
-          } else if (vel_y > 0) {
-            state &= ~BALL_STATE_JUMP;
-            y = rect_ramp.y - h;
-            if (!vel_x && rect_ball.x <= rect_ramp.x) vel_x = -max(vel_y, 1.9) / 2;
-            vel_y = 0;
-          }
+          y = rect_entity.y - h;
+          if (!vel_x && rect_ball.x <= rect_entity.x) vel_x = -max(vel_y, 1.9) / 2;
+          vel_y = 0;
         }
       }
     }

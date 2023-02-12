@@ -42,7 +42,6 @@ struct RingHor : Entity {
     type = ENTITY_RING_HOR;
     image = IMAGE_RING_HOR;
   };
-  Rect rect();
 };
 
 struct Ramp : Entity {
@@ -57,5 +56,4 @@ struct End : Entity {
     type = ENTITY_END;
     image = IMAGE_END;
   }
-  Rect rect();
 };
