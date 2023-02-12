@@ -11,10 +11,8 @@ typedef void (*funcptr)();
 extern Scene scene;
 extern Scene prevScene;
 
-void scene_dummy();
+const funcptr scenesInit[] PROGMEM = {  //
+  sceneInitBounce, sceneInitNewGame, sceneInitInstructions, sceneInitGame};
 
-const funcptr scenes_init[] PROGMEM = {  //
-  sceneInitBounce, sceneInitNewGame, sceneInitInstructions, scene_init_game};
-
-const funcptr scenes_update[] PROGMEM = {  //
-  sceneUpdateBounce, sceneUpdateNewGame, sceneUpdateInstructions, scene_update_game};
+const funcptr scenesUpdate[] PROGMEM = {  //
+  sceneUpdateBounce, sceneUpdateNewGame, sceneUpdateInstructions, sceneUpdateGame};

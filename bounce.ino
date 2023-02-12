@@ -19,8 +19,8 @@ void loop() {
   if (!arduboy.nextFrame()) return;
 
   if (scene != prevScene) {
-    funcptr(pgm_read_word(&scenes_init[(uint8_t)scene]))();
+    funcptr(pgm_read_word(&scenesInit[(uint8_t)scene]))();
     prevScene = scene;
   }
-  funcptr(pgm_read_word(&scenes_update[(uint8_t)scene]))();
+  funcptr(pgm_read_word(&scenesUpdate[(uint8_t)scene]))();
 }

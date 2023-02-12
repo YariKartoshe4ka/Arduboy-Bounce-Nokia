@@ -26,14 +26,14 @@ class Level {
  private:
   Entity entities[SURFACE_B_H][SURFACE_B_W];
 
-  uint8_t level_no,  // Level number
-    width,           // Level width in blocks
-    height;          // Level height in blocks
+  uint8_t levelNo,  // Level number
+    width,          // Level width in blocks
+    height;         // Level height in blocks
 
-  int8_t hor_bound = 0;  // Free bound, if level moves left
+  int8_t horBound = 0;  // Free bound, if level moves left
 
   uint8_t *rle;
-  uint16_t rle_i;
+  uint16_t rlei;
 
  public:
   States states;
@@ -41,21 +41,21 @@ class Level {
   /* Meta vars */
   uint8_t endX, endY, rings;
 
-  int16_t offset_x, offset_y,
-    shift_x,  // Blocks between left level side and surface
-    shift_y;  // Blocks between top level sise and surface
+  int16_t offsetX, offsetY,
+    shiftX,  // Blocks between left level side and surface
+    shiftY;  // Blocks between top level sise and surface
 
   Level() = default;
-  Level(uint8_t level_no);
+  Level(uint8_t levelNo);
 
-  void load_entity(uint8_t to_i, uint8_t to_j, uint16_t from_i, uint16_t from_j);
-  void update_offsets();
-  uint8_t translate_col(uint8_t j);
-  uint8_t build_collide_area();
-  void move_hor();
-  void move_ver();
-  void draw_surface();
-  void draw_interface();
+  void loadEntity(uint8_t toi, uint8_t toj, uint16_t fromi, uint16_t fromj);
+  void updateOffsets();
+  uint8_t translateCol(uint8_t j);
+  uint8_t buildCollideArea();
+  void moveHor();
+  void moveVer();
+  void drawSurface();
+  void drawInterface();
 
   uint8_t operator[](uint16_t i);
 };

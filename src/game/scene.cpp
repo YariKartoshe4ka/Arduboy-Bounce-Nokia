@@ -11,7 +11,7 @@
 
 extern Arduboy2Ex arduboy;
 
-void scene_init_game() {
+void sceneInitGame() {
   if (prevScene == Scene::BOUNCE) return;
 
   menuBounce = MenuOptions(
@@ -20,24 +20,24 @@ void scene_init_game() {
 
   level = Level(menuNewGame.choice - 1);
   ball = Ball(level[0] * 8, level[1] * 8);
-  level.move_ver();
+  level.moveVer();
 };
 
-void scene_update_game() {
+void sceneUpdateGame() {
   arduboy.clear();
 
-  ball.check_events();
+  ball.checkEvents();
 
-  ball.move_hor();
-  level.move_hor();
-  ball.collide_hor();
+  ball.moveHor();
+  level.moveHor();
+  ball.collideHor();
 
-  ball.move_ver();
-  level.move_ver();
-  ball.collide_ver();
+  ball.moveVer();
+  level.moveVer();
+  ball.collideVer();
 
-  level.update_offsets();
-  level.draw_surface();
+  level.updateOffsets();
+  level.drawSurface();
   ball.draw();
 
   // Clear outside surface
@@ -47,7 +47,7 @@ void scene_update_game() {
   arduboy.drawFastVLine(SURFACE_X - 2, 0, SCREEN_H, WHITE);
   arduboy.drawFastVLine(SCREEN_W - SURFACE_X + 1, 0, SCREEN_H, WHITE);
 
-  level.draw_interface();
+  level.drawInterface();
 
   arduboy.setCursor(WIDTH - 11, 0);
   arduboy.println(arduboy.cpuLoad());
