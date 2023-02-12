@@ -86,6 +86,12 @@ void Ball::collide_hor() {
           level.states.set(&entityEnd, 1);
         }
       }
+    } else if (area[i]->type == ENTITY_END) {
+      if (level.states.get(area[i])) {
+        // Todo
+      } else {
+        _collide_block_hor(rect_ball, rect_entity);
+      }
     }
   }
 };

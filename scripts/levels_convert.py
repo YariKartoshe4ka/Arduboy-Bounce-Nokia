@@ -5,11 +5,14 @@ byte_map = {
     0x00: 0x00,  # Empty
     0x01: 0x01,  # Block
     0x20: 0x02,  # Ramp left
-    0x0d: 0x10,  # Ring vertical
-    0x0e: 0x00,  # Ring vertical (down part)
-    0x0f: 0x11,  # Ring horizontal
-    0x10: 0x00,  # Ring horizontal (right part)
-    0x09: 0xa0,  # End
+    0x0d: 0x10,  # Ring vertical (up part)
+    0x0e: 0x11,  # Ring vertical (down part)
+    0x0f: 0x12,  # Ring horizontal (left part)
+    0x10: 0x13,  # Ring horizontal (right part)
+    0xe0: 0xe0,  # End (left-up part)
+    0xe1: 0xe1,  # End (right-up part)
+    0xe2: 0xe2,  # End (down-left part)
+    0xe3: 0xe3,  # End (down-right part)
 }
 
 
@@ -27,7 +30,7 @@ class Meta:
 def convert(objects):
     """Convert level objects"""
 
-    objects = objects.replace(b'\x09\x09', b'\x09\x00', 1).replace(b'\x09\x09', b'\x00\x00')
+    objects = objects.replace(b'\x09\x09', b'\xe0\xe1', 1).replace(b'\x09\x09', b'\xe2\xe3', 1)
     return bytes(byte_map.get(i, 0) for i in objects)
 
 
