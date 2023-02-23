@@ -70,6 +70,14 @@ void Level::loadEntity(uint8_t toi, uint8_t toj, uint16_t fromi, uint16_t fromj)
       entities[toi][toj] = Ramp(fromj * 8, fromi * 8);
       break;
     }
+    case 0x03: {
+      entities[toi][toj] = Spike(fromj * 8 + 2, fromi * 8);
+      break;
+    }
+    case 0x07: {
+      entities[toi][toj] = Crys(fromj * 8, fromi * 8);
+      break;
+    }
     case 0x10: {
       entities[toi][toj] = RingVer(fromj * 8 + 2, fromi * 8);
       break;
@@ -225,7 +233,7 @@ void Level::drawInterface() {
 
   // Draw ball info
   arduboy.setCursor(1, 11);
-  arduboy.print(3);
+  arduboy.print(ball.lives);
   arduboy.print(F("x"));
   sprites.drawOverwrite(13, 10, IMAGE_BALL_INFO, 0);
 };

@@ -13,11 +13,12 @@ extern Sprites sprites;
 
 Ball ball;
 
-Ball::Ball(int16_t x, int16_t y) {
+Ball::Ball(int16_t x, int16_t y, uint8_t lives = 3) {
   image = IMAGE_BALL;
   velx = vely = acx = 0;
-  this->x = x;
-  this->y = y;
+  this->lives = lives;
+  this->x = cx = x;
+  this->y = cy = y;
 };
 
 void Ball::checkEvents() {
@@ -86,6 +87,12 @@ void Ball::collideHor() {
           level.states.set(&entityEnd, 1);
         }
       }
+    } else if (area[i]->type == ENTITY_CRYS && !level.states.get(area[i])) {
+      level.states.set(area[i], 1);
+      cx = area[i]->x;
+      cy = area[i]->y;
+    } else if (area[i]->type == ENTITY_SPIKE) {
+      ball = Ball(cx, cy, lives - 1);
     } else if (area[i]->type == ENTITY_END) {
       if (level.states.get(area[i])) {
         // Todo
