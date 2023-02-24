@@ -46,6 +46,7 @@ Level::Level(uint8_t levelNo) {
   shiftY = -SURFACE_B_H;
 
   rlei = 0xffff;
+  score = 0;
 
   endX = (*this)[3];
   endY = (*this)[4];

@@ -14,9 +14,7 @@ extern Arduboy2Ex arduboy;
 void sceneInitGame() {
   if (prevScene == Scene::BOUNCE) return;
 
-  menuBounce = MenuOptions(
-    sizeof(PAUSE_TEXT) / sizeof(PAUSE_TEXT[0]), (char **)&PAUSE_TEXT, (uint8_t *)&PAUSE_SCENES
-  );
+  menuBounce = MenuOptions(PAUSE_TEXT_SIZE, (char **)&PAUSE_TEXT, (uint8_t *)&PAUSE_SCENES);
 
   level = Level(menuNewGame.choice - 1);
   ball = Ball(level[0] * 8, level[1] * 8);

@@ -16,6 +16,8 @@ const char TEXT_LEVEL_5[] PROGMEM = "Level 5";
 const char TEXT_LEVEL_6[] PROGMEM = "Level 6";
 const char TEXT_LEVEL_7[] PROGMEM = "Level 7";
 
+const char TEXT_GAME_OVER[] PROGMEM = "Game over";
+
 const char _TEXT_INSTRUCTIONS_LONG_0[] PROGMEM = "Guide the ball past m-";
 const char _TEXT_INSTRUCTIONS_LONG_1[] PROGMEM = "any obstacles to pass";
 const char _TEXT_INSTRUCTIONS_LONG_2[] PROGMEM = "through all the hoops";

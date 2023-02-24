@@ -10,10 +10,10 @@ class MenuBase {
   uint8_t *scenes;
 
   bool justPressedOnce(uint8_t button);
-  int8_t centerFString(const char *str);
+  int8_t centerFString(char *str);
 
   void checkEvents();
-  void drawTitle();
+  void drawTitle(char *title);
 
  public:
   MenuBase() = default;

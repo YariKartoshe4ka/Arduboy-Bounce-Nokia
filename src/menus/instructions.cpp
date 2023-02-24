@@ -55,7 +55,7 @@ void _MenuInstructions::sceneUpdate() {
   arduboy.clear();
 
   drawInstructions();
-  drawTitle();
+  drawTitle(pgm_read_word(text));
 
   arduboy.display();
 };

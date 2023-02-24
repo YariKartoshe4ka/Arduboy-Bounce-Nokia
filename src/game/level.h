@@ -45,6 +45,8 @@ class Level {
     shiftX,  // Blocks between left level side and surface
     shiftY;  // Blocks between top level sise and surface
 
+  uint32_t score;
+
   Level() = default;
   Level(uint8_t levelNo);
 
