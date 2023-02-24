@@ -51,4 +51,9 @@ void sceneUpdateGame() {
   arduboy.println(arduboy.cpuLoad());
 
   arduboy.display();
+
+  if (ball.state & BALL_STATE_POP) {
+    arduboy.delayShort(300);
+    ball.reset();
+  }
 };

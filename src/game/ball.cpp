@@ -21,6 +21,11 @@ Ball::Ball(int16_t x, int16_t y, uint8_t lives = 3) {
   this->y = cy = y;
 };
 
+void Ball::reset() {
+  state &= BALL_STATE_BIG;
+  ball = Ball(cx, cy, lives - 1);
+};
+
 void Ball::checkEvents() {
   uint8_t state = arduboy.buttonsState();
 
@@ -58,11 +63,9 @@ void Ball::_collideBlockHor(Rect &rectBall, Rect &rectBlock) {
 };
 
 void Ball::_processPop() {
-  if (lives) {
-    ball = Ball(cx, cy, lives - 1);
-  } else {
-    scene = Scene::GAME_OVER;
-  }
+  if (!lives) scene = Scene::GAME_OVER;
+  state |= BALL_STATE_POP;
+  image = IMAGE_BALL_POP;
 }
 
 void Ball::collideHor() {
@@ -147,6 +150,15 @@ void Ball::collideVer() {
           if (!velx && rectBall.x <= rectEntity.x) velx = -max(vely, 1.9) / 2;
           vely = 0;
         }
+      }
+    } else if (area[i]->type == ENTITY_SPIKE) {
+      _processPop();
+    } else if (area[i]->type == ENTITY_END) {
+      if (level.states.get(area[i])) {
+        // Todo
+      } else {
+        // Todo
+        // _collideBlockVer(rectBall, rectEntity);
       }
     }
   }

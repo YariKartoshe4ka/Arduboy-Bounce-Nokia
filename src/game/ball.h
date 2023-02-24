@@ -14,6 +14,8 @@ struct Ball {
   Ball() = default;
   Ball(int16_t x, int16_t y, uint8_t lives = 3);
 
+  void reset();
+
   void checkEvents();
 
   void moveHor();
