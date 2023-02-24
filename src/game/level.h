@@ -26,9 +26,8 @@ class Level {
  private:
   Entity entities[SURFACE_B_H][SURFACE_B_W];
 
-  uint8_t levelNo,  // Level number
-    width,          // Level width in blocks
-    height;         // Level height in blocks
+  uint8_t width,  // Level width in blocks
+    height;       // Level height in blocks
 
   int8_t horBound = 0;  // Free bound, if level moves left
 
@@ -37,6 +36,8 @@ class Level {
 
  public:
   States states;
+
+  uint8_t levelNo;  // Level number
 
   /* Meta vars */
   uint8_t endX, endY, rings;
