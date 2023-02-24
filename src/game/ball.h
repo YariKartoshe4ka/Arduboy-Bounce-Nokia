@@ -27,6 +27,7 @@ struct Ball {
   Rect rect();
 
   void _collideBlockHor(Rect &rectBall, Rect &rectBlock);
+  void _processPop();
 };
 
 extern Ball ball;

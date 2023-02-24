@@ -30,8 +30,12 @@ void _MenuGameOver::drawScore() {
 };
 
 void _MenuGameOver::sceneInit() {
+  arduboy.clear();
+
   drawTitle(pgm_read_word(text));
   drawScore();
+
+  arduboy.display();
 };
 
 void _MenuGameOver::sceneUpdate() {

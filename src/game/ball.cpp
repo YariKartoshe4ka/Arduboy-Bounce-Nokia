@@ -57,6 +57,14 @@ void Ball::_collideBlockHor(Rect &rectBall, Rect &rectBlock) {
   }
 };
 
+void Ball::_processPop() {
+  if (lives) {
+    ball = Ball(cx, cy, lives - 1);
+  } else {
+    scene = Scene::GAME_OVER;
+  }
+}
+
 void Ball::collideHor() {
   uint8_t collideAreaSize = level.buildCollideArea();
 
@@ -92,7 +100,7 @@ void Ball::collideHor() {
       cx = area[i]->x;
       cy = area[i]->y;
     } else if (area[i]->type == ENTITY_SPIKE) {
-      ball = Ball(cx, cy, lives - 1);
+      _processPop();
     } else if (area[i]->type == ENTITY_END) {
       if (level.states.get(area[i])) {
         // Todo
