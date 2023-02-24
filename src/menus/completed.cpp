@@ -36,6 +36,10 @@ void _MenuCompleted::sceneInit() {
   arduboy.display();
 };
 
+void _MenuCompleted::sceneUpdate() {
+  checkEvents();
+};
+
 _MenuCompleted menuCompleted((char **)&COMPLETED_TEXT, (uint8_t *)&COMPLETED_SCENES);
 
 void sceneInitCompleted() {

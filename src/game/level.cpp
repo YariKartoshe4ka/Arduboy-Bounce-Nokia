@@ -122,7 +122,7 @@ void Level::moveHor() {
 
   // Horizontal scrolling (right for ball)
   if (hor > 0) {
-    shiftX += min(0, SURFACE_B_W - hor);
+    shiftX -= min(0, SURFACE_B_W - hor);
     hor = min(hor, SURFACE_B_W);
   }
   for (; hor > 0; --hor) {

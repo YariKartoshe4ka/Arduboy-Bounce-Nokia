@@ -8,7 +8,7 @@ struct Ball {
 
   int16_t cx, cy;
 
-  uint8_t state;
+  uint8_t state = 0;
   const uint8_t *image;
 
   Ball() = default;

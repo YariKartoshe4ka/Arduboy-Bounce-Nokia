@@ -22,7 +22,6 @@ Ball::Ball(int16_t x, int16_t y, uint8_t lives) {
 };
 
 void Ball::reset() {
-  state &= BALL_STATE_BIG;
   ball = Ball(cx, cy, lives - 1);
 };
 
@@ -66,7 +65,7 @@ void Ball::_processPop() {
   if (!lives) scene = Scene::GAME_OVER;
   state |= BALL_STATE_POP;
   image = IMAGE_BALL_POP;
-}
+};
 
 void Ball::collideHor() {
   uint8_t collideAreaSize = level.buildCollideArea();
@@ -106,7 +105,7 @@ void Ball::collideHor() {
       _processPop();
     } else if (area[i]->type == ENTITY_END) {
       if (level.states.get(area[i])) {
-        // Todo
+        scene = Scene::COMPLETED;
       } else {
         _collideBlockHor(rectBall, rectEntity);
       }

@@ -3,6 +3,7 @@
 #include "constants.h"
 #include "game/scene.h"
 #include "menus/bounce.h"
+#include "menus/completed.h"
 #include "menus/game_over.h"
 #include "menus/instructions.h"
 #include "menus/new_game.h"
@@ -13,8 +14,9 @@ extern Scene scene;
 extern Scene prevScene;
 
 const funcptr scenesInit[] PROGMEM = {  //
-  sceneInitBounce, sceneInitNewGame, sceneInitInstructions, sceneInitGame, sceneInitGameOver};
+  sceneInitBounce, sceneInitNewGame,  sceneInitInstructions,
+  sceneInitGame,   sceneInitGameOver, sceneInitCompleted};
 
 const funcptr scenesUpdate[] PROGMEM = {  //
-  sceneUpdateBounce, sceneUpdateNewGame, sceneUpdateInstructions, sceneUpdateGame,
-  sceneUpdateGameOver};
+  sceneUpdateBounce, sceneUpdateNewGame,  sceneUpdateInstructions,
+  sceneUpdateGame,   sceneUpdateGameOver, sceneUpdateCompleted};
