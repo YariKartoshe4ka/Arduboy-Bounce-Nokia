@@ -79,6 +79,10 @@ void Level::loadEntity(uint8_t toi, uint8_t toj, uint16_t fromi, uint16_t fromj)
       entities[toi][toj] = Crys(fromj * 8, fromi * 8);
       break;
     }
+    case 0x08: {
+      entities[toi][toj] = CrysBall(fromj * 8, fromi * 8);
+      break;
+    }
     case 0x10: {
       entities[toi][toj] = RingVer(fromj * 8 + 2, fromi * 8);
       break;

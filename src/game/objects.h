@@ -7,6 +7,7 @@ enum EntityType : uint8_t {
   ENTITY_RAMP,
   ENTITY_BLOCK,
   ENTITY_CRYS,
+  ENTITY_CRYS_BALL,
   ENTITY_SPIKE,
   ENTITY_RING_VER,
   ENTITY_RING_HOR,
@@ -50,6 +51,13 @@ struct Crys : Entity {
   Crys(int16_t x, int16_t y) : Entity(x, y) {
     type = ENTITY_CRYS;
     image = IMAGE_CRYS;
+  }
+};
+
+struct CrysBall : Entity {
+  CrysBall(int16_t x, int16_t y) : Entity(x, y) {
+    type = ENTITY_CRYS_BALL;
+    image = IMAGE_CRYS_BALL;
   }
 };
 
