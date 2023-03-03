@@ -13,7 +13,7 @@ extern Sprites sprites;
 
 Ball ball;
 
-Ball::Ball(int16_t x, int16_t y, uint8_t lives = 3) {
+Ball::Ball(int16_t x, int16_t y, uint8_t lives) {
   image = IMAGE_BALL;
   velx = vely = acx = 0;
   this->lives = lives;
