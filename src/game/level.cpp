@@ -244,23 +244,5 @@ void Level::drawInterface() {
 };
 
 uint8_t Level::operator[](uint16_t i) {
-  if (i < 8) return pgm_read_byte(&LEVELS[levelNo][i]);
-  if (rlei > i) {
-    rle = (uint8_t *)LEVELS[levelNo] + 8;
-    rlei = 8;
-  }
-
-  while (rlei < i) {
-    if (pgm_read_byte(rle + 1) == 0xff) {
-      uint8_t cnt = pgm_read_byte(rle + 2);
-      if (rlei + cnt > i) break;
-      rle += 3;
-      rlei += cnt;
-    } else {
-      ++rle;
-      ++rlei;
-    }
-  }
-
-  return pgm_read_byte(rle);
+  return pgm_read_byte(&LEVELS[levelNo][i]);
 }

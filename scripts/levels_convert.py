@@ -37,37 +37,6 @@ def convert(objects):
     return bytes(byte_map.get(i, 0) for i in objects)
 
 
-def compress(objects):
-    """Copmress level objects"""
-
-    res = b''
-
-    prev_byte = b'\x00'
-    byte_cnt = 0
-
-    for byte in objects:
-        byte = bytes([byte])
-
-        if byte == prev_byte and byte_cnt < 255:
-            byte_cnt += 1
-        else:
-            if byte_cnt > 3:
-                res += prev_byte + b'\xff' + bytes([byte_cnt])
-            else:
-                res += prev_byte * byte_cnt
-
-            byte_cnt = 1
-
-        prev_byte = byte
-
-    if byte_cnt > 3:
-        res += prev_byte + b'\xff' + bytes([byte_cnt])
-    else:
-        res += prev_byte * byte_cnt
-
-    return res
-
-
 def process(src, out):
     with open(src, 'rb') as file:
         data = file.read()
@@ -77,8 +46,8 @@ def process(src, out):
     objects = data[8:8 + meta.width * meta.height]
     spiders = data[8 + meta.width * meta.height:]  # noqa: F841
 
-    # Convert objects with our schema and compress
-    objects = compress(convert(objects))
+    # Convert objects with our schema
+    objects = convert(objects)
 
     # Combine all data in one byte stream
     data = bytes(meta) + objects
