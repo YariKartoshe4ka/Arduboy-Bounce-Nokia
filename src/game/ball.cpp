@@ -103,7 +103,7 @@ void Ball::collideHor() {
       cy = area[i]->y;
     } else if (area[i]->type == ENTITY_CRYS_BALL && !level.states.get(area[i])) {
       level.states.set(area[i], 1);
-      lives = max(5, lives + 1);
+      lives = min(5, lives + 1);
     } else if (area[i]->type == ENTITY_SPIKE) {
       _processPop();
     } else if (area[i]->type == ENTITY_END) {
