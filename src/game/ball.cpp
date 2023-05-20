@@ -13,16 +13,17 @@ extern Sprites sprites;
 
 Ball ball;
 
-Ball::Ball(int16_t x, int16_t y, uint8_t lives) {
+void Ball::init(int16_t x, int16_t y, uint8_t lives) {
   image = IMAGE_BALL;
   velx = vely = acx = 0;
   this->lives = lives;
   this->x = cx = x;
   this->y = cy = y;
+  state = 0;
 };
 
 void Ball::reset() {
-  ball = Ball(cx, cy, lives - 1);
+  init(cx, cy, lives - 1);
 };
 
 void Ball::checkEvents() {

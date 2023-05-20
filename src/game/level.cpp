@@ -15,7 +15,7 @@ extern Sprites sprites;
 Level level;
 Entity *area[COLLIDE_AREA_SIZE];
 
-States::States() {
+void States::init() {
   size = 0;
 };
 
@@ -37,22 +37,22 @@ void States::set(Entity *entity, uint8_t state) {
   table[size++] = {key, state};
 }
 
-Level::Level(uint8_t levelNo) {
+void Level::init(uint8_t levelNo) {
   this->levelNo = levelNo;
+  horBound = 0;
 
-  states = States();
+  states.init();
 
   shiftX = 0;
   shiftY = -SURFACE_B_H;
-
-  rlei = 0xffff;
-  score = 0;
 
   endX = (*this)[3];
   endY = (*this)[4];
   rings = (*this)[5];
   width = (*this)[6];
   height = (*this)[7];
+
+  score = 0;
 };
 
 void Level::loadEntity(uint8_t toi, uint8_t toj, uint16_t fromi, uint16_t fromj) {

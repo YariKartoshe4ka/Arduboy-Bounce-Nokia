@@ -16,9 +16,8 @@ void sceneInitGame() {
 
   menuBounce = MenuOptions(PAUSE_TEXT_SIZE, (char **)&PAUSE_TEXT, (uint8_t *)&PAUSE_SCENES);
 
-  /* Strange bug if split ternary to if-else */
-  level = Level(prevScene == Scene::NEW_GAME ? menuNewGame.choice - 1 : level.levelNo + 1);
-  ball = Ball(level[0] * 8, level[1] * 8, prevScene == Scene::NEW_GAME ? 3 : ball.lives);
+  level.init(prevScene == Scene::NEW_GAME ? menuNewGame.choice - 1 : level.levelNo + 1);
+  ball.init(level[0] * 8, level[1] * 8, prevScene == Scene::NEW_GAME ? 3 : ball.lives);
 
   level.moveVer();
 };

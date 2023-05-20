@@ -8,11 +8,11 @@ struct Ball {
 
   int16_t cx, cy;
 
-  uint8_t state = 0;
+  uint8_t state;
   const uint8_t *image;
 
   Ball() = default;
-  Ball(int16_t x, int16_t y, uint8_t lives = 3);
+  void init(int16_t x, int16_t y, uint8_t lives);
 
   void reset();
 

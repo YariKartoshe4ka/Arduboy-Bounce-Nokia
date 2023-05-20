@@ -16,23 +16,17 @@ class States {
   uint16_t getKey(Entity *entity);
 
  public:
-  States();
+  States() = default;
+  void init();
 
   uint8_t get(Entity *entity);
   void set(Entity *entity, uint8_t state);
 };
 
 class Level {
- private:
   Entity entities[SURFACE_B_H][SURFACE_B_W];
 
-  uint8_t width,  // Level width in blocks
-    height;       // Level height in blocks
-
-  int8_t horBound = 0;  // Free bound, if level moves left
-
-  uint8_t *rle;
-  uint16_t rlei;
+  int8_t horBound;  // Free bound, if level moves left
 
  public:
   States states;
@@ -40,7 +34,7 @@ class Level {
   uint8_t levelNo;  // Level number
 
   /* Meta vars */
-  uint8_t endX, endY, rings;
+  uint8_t endX, endY, rings, width, height;
 
   int16_t offsetX, offsetY,
     shiftX,  // Blocks between left level side and surface
@@ -49,7 +43,7 @@ class Level {
   uint32_t score;
 
   Level() = default;
-  Level(uint8_t levelNo);
+  void init(uint8_t levelNo);
 
   void loadEntity(uint8_t toi, uint8_t toj, uint16_t fromi, uint16_t fromj);
   void updateOffsets();
