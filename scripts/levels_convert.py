@@ -30,11 +30,25 @@ class Meta:
         return self.__meta
 
 
-def convert(objects):
+def convert_objects(objects):
     """Convert level objects"""
 
     objects = objects.replace(b'\x09\x09', b'\xe0\xe1', 1).replace(b'\x09\x09', b'\xe2\xe3', 1)
     return bytes(byte_map.get(i, 0) for i in objects)
+
+
+def convert_spiders(spiders):
+    n, spiders = spiders[0], spiders[1:]
+    res = bytes([n])
+
+    for i in range(n):
+        chunk = spiders[i * 8:(i + 1) * 8]
+        l, t, r, b, h, v, th, tv = chunk
+        dx, dy = r - l - 2, b - t - 2
+
+        res += bytes([l, t, dx, dy, th, tv])
+
+    return res
 
 
 def process(src, out):
@@ -44,13 +58,16 @@ def process(src, out):
     # Parse level byte stream to parts
     meta = Meta(data[:8])
     objects = data[8:8 + meta.width * meta.height]
-    spiders = data[8 + meta.width * meta.height:]  # noqa: F841
+    spiders = data[8 + meta.width * meta.height:]
 
     # Convert objects with our schema
-    objects = convert(objects)
+    objects = convert_objects(objects)
+
+    # Convert spiders with our schema
+    spiders = convert_spiders(spiders)
 
     # Combine all data in one byte stream
-    data = bytes(meta) + objects
+    data = bytes(meta) + objects + spiders
 
     # Write data in hex format to file
     out.write(f'const uint8_t LEVEL_{src.stem}[] PROGMEM = {{  //\n')

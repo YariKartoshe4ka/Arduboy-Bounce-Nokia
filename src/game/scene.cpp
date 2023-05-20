@@ -8,6 +8,7 @@
 #include "../scenes.h"
 #include "ball.h"
 #include "level.h"
+#include "spiders.h"
 
 extern Arduboy2Ex arduboy;
 
@@ -18,6 +19,8 @@ void sceneInitGame() {
 
   level.init(prevScene == Scene::NEW_GAME ? menuNewGame.choice - 1 : level.levelNo + 1);
   ball.init(level[0] * 8, level[1] * 8, prevScene == Scene::NEW_GAME ? 3 : ball.lives);
+
+  spiders.init(level);
 
   level.moveVer();
 };
@@ -36,6 +39,7 @@ void sceneUpdateGame() {
   ball.collideVer();
 
   level.updateOffsets();
+  spiders.draw();
   level.drawSurface();
   ball.draw();
 
