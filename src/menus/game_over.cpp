@@ -25,12 +25,12 @@ void _MenuGameOver::drawScore() {
           y = (SCREEN_H - TITLE_OFFSET_Y - CHAR_HEIGHT) / 2 + TITLE_OFFSET_Y;
 
   arduboy.setCursor(x, y);
-  arduboy.setTextColor(WHITE);
+  arduboy.setTextColor(BLACK);
   arduboy.print(score);
 };
 
 void _MenuGameOver::sceneInit() {
-  arduboy.clear();
+  arduboy.fillScreen();
 
   drawTitle(pgm_read_word(text));
   drawScore();

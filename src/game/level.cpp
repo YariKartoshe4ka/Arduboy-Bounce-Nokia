@@ -228,7 +228,7 @@ void Level::drawSurface() {
 };
 
 void Level::drawInterface() {
-  arduboy.setTextColor(WHITE);
+  arduboy.setTextColor(BLACK);
 
   // Draw rings info
   arduboy.setCursor(1, 2);

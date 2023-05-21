@@ -31,7 +31,7 @@ void _MenuInstructions::checkEvents() {
 };
 
 void _MenuInstructions::drawInstructions() {
-  arduboy.setTextColor(WHITE);
+  arduboy.setTextColor(BLACK);
 
   char **ptr = (char **)pgm_read_word(text + 1);
 
@@ -52,7 +52,7 @@ void _MenuInstructions::sceneUpdate() {
   if (prevOffsetY == offsetY) return;
   prevOffsetY = offsetY;
 
-  arduboy.clear();
+  arduboy.fillScreen();
 
   drawInstructions();
   drawTitle(pgm_read_word(text));

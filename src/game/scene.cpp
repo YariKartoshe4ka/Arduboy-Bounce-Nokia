@@ -26,7 +26,7 @@ void sceneInitGame() {
 };
 
 void sceneUpdateGame() {
-  arduboy.clear();
+  arduboy.fillScreen();
 
   ball.checkEvents();
 
@@ -44,11 +44,11 @@ void sceneUpdateGame() {
   ball.draw();
 
   // Clear outside surface
-  arduboy.fillRect(0, 0, SURFACE_X, SCREEN_H, BLACK);
-  arduboy.fillRect(SCREEN_W - SURFACE_X, 0, SURFACE_X, SCREEN_H, BLACK);
+  arduboy.fillRect(0, 0, SURFACE_X, SCREEN_H);
+  arduboy.fillRect(SCREEN_W - SURFACE_X, 0, SURFACE_X, SCREEN_H);
 
-  arduboy.drawFastVLine(SURFACE_X - 2, 0, SCREEN_H, WHITE);
-  arduboy.drawFastVLine(SCREEN_W - SURFACE_X + 1, 0, SCREEN_H, WHITE);
+  arduboy.drawFastVLine(SURFACE_X - 2, 0, SCREEN_H, BLACK);
+  arduboy.drawFastVLine(SCREEN_W - SURFACE_X + 1, 0, SCREEN_H, BLACK);
 
   level.drawInterface();
 

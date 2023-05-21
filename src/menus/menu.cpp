@@ -26,15 +26,15 @@ void MenuBase::checkEvents() {
 };
 
 void MenuBase::drawTitle(char *title) {
-  arduboy.setTextColor(WHITE);
+  arduboy.setTextColor(BLACK);
 
-  arduboy.fillRect(0, 0, SCREEN_W, CHAR_HEIGHT + LINE_SPACING * 3, BLACK);
+  arduboy.fillRect(0, 0, SCREEN_W, CHAR_HEIGHT + LINE_SPACING * 3);
 
   int8_t x = centerFString(title);
   arduboy.setCursor(x, 2);
 
   arduboy.print((FlashString)title);
-  arduboy.drawFastHLine(0, CHAR_HEIGHT + LINE_SPACING * 2, SCREEN_W);
+  arduboy.drawFastHLine(0, CHAR_HEIGHT + LINE_SPACING * 2, SCREEN_W, BLACK);
 };
 
 void MenuBase::sceneInit() {
@@ -64,14 +64,14 @@ void MenuOptions::drawOptions() {
   uint8_t page = (choice - 1) / 5;
 
   for (uint8_t i = page * 5 + 1; i < min(n, (page + 1) * 5 + 1); ++i) {
-    arduboy.setTextColor(WHITE);
+    arduboy.setTextColor(BLACK);
 
     int8_t x = centerFString(pgm_read_word(text + i)),
            y = TITLE_OFFSET_Y + (LINE_SPACING + CHAR_HEIGHT) * ((i - 1) % 5);
 
     if (i == choice) {
-      arduboy.setTextColor(BLACK);
-      arduboy.fillRect(0, y - LINE_SPACING / 2, SCREEN_W, CHAR_HEIGHT + LINE_SPACING);
+      arduboy.setTextColor(WHITE);
+      arduboy.fillRect(0, y - LINE_SPACING / 2, SCREEN_W, CHAR_HEIGHT + LINE_SPACING, BLACK);
     }
 
     arduboy.setCursor(x, y);
@@ -90,7 +90,7 @@ void MenuOptions::sceneUpdate() {
   if (prevChoice == choice) return;
   prevChoice = choice;
 
-  arduboy.clear();
+  arduboy.fillScreen();
 
   drawTitle(pgm_read_word(text));
   drawOptions();

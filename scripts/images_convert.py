@@ -28,7 +28,6 @@ def convert(src, out, write_size=True):
                     break
 
                 pixel = list(img.getpixel((x, y + p)))
-                pixel = [255 - i for i in pixel[:3]] + pixel[3:]
 
                 if sum(pixel) - pixel[3] not in (0xff * 3, 0x00):
                     print(f'Warning: pixel at ({x}, {y + p}) is coloured')
