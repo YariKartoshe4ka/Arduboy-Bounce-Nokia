@@ -25,12 +25,14 @@ int16_t Spider::getY(int16_t ticks) {
 
 void Spider::draw() {
   sprites.drawOverwrite(
-    level.offsetX + SURFACE_X + getX(arduboy.frameCount), level.offsetY + getY(arduboy.frameCount),
+    level.offsetX + SURFACE_X + getX(spiders.ticks), level.offsetY + getY(spiders.ticks),
     IMAGE_SPIDER, 0
   );
 };
 
 void Spiders::init(Level& level) {
+  ticks = 0;
+
   uint8_t m = level[8 + (uint16_t)level.width * level.height];
 
   for (n = 0; n < m; ++n) {
@@ -41,6 +43,8 @@ void Spiders::init(Level& level) {
 };
 
 void Spiders::draw() {
+  ++ticks;
+
   for (uint8_t i = 0; i < n; ++i)
     _spiders[i].draw();
 };

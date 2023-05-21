@@ -5,7 +5,7 @@
 #include "level.h"
 
 #define SPIDERS_AMOUNT 20
-#define SPIDER_SPEED 0.4
+#define SPIDER_SPEED 0.6
 
 struct Spider {
   int16_t x, y, dx, dy;
@@ -22,10 +22,13 @@ struct Spider {
 };
 
 class Spiders {
-  uint8_t n = 0;
+  uint8_t n;
+
   Spider _spiders[SPIDERS_AMOUNT];
 
  public:
+  uint16_t ticks;
+
   Spiders() = default;
   void init(Level& level);
 
