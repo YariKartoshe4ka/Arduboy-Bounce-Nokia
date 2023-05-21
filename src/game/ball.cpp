@@ -7,6 +7,7 @@
 #include "../scenes.h"
 #include "objects.h"
 #include "scene.h"
+#include "spiders.h"
 
 extern Arduboy2Ex arduboy;
 extern Sprites sprites;
@@ -163,6 +164,17 @@ void Ball::collideVer() {
         // Todo
         // _collideBlockVer(rectBall, rectEntity);
       }
+    }
+  }
+
+  // Collide spiders
+  Rect rectBall = rect();
+  for (Spider &spider : spiders) {
+    Rect rectSpider = Rect(spider.getX(), spider.getY(), 16, 16);
+
+    if (arduboy.collide(rectBall, rectSpider)) {
+      _processPop();
+      break;
     }
   }
 };

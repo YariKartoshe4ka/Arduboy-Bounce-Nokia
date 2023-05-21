@@ -11,27 +11,26 @@ extern Sprites sprites;
 
 Spiders spiders;
 
-int16_t Spider::getX(int16_t ticks) {
+int16_t Spider::getX() {
   if (!dx) return x;
   int16_t p = dx / SPIDER_SPEED;
-  return x + dx - SPIDER_SPEED * abs((ticks + tx) % (2 * p) - p);
+  return x + dx - SPIDER_SPEED * abs((spiders.ticks + tx) % (2 * p) - p);
 };
 
-int16_t Spider::getY(int16_t ticks) {
+int16_t Spider::getY() {
   if (!dy) return y;
   int16_t p = dy / SPIDER_SPEED;
-  return y + dy - SPIDER_SPEED * abs((ticks + ty) % (2 * p) - p);
+  return y + dy - SPIDER_SPEED * abs((spiders.ticks + ty) % (2 * p) - p);
 };
 
 void Spider::draw() {
   sprites.drawOverwrite(
-    level.offsetX + SURFACE_X + getX(spiders.ticks), level.offsetY + getY(spiders.ticks),
-    IMAGE_SPIDER, 0
+    level.offsetX + SURFACE_X + getX(), level.offsetY + getY(), IMAGE_SPIDER, 0
   );
 };
 
 void Spiders::init(Level& level) {
-  ticks = 0;
+  ticks = max(ticks + 1, 0);
 
   uint8_t m = level[8 + (uint16_t)level.width * level.height];
 
@@ -47,4 +46,12 @@ void Spiders::draw() {
 
   for (uint8_t i = 0; i < n; ++i)
     _spiders[i].draw();
+};
+
+Spider* Spiders::begin() {
+  return _spiders;
+};
+
+Spider* Spiders::end() {
+  return _spiders + n;
 };
