@@ -241,6 +241,18 @@ void Level::drawInterface() {
   arduboy.print(ball.lives);
   arduboy.print(F("x"));
   sprites.drawOverwrite(13, 10, IMAGE_BALL_INFO, 0);
+
+  // Draw score
+  uint32_t d = 1;
+
+  for (uint8_t i = 0; i < 8; ++i)
+    d *= 10;
+
+  for (uint8_t i = 0; i < 9; ++i, d /= 10) {
+    sprites.drawOverwrite(
+      SCREEN_W - SURFACE_X + 9, 5 + i * 6, IMAGE_ROTATED_DIGITS, score / d % 10
+    );
+  }
 };
 
 uint8_t Level::operator[](uint16_t i) {
