@@ -94,6 +94,8 @@ void Ball::collideHor() {
       if (!level.states.get(area[i])) {
         level.states.set(area[i], 1);
         --level.rings;
+        level.score += SCORE_RING;
+
         if (!level.rings) {
           Entity entityEnd = Entity(level.endX * 8l, level.endY * 8l);
           level.states.set(&entityEnd, 1);
@@ -103,14 +105,18 @@ void Ball::collideHor() {
       level.states.set(area[i], 1);
       cx = area[i]->x;
       cy = area[i]->y;
+      level.score += SCORE_CRYS;
     } else if (area[i]->type == ENTITY_CRYS_BALL && !level.states.get(area[i])) {
       level.states.set(area[i], 1);
       lives = min(5, lives + 1);
+      level.score += SCORE_CRYS_BALL;
     } else if (area[i]->type == ENTITY_SPIKE) {
       _processPop();
     } else if (area[i]->type == ENTITY_END) {
       if (level.states.get(area[i])) {
         scene = Scene::COMPLETED;
+        level.score += SCORE_LEVEL_COMPLETED;
+        break;
       } else {
         _collideBlockHor(rectBall, rectEntity);
       }
