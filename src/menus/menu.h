@@ -6,9 +6,6 @@ typedef const __FlashStringHelper *FlashString;
 
 class MenuBase {
  protected:
-  char **text;
-  uint8_t *scenes;
-
   bool justPressedOnce(uint8_t button);
   int8_t centerFString(char *str);
 
@@ -16,6 +13,9 @@ class MenuBase {
   void drawTitle(char *title);
 
  public:
+  char **text;
+  uint8_t *scenes;
+
   MenuBase() = default;
   MenuBase(char **text, uint8_t *scenes) : text(text), scenes(scenes){};
 
@@ -36,6 +36,20 @@ class MenuOptions : public MenuBase {
 
   MenuOptions() = default;
   MenuOptions(uint8_t n, char **text, uint8_t *scenes) : MenuBase(text, scenes), n(n){};
+
+  void sceneInit();
+  void sceneUpdate();
+};
+
+class MenuScore : public MenuBase {
+  uint32_t *score;
+
+  void checkEvents();
+  void drawScore();
+
+ public:
+  MenuScore() = default;
+  MenuScore(char **text, uint8_t *scenes, uint32_t *score) : MenuBase(text, scenes), score(score){};
 
   void sceneInit();
   void sceneUpdate();

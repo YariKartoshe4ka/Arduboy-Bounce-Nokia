@@ -7,6 +7,7 @@
 
 extern Arduboy2Ex arduboy;
 
+/* ====== MenuBase ====== */
 bool MenuBase::justPressedOnce(uint8_t button) {
   bool pressed = arduboy.justPressed(button);
   if (pressed) arduboy.previousButtonState |= button;
@@ -44,6 +45,7 @@ void MenuBase::sceneUpdate() {
   checkEvents();
 };
 
+/* ====== MenuOptions ====== */
 void MenuOptions::checkEvents() {
   MenuBase::checkEvents();
 
@@ -96,4 +98,37 @@ void MenuOptions::sceneUpdate() {
   drawOptions();
 
   arduboy.display();
+};
+
+/* ====== MenuScore ====== */
+void MenuScore::checkEvents() {
+  MenuBase::checkEvents();
+  if (justPressedOnce(A_BUTTON)) scene = (Scene)pgm_read_byte(scenes);
+};
+
+void MenuScore::drawScore() {
+  char scoreString[9];
+
+  ultoa(*score, scoreString, 10);
+  uint8_t length = strlen(scoreString), width = CHAR_WIDTH * length + CHAR_SPACING * (length - 1);
+
+  uint8_t x = (SCREEN_W - width) / 2,
+          y = (SCREEN_H - TITLE_OFFSET_Y - CHAR_HEIGHT) / 2 + TITLE_OFFSET_Y;
+
+  arduboy.setCursor(x, y);
+  arduboy.setTextColor(BLACK);
+  arduboy.print(scoreString);
+};
+
+void MenuScore::sceneInit() {
+  arduboy.fillScreen();
+
+  drawTitle(pgm_read_word(text));
+  drawScore();
+
+  arduboy.display();
+};
+
+void MenuScore::sceneUpdate() {
+  checkEvents();
 };
