@@ -1,6 +1,7 @@
 #include "level.h"
 
 #include <Arduboy2Ex.h>
+#include <EEPROM.h>
 
 #include "../assets/images.h"
 #include "../assets/levels.h"
@@ -14,6 +15,8 @@ extern Sprites sprites;
 
 Level level;
 Entity *area[COLLIDE_AREA_SIZE];
+
+uint32_t highScore;
 
 void States::init() {
   size = 0;

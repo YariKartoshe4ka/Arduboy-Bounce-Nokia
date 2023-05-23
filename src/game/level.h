@@ -59,3 +59,4 @@ class Level {
 
 extern Level level;
 extern Entity *area[COLLIDE_AREA_SIZE];
+extern uint32_t highScore;

@@ -18,7 +18,16 @@
 #define SCREEN_H 64
 
 /* scenes.h */
-enum class Scene : uint8_t { BOUNCE, NEW_GAME, INSTRUCTIONS, GAME, GAME_OVER, COMPLETED, DUMMY };
+enum class Scene : uint8_t {
+  BOUNCE,
+  NEW_GAME,
+  HIGH_SCORE,
+  INSTRUCTIONS,
+  GAME,
+  GAME_OVER,
+  COMPLETED,
+  DUMMY
+};
 
 /* game */
 
@@ -48,3 +57,7 @@ enum class Scene : uint8_t { BOUNCE, NEW_GAME, INSTRUCTIONS, GAME, GAME_OVER, CO
 #define SCORE_CRYS 20
 #define SCORE_CRYS_BALL 100
 #define SCORE_LEVEL_COMPLETED 500
+
+/* EEPROM */
+#define EEPROM_BASE (EEPROM_STORAGE_SPACE_START + 0x10)
+#define EEPROM_HIGH_SCORE (EEPROM_BASE)
