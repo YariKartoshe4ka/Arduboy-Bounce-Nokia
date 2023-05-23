@@ -1,7 +1,7 @@
 #include <Arduboy2Ex.h>
-#include <EEPROM.h>
 
 #include "src/scenes.h"
+#include "src/storage.h"
 
 Arduboy2Ex arduboy;
 Sprites sprites;
@@ -13,9 +13,7 @@ void setup() {
 
   arduboy.begin();
   arduboy.setFrameRate(FPS);
-
-  uint32_t x = 0;
-  EEPROM.put(EEPROM_HIGH_SCORE, x);
+  storageInit();
 }
 
 void loop() {

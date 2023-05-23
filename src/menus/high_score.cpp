@@ -4,12 +4,14 @@
 
 #include "../constants.h"
 #include "../game/level.h"
+#include "../storage.h"
 #include "menu.h"
 
-MenuScore menuHighScore((char **)&HIGH_SCORE_TEXT, (uint8_t *)&HIGH_SCORE_SCENES, &highScore);
+MenuScore menuHighScore(
+  (char **)&HIGH_SCORE_TEXT, (uint8_t *)&HIGH_SCORE_SCENES, &storage_highScore
+);
 
 void sceneInitHighScore() {
-  EEPROM.get(EEPROM_HIGH_SCORE, highScore);
   menuHighScore.sceneInit();
 };
 
