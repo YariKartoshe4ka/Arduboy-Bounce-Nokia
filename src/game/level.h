@@ -43,7 +43,7 @@ class Level {
   uint32_t score;
 
   Level() = default;
-  void init(uint8_t levelNo);
+  void init(uint8_t levelNo, uint32_t score);
 
   void loadEntity(uint8_t toi, uint8_t toj, uint16_t fromi, uint16_t fromj);
   void updateOffsets();

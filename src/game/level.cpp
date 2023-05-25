@@ -38,8 +38,10 @@ void States::set(Entity *entity, uint8_t state) {
   table[size++] = {key, state};
 }
 
-void Level::init(uint8_t levelNo) {
+void Level::init(uint8_t levelNo, uint32_t score) {
   this->levelNo = levelNo;
+  this->score = score;
+
   horBound = 0;
 
   states.init();

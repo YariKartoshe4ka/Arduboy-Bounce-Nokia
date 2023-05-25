@@ -17,7 +17,9 @@ void sceneInitGame() {
 
   menuBounce = MenuOptions(PAUSE_TEXT_SIZE, (char **)&PAUSE_TEXT, (uint8_t *)&PAUSE_SCENES);
 
-  level.init(prevScene == Scene::NEW_GAME ? menuNewGame.choice - 1 : level.levelNo + 1);
+  if (prevScene == Scene::NEW_GAME) level.init(menuNewGame.choice - 1, 0);
+  else level.init(level.levelNo + 1, level.score);
+
   ball.init(level[0] * 8, level[1] * 8, prevScene == Scene::NEW_GAME ? 3 : ball.lives);
 
   spiders.init(level);
