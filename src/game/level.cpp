@@ -71,10 +71,18 @@ void Level::loadEntity(uint8_t toi, uint8_t toj, uint16_t fromi, uint16_t fromj)
       break;
     }
     case 0x02: {
-      entities[toi][toj] = Ramp(fromj * 8, fromi * 8);
+      entities[toi][toj] = RampTL(fromj * 8, fromi * 8);
       break;
     }
     case 0x03: {
+      entities[toi][toj] = RampTR(fromj * 8, fromi * 8);
+      break;
+    }
+    case 0x04:
+      break;  // RampBL
+    case 0x05:
+      break;  // RampBR
+    case 0x20: {
       entities[toi][toj] = Spike(fromj * 8 + 2, fromi * 8);
       break;
     }

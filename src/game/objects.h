@@ -4,7 +4,8 @@
 
 enum EntityType : uint8_t {
   ENTITY_EMPTY,
-  ENTITY_RAMP,
+  ENTITY_RAMP_TL,
+  ENTITY_RAMP_TR,
   ENTITY_BLOCK,
   ENTITY_CRYS,
   ENTITY_CRYS_BALL,
@@ -68,10 +69,17 @@ struct Spike : Entity {
   }
 };
 
-struct Ramp : Entity {
-  Ramp(int16_t x, int16_t y) : Entity(x, y) {
-    type = ENTITY_RAMP;
-    image = IMAGE_RAMP;
+struct RampTL : Entity {
+  RampTL(int16_t x, int16_t y) : Entity(x, y) {
+    type = ENTITY_RAMP_TL;
+    image = IMAGE_RAMP_TL;
+  }
+};
+
+struct RampTR : Entity {
+  RampTR(int16_t x, int16_t y) : Entity(x, y) {
+    type = ENTITY_RAMP_TR;
+    image = IMAGE_RAMP_TR;
   }
 };
 

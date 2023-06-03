@@ -79,16 +79,17 @@ void Ball::collideHor() {
 
     if (area[i]->type == ENTITY_BLOCK) {
       _collideBlockHor(rectBall, rectEntity);
-    } else if (area[i]->type == ENTITY_RAMP) {
+    } else if (area[i]->type == ENTITY_RAMP_TL) {
       int8_t h = min(rectEntity.height, rectBall.x + rectBall.width - rectEntity.x);
-      if (rectBall.y + rectBall.height - rectEntity.y > rectEntity.height - h) {
-        if (velx < 0) {
-          x = rectEntity.x + rectEntity.width;
-          velx = -velx / 1.6;
-        } else if (velx > 0) {
-          y = rectEntity.y - h;
-          vely = 0;
-        }
+      if (rectBall.y + rectBall.height - rectEntity.y > rectEntity.height - h && velx > 0) {
+        y = rectEntity.y - h;
+        vely = 0;
+      }
+    } else if (area[i]->type == ENTITY_RAMP_TR) {
+      int8_t h = min(rectEntity.height, rectEntity.x + rectEntity.width - rectBall.x);
+      if (rectBall.y + rectBall.height - rectEntity.y > rectEntity.height - h && velx < 0) {
+        y = rectEntity.y - h;
+        vely = 0;
       }
     } else if (area[i]->type >= ENTITY_RING_VER && area[i]->type <= ENTITY_RING_HOR) {
       if (!level.states.get(area[i])) {
@@ -148,7 +149,7 @@ void Ball::collideVer() {
         y = rectEntity.y - rectBall.height;
         vely = -vely / 1.6;
       }
-    } else if (area[i]->type == ENTITY_RAMP) {
+    } else if (area[i]->type == ENTITY_RAMP_TL) {
       int8_t h = min(rectEntity.height, rectBall.x + rectBall.width - rectEntity.x);
       if (rectBall.y + rectBall.height - rectEntity.y > rectEntity.height - h) {
         if (vely < 0) {
@@ -158,6 +159,19 @@ void Ball::collideVer() {
           state &= ~BALL_STATE_JUMP;
           y = rectEntity.y - h;
           if (!velx && rectBall.x <= rectEntity.x) velx = -max(vely, 1.9) / 2;
+          vely = 0;
+        }
+      }
+    } else if (area[i]->type == ENTITY_RAMP_TR) {
+      int8_t h = min(rectEntity.height, rectEntity.x + rectEntity.width - rectBall.x);
+      if (rectBall.y + rectBall.height - rectEntity.y > rectEntity.height - h) {
+        if (vely < 0) {
+          y = rectEntity.y + rectEntity.height;
+          vely = 0;
+        } else if (vely > 0) {
+          state &= ~BALL_STATE_JUMP;
+          y = rectEntity.y - h;
+          if (!velx && rectBall.x >= rectEntity.x) velx = max(vely, 1.9) / 2;
           vely = 0;
         }
       }
