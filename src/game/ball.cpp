@@ -63,6 +63,17 @@ void Ball::_collideBlockHor(Rect &rectBall, Rect &rectBlock) {
   }
 };
 
+void Ball::_collideBlockVer(Rect &rectBall, Rect &rectBlock) {
+  if (vely < 0) {
+    y = rectBlock.y + rectBlock.height;
+    vely = 0;
+  } else if (vely > 0) {
+    state &= ~BALL_STATE_JUMP;
+    y = rectBlock.y - rectBall.height;
+    vely = -vely / 1.6;
+  }
+}
+
 void Ball::_processPop() {
   if (!lives) scene = Scene::GAME_OVER;
   state |= BALL_STATE_POP;
@@ -113,6 +124,10 @@ void Ball::collideHor() {
       level.score += SCORE_CRYS_BALL;
     } else if (area[i]->type == ENTITY_SPIKE) {
       _processPop();
+    } else if (area[i]->type == ENTITY_DEFLATOR) {
+      _collideBlockHor(rectBall, rectEntity);
+    } else if (area[i]->type == ENTITY_INFLATOR) {
+      _collideBlockHor(rectBall, rectEntity);
     } else if (area[i]->type == ENTITY_END) {
       if (level.states.get(area[i])) {
         scene = Scene::COMPLETED;
@@ -141,14 +156,7 @@ void Ball::collideVer() {
     if (!arduboy.collide(rectBall, rectEntity)) continue;
 
     if (area[i]->type == ENTITY_BLOCK) {
-      if (vely < 0) {
-        y = rectEntity.y + rectEntity.height;
-        vely = 0;
-      } else if (vely > 0) {
-        state &= ~BALL_STATE_JUMP;
-        y = rectEntity.y - rectBall.height;
-        vely = -vely / 1.6;
-      }
+      _collideBlockVer(rectBall, rectEntity);
     } else if (area[i]->type == ENTITY_RAMP_TL) {
       int8_t h = min(rectEntity.height, rectBall.x + rectBall.width - rectEntity.x);
       if (rectBall.y + rectBall.height - rectEntity.y > rectEntity.height - h) {
@@ -177,6 +185,10 @@ void Ball::collideVer() {
       }
     } else if (area[i]->type == ENTITY_SPIKE) {
       _processPop();
+    } else if (area[i]->type == ENTITY_DEFLATOR) {
+      _collideBlockVer(rectBall, rectEntity);
+    } else if (area[i]->type == ENTITY_INFLATOR) {
+      _collideBlockVer(rectBall, rectEntity);
     } else if (area[i]->type == ENTITY_END) {
       if (level.states.get(area[i])) {
         // Todo

@@ -29,6 +29,7 @@ struct Ball {
   Rect rect();
 
   void _collideBlockHor(Rect &rectBall, Rect &rectBlock);
+  void _collideBlockVer(Rect &rectBall, Rect &rectBlock);
   void _processPop();
 };
 
