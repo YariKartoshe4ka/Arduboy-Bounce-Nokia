@@ -110,6 +110,22 @@ void Level::loadEntity(uint8_t toi, uint8_t toj, uint16_t fromi, uint16_t fromj)
       entities[toi][toj] = RingHor(fromj * 8 - 8, fromi * 8);
       break;
     }
+    case 0x14: {
+      entities[toi][toj] = BigRingVer(fromj * 8 + 2, fromi * 8);
+      break;
+    }
+    case 0x15: {
+      entities[toi][toj] = BigRingVer(fromj * 8 + 2, fromi * 8 - 8);
+      break;
+    }
+    case 0x16: {
+      entities[toi][toj] = BigRingHor(fromj * 8, fromi * 8);
+      break;
+    }
+    case 0x17: {
+      entities[toi][toj] = BigRingHor(fromj * 8 - 8, fromi * 8);
+      break;
+    }
     case 0xe0: {
       entities[toi][toj] = End(fromj * 8, fromi * 8);
       break;

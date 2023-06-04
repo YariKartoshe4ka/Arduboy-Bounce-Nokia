@@ -12,6 +12,8 @@ enum EntityType : uint8_t {
   ENTITY_SPIKE,
   ENTITY_RING_VER,
   ENTITY_RING_HOR,
+  ENTITY_BIG_RING_VER,
+  ENTITY_BIG_RING_HOR,
   ENTITY_END
 };
 
@@ -45,6 +47,20 @@ struct RingHor : Entity {
   RingHor(int16_t x, int16_t y) : Entity(x, y) {
     type = ENTITY_RING_HOR;
     image = IMAGE_RING_HOR;
+  };
+};
+
+struct BigRingVer : Entity {
+  BigRingVer(int16_t x, int16_t y) : Entity(x, y) {
+    type = ENTITY_BIG_RING_VER;
+    image = IMAGE_BIG_RING_VER;
+  };
+};
+
+struct BigRingHor : Entity {
+  BigRingHor(int16_t x, int16_t y) : Entity(x, y) {
+    type = ENTITY_BIG_RING_HOR;
+    image = IMAGE_BIG_RING_HOR;
   };
 };
 

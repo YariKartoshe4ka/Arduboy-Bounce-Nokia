@@ -91,7 +91,7 @@ void Ball::collideHor() {
         y = rectEntity.y - h;
         vely = 0;
       }
-    } else if (area[i]->type >= ENTITY_RING_VER && area[i]->type <= ENTITY_RING_HOR) {
+    } else if (area[i]->type >= ENTITY_RING_VER && area[i]->type <= ENTITY_BIG_RING_HOR) {
       if (!level.states.get(area[i])) {
         level.states.set(area[i], 1);
         --level.rings;
