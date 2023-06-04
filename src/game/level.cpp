@@ -126,6 +126,14 @@ void Level::loadEntity(uint8_t toi, uint8_t toj, uint16_t fromi, uint16_t fromj)
       entities[toi][toj] = BigRingHor(fromj * 8 - 8, fromi * 8);
       break;
     }
+    case 0x30: {
+      entities[toi][toj] = Deflator(fromj * 8, fromi * 8);
+      break;
+    }
+    case 0x31: {
+      entities[toi][toj] = Inflator(fromj * 8 + 3, fromi * 8);
+      break;
+    }
     case 0xe0: {
       entities[toi][toj] = End(fromj * 8, fromi * 8);
       break;

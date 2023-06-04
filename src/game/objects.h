@@ -14,6 +14,8 @@ enum EntityType : uint8_t {
   ENTITY_RING_HOR,
   ENTITY_BIG_RING_VER,
   ENTITY_BIG_RING_HOR,
+  ENTITY_DEFLATOR,
+  ENTITY_INFLATOR,
   ENTITY_END
 };
 
@@ -40,28 +42,28 @@ struct RingVer : Entity {
   RingVer(int16_t x, int16_t y) : Entity(x, y) {
     type = ENTITY_RING_VER;
     image = IMAGE_RING_VER;
-  };
+  }
 };
 
 struct RingHor : Entity {
   RingHor(int16_t x, int16_t y) : Entity(x, y) {
     type = ENTITY_RING_HOR;
     image = IMAGE_RING_HOR;
-  };
+  }
 };
 
 struct BigRingVer : Entity {
   BigRingVer(int16_t x, int16_t y) : Entity(x, y) {
     type = ENTITY_BIG_RING_VER;
     image = IMAGE_BIG_RING_VER;
-  };
+  }
 };
 
 struct BigRingHor : Entity {
   BigRingHor(int16_t x, int16_t y) : Entity(x, y) {
     type = ENTITY_BIG_RING_HOR;
     image = IMAGE_BIG_RING_HOR;
-  };
+  }
 };
 
 struct Crys : Entity {
@@ -82,6 +84,20 @@ struct Spike : Entity {
   Spike(int16_t x, int16_t y) : Entity(x, y) {
     type = ENTITY_SPIKE;
     image = IMAGE_SPIKE;
+  }
+};
+
+struct Deflator : Entity {
+  Deflator(int16_t x, int16_t y) : Entity(x, y) {
+    type = ENTITY_DEFLATOR;
+    image = IMAGE_DEFLATOR;
+  }
+};
+
+struct Inflator : Entity {
+  Inflator(int16_t x, int16_t y) : Entity(x, y) {
+    type = ENTITY_INFLATOR;
+    image = IMAGE_INFLATOR;
   }
 };
 

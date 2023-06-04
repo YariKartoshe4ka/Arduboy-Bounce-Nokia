@@ -9,6 +9,7 @@ byte_map = {
     0x07: 0x07,  # Crystall
     0x1d: 0x08,  # Crystall ball
     0x03: 0x20,  # Spike down
+
     0x0d: 0x10,  # Ring vertical (up part)
     0x0e: 0x11,  # Ring vertical (down part)
     0x0f: 0x12,  # Ring horizontal (left part)
@@ -17,6 +18,10 @@ byte_map = {
     0x16: 0x15,  # Big ring vertical (down part)
     0x17: 0x16,  # Big ring horizontal (left part)
     0x18: 0x17,  # Big ring horizontal (right part)
+
+    0x27: 0x30,  # Deflator
+    0x2b: 0x31,  # Inflator
+
     0xe0: 0xe0,  # End (left-up part)
     0xe1: 0xe1,  # End (right-up part)
     0xe2: 0xe2,  # End (down-left part)
