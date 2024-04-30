@@ -80,7 +80,7 @@ def process(src, out):
     data = bytes(meta) + objects + spiders
 
     # Write data in hex format to file
-    out.write(f'const uint8_t LEVEL_{src.stem}[] PROGMEM = {{  //\n')
+    out.write(f'const uint8_t LEVEL_{src.stem}[] = {{  //\n')
     out.write(', '.join(f'0x{i:02x}' for i in data))
     out.write('};\n')
 
@@ -88,21 +88,22 @@ def process(src, out):
 def main():
     levels = set()
 
-    with open(argv[1], 'w') as out:
-        out.write(
-            '#pragma once\n'
-            '\n'
-            '#include <Arduboy2Ex.h>\n'
-            '\n'
-        )
-
-        for src in map(Path, argv[2:]):
+    with open(argv[1], 'a') as out:
+        for src in map(Path, argv[3:]):
             print(f'Processing {src}')
             process(src, out)
             levels.add(int(src.stem))
             out.write('\n')
 
-        out.write('const uint8_t* const LEVELS[] = { //\n')
+    with open(argv[2], 'w') as out:
+        out.write(
+            '#pragma once\n'
+            '\n'
+            '#include <Arduboy2Ex.h>\n'
+            '#include "fxdata.h"\n'
+            '\n'
+        )
+        out.write('const uint24_t LEVELS[] = { //\n')
         out.write(', '.join(f'LEVEL_{i}' for i in levels))
         out.write('};\n')
 

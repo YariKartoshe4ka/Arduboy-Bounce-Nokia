@@ -21,7 +21,14 @@ build: build-assets compile
 
 build-assets:
 	python scripts/images_convert.py src/assets/images.h assets/images/*
-	python scripts/levels_convert.py src/assets/levels.h assets/levels/*.bin
+
+	mkdir -p assets/fxdata
+	rm -f assets/fxdata/fxdata.txt
+
+	python scripts/levels_convert.py assets/fxdata/fxdata.txt src/assets/levels.h assets/levels/*.bin
+	python scripts/fxdata-build.py assets/fxdata/fxdata.txt
+
+	cp assets/fxdata/fxdata.h src/assets
 
 compile:
 	docker start -a bounce-builder > bounce-builder-logs.txt

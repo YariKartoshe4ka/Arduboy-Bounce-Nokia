@@ -4,6 +4,8 @@
 /build
 /src/assets/images.h
 /src/assets/levels.h
+/src/assets/fxdata.h
+/assets/fxdata
 
 # Other files
 /other

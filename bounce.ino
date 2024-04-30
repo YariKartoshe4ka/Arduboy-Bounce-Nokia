@@ -1,5 +1,7 @@
 #include <Arduboy2Ex.h>
+#include <ArduboyFX.h>
 
+#include "src/assets/fxdata.h"
 #include "src/scenes.h"
 #include "src/storage.h"
 
@@ -14,6 +16,9 @@ void setup() {
   arduboy.begin();
   arduboy.setFrameRate(FPS);
   storageInit();
+
+  FX::begin(FX_DATA_PAGE);
+  FX::enableOLED();
 }
 
 void loop() {

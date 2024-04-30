@@ -1,6 +1,7 @@
 #include "level.h"
 
 #include <Arduboy2Ex.h>
+#include <ArduboyFX.h>
 #include <EEPROM.h>
 
 #include "../assets/images.h"
@@ -291,5 +292,11 @@ void Level::drawInterface() {
 };
 
 uint8_t Level::operator[](uint16_t i) {
-  return pgm_read_byte(&LEVELS[levelNo][i]);
+  uint8_t b;
+
+  FX::disableOLED();
+  FX::readDataBytes(LEVELS[levelNo] + i, &b, 1);
+  FX::enableOLED();
+
+  return b;
 }
