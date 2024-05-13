@@ -17,7 +17,7 @@ class MenuBase {
   uint8_t *scenes;
 
   MenuBase() = default;
-  MenuBase(char **text, uint8_t *scenes) : text(text), scenes(scenes){};
+  MenuBase(char **text, uint8_t *scenes) : text(text), scenes(scenes) {};
 
   void sceneInit();
   void sceneUpdate();
@@ -35,7 +35,7 @@ class MenuOptions : public MenuBase {
   uint8_t choice = 1;
 
   MenuOptions() = default;
-  MenuOptions(uint8_t n, char **text, uint8_t *scenes) : MenuBase(text, scenes), n(n){};
+  MenuOptions(uint8_t n, char **text, uint8_t *scenes) : MenuBase(text, scenes), n(n) {};
 
   void sceneInit();
   void sceneUpdate();
@@ -49,7 +49,8 @@ class MenuScore : public MenuBase {
 
  public:
   MenuScore() = default;
-  MenuScore(char **text, uint8_t *scenes, uint32_t *score) : MenuBase(text, scenes), score(score){};
+  MenuScore(char **text, uint8_t *scenes, uint32_t *score)
+      : MenuBase(text, scenes), score(score) {};
 
   void sceneInit();
   void sceneUpdate();

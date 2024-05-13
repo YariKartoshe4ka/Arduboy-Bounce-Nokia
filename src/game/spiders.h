@@ -13,7 +13,7 @@ struct Spider {
 
   Spider() = default;
   Spider(int16_t x, int16_t y, int16_t dx, int16_t dy, uint8_t tx, uint8_t ty)
-      : x(x * 8), y(y * 8), dx(dx * 8), dy(dy * 8), tx(tx), ty(ty){};
+      : x(x * 8), y(y * 8), dx(dx * 8), dy(dy * 8), tx(tx), ty(ty) {};
 
   int16_t getX();
   int16_t getY();
