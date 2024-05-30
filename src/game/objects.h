@@ -26,7 +26,7 @@ struct Entity {
   const uint8_t *image;
 
   Entity() = default;
-  Entity(int16_t x, int16_t y) : type(ENTITY_EMPTY), x(x), y(y){};
+  Entity(int16_t x, int16_t y) : type(ENTITY_EMPTY), x(x), y(y) {};
 
   Rect rect();
 };
