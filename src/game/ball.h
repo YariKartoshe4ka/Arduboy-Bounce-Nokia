@@ -2,6 +2,15 @@
 
 #include <Arduboy2.h>
 
+enum class BallRect : uint8_t { SMALL_RE_VER, SMALL_RE_HOR, SMALL_SQ, END_SEQ };
+
+const BallRect RECTS_SMALL_HOR[] PROGMEM = {
+  BallRect::SMALL_RE_HOR, BallRect::SMALL_SQ, BallRect::END_SEQ
+};
+const BallRect RECTS_SMALL_VER[] PROGMEM = {
+  BallRect::SMALL_RE_VER, BallRect::SMALL_SQ, BallRect::END_SEQ
+};
+
 struct Ball {
   float x, y, velx, vely, acx;
   uint8_t lives;
@@ -10,6 +19,8 @@ struct Ball {
 
   uint8_t state;
   const uint8_t *image;
+
+  BallRect *rectType;
 
   Ball() = default;
   void init(int16_t x, int16_t y, uint8_t lives);
@@ -27,6 +38,9 @@ struct Ball {
   void draw();
 
   Rect rect();
+
+  bool _rectIter(Rect &rectBall, const BallRect *seq);
+  void _adjustRect(Rect &rectBall);
 
   void _collideBlockHor(Rect &rectBall, Rect &rectBlock);
   void _collideBlockVer(Rect &rectBall, Rect &rectBlock);
