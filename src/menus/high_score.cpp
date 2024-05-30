@@ -1,6 +1,6 @@
 #include "high_score.h"
 
-#include <Arduboy2Ex.h>
+#include <Arduboy2.h>
 
 #include "../constants.h"
 #include "../game/level.h"

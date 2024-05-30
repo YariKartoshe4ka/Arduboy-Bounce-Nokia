@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Arduboy2Ex.h>
+#include <Arduboy2.h>
 
 void storageInit();
 void storageUpdateHighScore(uint32_t highScore);

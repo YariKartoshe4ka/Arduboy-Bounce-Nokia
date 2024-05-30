@@ -1,6 +1,6 @@
 #include "scene.h"
 
-#include <Arduboy2Ex.h>
+#include <Arduboy2.h>
 
 #include "../assets/levels.h"
 #include "../constants.h"
@@ -10,7 +10,7 @@
 #include "level.h"
 #include "spiders.h"
 
-extern Arduboy2Ex arduboy;
+extern Arduboy2 arduboy;
 
 void sceneInitGame() {
   if (prevScene == Scene::BOUNCE) return;

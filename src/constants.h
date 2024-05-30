@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Arduboy2Ex.h>
+#include <Arduboy2.h>
 
 /* Font constants */
 #define CHAR_WIDTH 5

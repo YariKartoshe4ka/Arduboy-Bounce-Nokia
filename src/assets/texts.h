@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Arduboy2Ex.h>
+#include <Arduboy2.h>
 
 const char TEXT_BOUNCE[] PROGMEM = "Bounce";
 const char TEXT_NEW_GAME[] PROGMEM = "New game";

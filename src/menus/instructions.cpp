@@ -1,11 +1,11 @@
 #include "instructions.h"
 
-#include <Arduboy2Ex.h>
+#include <Arduboy2.h>
 
 #include "../constants.h"
 #include "menu.h"
 
-extern Arduboy2Ex arduboy;
+extern Arduboy2 arduboy;
 
 #define LINE_HEIGHT (CHAR_HEIGHT + 1)
 #define SURFACE_LINES ((SCREEN_H - TITLE_OFFSET_Y) / LINE_HEIGHT + 2)

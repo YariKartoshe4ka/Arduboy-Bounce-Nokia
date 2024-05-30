@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Arduboy2Ex.h>
+#include <Arduboy2.h>
 
 typedef const __FlashStringHelper *FlashString;
 

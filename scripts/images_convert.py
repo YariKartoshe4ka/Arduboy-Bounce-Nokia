@@ -63,7 +63,7 @@ def main():
         out.write(
             '#pragma once\n'
             '\n'
-            '#include <Arduboy2Ex.h>\n'
+            '#include <Arduboy2.h>\n'
             '\n'
         )
 

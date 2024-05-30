@@ -1,6 +1,6 @@
 #include "ball.h"
 
-#include <Arduboy2Ex.h>
+#include <Arduboy2.h>
 
 #include "../assets/images.h"
 #include "../constants.h"
@@ -9,7 +9,7 @@
 #include "scene.h"
 #include "spiders.h"
 
-extern Arduboy2Ex arduboy;
+extern Arduboy2 arduboy;
 extern Sprites sprites;
 
 Ball ball;

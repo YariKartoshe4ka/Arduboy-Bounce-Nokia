@@ -1,6 +1,6 @@
 #include "storage.h"
 
-#include <Arduboy2Ex.h>
+#include <Arduboy2.h>
 #include <EEPROM.h>
 
 #include "constants.h"

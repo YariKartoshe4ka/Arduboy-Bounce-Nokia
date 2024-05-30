@@ -1,6 +1,6 @@
 #include "level.h"
 
-#include <Arduboy2Ex.h>
+#include <Arduboy2.h>
 #include <ArduboyFX.h>
 #include <EEPROM.h>
 
@@ -11,7 +11,7 @@
 #include "objects.h"
 #include "scene.h"
 
-extern Arduboy2Ex arduboy;
+extern Arduboy2 arduboy;
 extern Sprites sprites;
 
 Level level;

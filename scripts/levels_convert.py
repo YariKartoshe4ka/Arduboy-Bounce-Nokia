@@ -40,14 +40,12 @@ class Meta:
         return self.__meta
 
 
-def convert_objects(objects):
-    """Convert level objects"""
-
+def _convert_objects(objects):
     objects = objects.replace(b'\x09\x09', b'\xe0\xe1', 1).replace(b'\x09\x09', b'\xe2\xe3', 1)
     return bytes(byte_map.get(i, 0) for i in objects)
 
 
-def convert_spiders(spiders):
+def _convert_spiders(spiders):
     n, spiders = spiders[0], spiders[1:]
     res = bytes([n])
 
@@ -61,7 +59,7 @@ def convert_spiders(spiders):
     return res
 
 
-def process(src, out):
+def parse_level(src):
     with open(src, 'rb') as file:
         data = file.read()
 
@@ -70,42 +68,51 @@ def process(src, out):
     objects = data[8:8 + meta.width * meta.height]
     spiders = data[8 + meta.width * meta.height:]
 
-    # Convert objects with our schema
-    objects = convert_objects(objects)
+    # Convert objects and spiders with our schema
+    objects = _convert_objects(objects)
+    spiders = _convert_spiders(spiders)
 
-    # Convert spiders with our schema
-    spiders = convert_spiders(spiders)
-
-    # Combine all data in one byte stream
-    data = bytes(meta) + objects + spiders
-
-    # Write data in hex format to file
-    out.write(f'const uint8_t LEVEL_{src.stem}[] = {{  //\n')
-    out.write(', '.join(f'0x{i:02x}' for i in data))
-    out.write('};\n')
+    return bytes(meta) + objects + spiders
 
 
 def main():
-    levels = set()
+    levels = {}
 
-    with open(argv[1], 'a') as out:
-        for src in map(Path, argv[3:]):
-            print(f'Processing {src}')
-            process(src, out)
-            levels.add(int(src.stem))
-            out.write('\n')
+    fxdata_size = 0
+    fxdata_path = Path(argv[1])
 
-    with open(argv[2], 'w') as out:
-        out.write(
-            '#pragma once\n'
-            '\n'
-            '#include <Arduboy2Ex.h>\n'
-            '#include "fxdata.h"\n'
-            '\n'
+    for src in map(Path, argv[3:]):
+        print(f'Processing {src}')
+
+        level_no = int(src.stem)
+        levels[level_no] = parse_level(src)
+        fxdata_size += len(levels[level_no])
+
+    levels = dict(sorted(levels.items()))
+
+    with open(fxdata_path, 'wb') as fxdata:
+        for level in levels.values():
+            fxdata.write(level)
+
+    header_path = Path(argv[2])
+    with open(header_path, 'w') as header:
+        header.write(
+            '#pragma once\n\n'
+            '#include <Arduboy2.h>\n\n'
+            'using uint24_t = __uint24;\n\n\n'
+            f'const uint16_t FX_DATA_PAGE = {hex(0x10000 - (fxdata_size + 255) // 256)};\n\n'
         )
-        out.write('const uint24_t LEVELS[] = { //\n')
-        out.write(', '.join(f'LEVEL_{i}' for i in levels))
-        out.write('};\n')
+
+        header.write('const uint24_t LEVELS[] = { //\n')
+
+        offsets = []
+        cur_offset = 0
+        for _, level in levels.items():
+            offsets.append(hex(cur_offset))
+            cur_offset += len(level)
+
+        header.write(', '.join(offsets))
+        header.write('};\n')
 
 
 if __name__ == '__main__':

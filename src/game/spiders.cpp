@@ -1,12 +1,12 @@
 #include "spiders.h"
 
-#include <Arduboy2Ex.h>
+#include <Arduboy2.h>
 
 #include "../assets/images.h"
 #include "../constants.h"
 #include "level.h"
 
-extern Arduboy2Ex arduboy;
+extern Arduboy2 arduboy;
 extern Sprites sprites;
 
 Spiders spiders;

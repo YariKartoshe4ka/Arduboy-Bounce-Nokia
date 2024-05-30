@@ -1,11 +1,11 @@
-#include <Arduboy2Ex.h>
+#include <Arduboy2.h>
 #include <ArduboyFX.h>
 
-#include "src/assets/fxdata.h"
+#include "src/assets/levels.h"
 #include "src/scenes.h"
 #include "src/storage.h"
 
-Arduboy2Ex arduboy;
+Arduboy2 arduboy;
 Sprites sprites;
 
 void setup() {
