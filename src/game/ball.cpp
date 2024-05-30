@@ -93,13 +93,13 @@ void Ball::collideHor() {
     } else if (area[i]->type == ENTITY_RAMP_TL) {
       int8_t h = min(rectEntity.height, rectBall.x + rectBall.width - rectEntity.x);
       if (rectBall.y + rectBall.height - rectEntity.y > rectEntity.height - h && velx > 0) {
-        y = rectEntity.y - h;
+        y = rectEntity.y + rectEntity.height - rectBall.height - h;
         vely = 0;
       }
     } else if (area[i]->type == ENTITY_RAMP_TR) {
       int8_t h = min(rectEntity.height, rectEntity.x + rectEntity.width - rectBall.x);
       if (rectBall.y + rectBall.height - rectEntity.y > rectEntity.height - h && velx < 0) {
-        y = rectEntity.y - h;
+        y = rectEntity.y + rectEntity.height - rectBall.height - h;
         vely = 0;
       }
     } else if (area[i]->type >= ENTITY_RING_VER && area[i]->type <= ENTITY_BIG_RING_HOR) {
@@ -165,7 +165,7 @@ void Ball::collideVer() {
           vely = 0;
         } else if (vely > 0) {
           state &= ~BALL_STATE_JUMP;
-          y = rectEntity.y - h;
+          y = rectEntity.y + rectEntity.height - rectBall.height - h;
           if (!velx && rectBall.x <= rectEntity.x) velx = -max(vely, 1.9) / 2;
           vely = 0;
         }
@@ -178,7 +178,7 @@ void Ball::collideVer() {
           vely = 0;
         } else if (vely > 0) {
           state &= ~BALL_STATE_JUMP;
-          y = rectEntity.y - h;
+          y = rectEntity.y + rectEntity.height - rectBall.height - h;
           if (!velx && rectBall.x >= rectEntity.x) velx = max(vely, 1.9) / 2;
           vely = 0;
         }
