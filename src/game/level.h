@@ -45,7 +45,6 @@ class Level {
   Level() = default;
   void init(uint8_t levelNo, uint32_t score);
 
-  void loadEntity(uint8_t toi, uint8_t toj, uint16_t fromi, uint16_t fromj);
   void updateOffsets();
   uint8_t translateCol(uint8_t j);
   uint8_t buildCollideArea();

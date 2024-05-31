@@ -59,113 +59,6 @@ void Level::init(uint8_t levelNo, uint32_t score) {
   score = 0;
 };
 
-void Level::loadEntity(uint8_t toi, uint8_t toj, uint16_t fromi, uint16_t fromj) {
-  uint8_t entityByte = (*this)[fromi * width + fromj + 8];
-
-  switch (entityByte) {
-    case 0x00: {
-      entities[toi][toj] = Entity(0, 0);
-      break;
-    }
-    case 0x01: {
-      entities[toi][toj] = Block(fromj * 8, fromi * 8);
-      break;
-    }
-    case 0x02: {
-      entities[toi][toj] = RampTL(fromj * 8, fromi * 8);
-      break;
-    }
-    case 0x03: {
-      entities[toi][toj] = RampTR(fromj * 8, fromi * 8);
-      break;
-    }
-    case 0x04:
-      break;  // RampBL
-    case 0x05:
-      break;  // RampBR
-    case 0x20: {
-      entities[toi][toj] = SpikeDown(fromj * 8 + 2, fromi * 8);
-      break;
-    }
-    case 0x21: {
-      entities[toi][toj] = SpikeLeft(fromj * 8, fromi * 8);
-      break;
-    }
-    case 0x22: {
-      entities[toi][toj] = SpikeUp(fromj * 8 + 3, fromi * 8);
-      break;
-    }
-    case 0x23: {
-      entities[toi][toj] = SpikeRight(fromj * 8, fromi * 8);
-      break;
-    }
-    case 0x07: {
-      entities[toi][toj] = Crys(fromj * 8, fromi * 8);
-      break;
-    }
-    case 0x08: {
-      entities[toi][toj] = CrysBall(fromj * 8, fromi * 8);
-      break;
-    }
-    case 0x10: {
-      entities[toi][toj] = RingVer(fromj * 8 + 2, fromi * 8);
-      break;
-    }
-    case 0x11: {
-      entities[toi][toj] = RingVer(fromj * 8 + 2, fromi * 8 - 8);
-      break;
-    }
-    case 0x12: {
-      entities[toi][toj] = RingHor(fromj * 8, fromi * 8);
-      break;
-    }
-    case 0x13: {
-      entities[toi][toj] = RingHor(fromj * 8 - 8, fromi * 8);
-      break;
-    }
-    case 0x14: {
-      entities[toi][toj] = BigRingVer(fromj * 8 + 2, fromi * 8);
-      break;
-    }
-    case 0x15: {
-      entities[toi][toj] = BigRingVer(fromj * 8 + 2, fromi * 8 - 8);
-      break;
-    }
-    case 0x16: {
-      entities[toi][toj] = BigRingHor(fromj * 8, fromi * 8);
-      break;
-    }
-    case 0x17: {
-      entities[toi][toj] = BigRingHor(fromj * 8 - 8, fromi * 8);
-      break;
-    }
-    case 0x30: {
-      entities[toi][toj] = Deflator(fromj * 8, fromi * 8);
-      break;
-    }
-    case 0x31: {
-      entities[toi][toj] = Inflator(fromj * 8 + 3, fromi * 8);
-      break;
-    }
-    case 0xe0: {
-      entities[toi][toj] = End(fromj * 8, fromi * 8);
-      break;
-    }
-    case 0xe1: {
-      entities[toi][toj] = End(fromj * 8 - 8, fromi * 8);
-      break;
-    }
-    case 0xe2: {
-      entities[toi][toj] = End(fromj * 8, fromi * 8 - 8);
-      break;
-    }
-    case 0xe3: {
-      entities[toi][toj] = End(fromj * 8 - 8, fromi * 8 - 8);
-      break;
-    }
-  }
-};
-
 void Level::moveHor() {
   updateOffsets();
 
@@ -181,7 +74,7 @@ void Level::moveHor() {
     ++shiftX;
 
     for (uint8_t i = 0; i < SURFACE_B_H; ++i)
-      loadEntity(i, horBound, shiftY + i, shiftX + SURFACE_B_W - 1);
+      loadEntity(entities[i][horBound], shiftX + SURFACE_B_W - 1, shiftY + i);
 
     ++horBound;
     if (horBound == SURFACE_B_W) horBound = 0;
@@ -199,7 +92,7 @@ void Level::moveHor() {
     if (horBound == -1) horBound += SURFACE_B_W;
 
     for (uint8_t i = 0; i < SURFACE_B_H; ++i)
-      loadEntity(i, horBound, shiftY + i, shiftX);
+      loadEntity(entities[i][horBound], shiftX, shiftY + i);
   }
 };
 
@@ -225,7 +118,7 @@ void Level::moveVer() {
 
   for (uint8_t i = 0; i < SURFACE_B_H; ++i)
     for (uint8_t j = 0; j < SURFACE_B_W; ++j)
-      loadEntity(i, j, shiftY + i, shiftX + j);
+      loadEntity(entities[i][j], shiftX + j, shiftY + i);
 
   horBound = 0;
 };
