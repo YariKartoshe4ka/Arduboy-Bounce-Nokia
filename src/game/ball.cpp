@@ -182,9 +182,9 @@ void Ball::collideHor() {
         level.score += SCORE_CRYS_BALL;
       } else if (area[i]->type >= ENTITY_SPIKE_DOWN && area[i]->type <= ENTITY_SPIKE_RIGHT) {
         _processPop();
-      } else if (area[i]->type == ENTITY_DEFLATOR) {
+      } else if (area[i]->type >= ENTITY_DEFLATOR_DOWN && area[i]->type <= ENTITY_DEFLATOR_RIGHT) {
         _collideBlockHor(rectBall, rectEntity);
-      } else if (area[i]->type == ENTITY_INFLATOR) {
+      } else if (area[i]->type >= ENTITY_INFLATOR_DOWN && area[i]->type <= ENTITY_INFLATOR_RIGHT) {
         _collideBlockHor(rectBall, rectEntity);
       } else if (area[i]->type == ENTITY_END) {
         if (level.states.get(area[i])) {
@@ -250,9 +250,9 @@ void Ball::collideVer() {
         }
       } else if (area[i]->type >= ENTITY_SPIKE_DOWN && area[i]->type <= ENTITY_SPIKE_RIGHT) {
         _processPop();
-      } else if (area[i]->type == ENTITY_DEFLATOR) {
+      } else if (area[i]->type >= ENTITY_DEFLATOR_DOWN && area[i]->type <= ENTITY_DEFLATOR_RIGHT) {
         _collideBlockVer(rectBall, rectEntity);
-      } else if (area[i]->type == ENTITY_INFLATOR) {
+      } else if (area[i]->type >= ENTITY_INFLATOR_DOWN && area[i]->type <= ENTITY_INFLATOR_RIGHT) {
         _collideBlockVer(rectBall, rectEntity);
       } else if (area[i]->type == ENTITY_END) {
         if (level.states.get(area[i])) {

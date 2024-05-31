@@ -88,11 +88,35 @@ void loadEntity(Entity &entity, uint16_t x, uint16_t y) {
       break;
     }
     case 0x30: {
-      entity = Entity(x, y, ENTITY_DEFLATOR, IMAGE_DEFLATOR);
+      entity = Entity(x, y, ENTITY_DEFLATOR_DOWN, IMAGE_DEFLATOR_DOWN);
       break;
     }
     case 0x31: {
-      entity = Entity(x + 3, y, ENTITY_INFLATOR, IMAGE_INFLATOR);
+      entity = Entity(x, y, ENTITY_DEFLATOR_LEFT, IMAGE_DEFLATOR_LEFT);
+      break;
+    }
+    case 0x32: {
+      entity = Entity(x, y, ENTITY_DEFLATOR_UP, IMAGE_DEFLATOR_UP);
+      break;
+    }
+    case 0x33: {
+      entity = Entity(x, y, ENTITY_DEFLATOR_RIGHT, IMAGE_DEFLATOR_RIGHT);
+      break;
+    }
+    case 0x34: {
+      entity = Entity(x + 3, y, ENTITY_INFLATOR_DOWN, IMAGE_INFLATOR_DOWN);
+      break;
+    }
+    case 0x35: {
+      entity = Entity(x, y, ENTITY_INFLATOR_LEFT, IMAGE_INFLATOR_LEFT);
+      break;
+    }
+    case 0x36: {
+      entity = Entity(x + 2, y, ENTITY_INFLATOR_UP, IMAGE_INFLATOR_UP);
+      break;
+    }
+    case 0x37: {
+      entity = Entity(x, y, ENTITY_INFLATOR_RIGHT, IMAGE_INFLATOR_RIGHT);
       break;
     }
     case 0xe0: {
@@ -116,17 +140,12 @@ void loadEntity(Entity &entity, uint16_t x, uint16_t y) {
 
 Rect Entity::rect() {
   if (type == ENTITY_SPIKE_LEFT) return Rect(x, y + 2, 8, 3);
-
   if (type == ENTITY_SPIKE_RIGHT) return Rect(x, y + 3, 8, 3);
-
-  if (type == ENTITY_RING_HOR)
-    return Rect(x, y + 2, pgm_read_byte(&image[0]), pgm_read_byte(&image[1]) - 4);
-
-  if (type == ENTITY_BIG_RING_HOR)
-    return Rect(x, y + 2, pgm_read_byte(&image[0]), pgm_read_byte(&image[1]) - 4);
-
-  if (type == ENTITY_END && level.states.get(this))
-    return Rect(x + 2, y, pgm_read_byte(&image[0]) - 5, pgm_read_byte(&image[1]));
+  if (type == ENTITY_INFLATOR_LEFT) return Rect(x, y + 3, 8, 3);
+  if (type == ENTITY_INFLATOR_RIGHT) return Rect(x, y + 2, 8, 3);
+  if (type == ENTITY_RING_HOR) return Rect(x, y + 2, 16, 4);
+  if (type == ENTITY_BIG_RING_HOR) return Rect(x, y + 2, 16, 4);
+  if (type == ENTITY_END && level.states.get(this)) return Rect(x + 2, y, 11, 16);
 
   return Rect(x, y, pgm_read_byte(&image[0]), pgm_read_byte(&image[1]));
 };
