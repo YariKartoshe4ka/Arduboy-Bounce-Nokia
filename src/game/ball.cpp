@@ -180,7 +180,7 @@ void Ball::collideHor() {
         level.states.set(area[i], 1);
         lives = min(5, lives + 1);
         level.score += SCORE_CRYS_BALL;
-      } else if (area[i]->type == ENTITY_SPIKE) {
+      } else if (area[i]->type >= ENTITY_SPIKE_DOWN && area[i]->type <= ENTITY_SPIKE_RIGHT) {
         _processPop();
       } else if (area[i]->type == ENTITY_DEFLATOR) {
         _collideBlockHor(rectBall, rectEntity);
@@ -248,7 +248,7 @@ void Ball::collideVer() {
             vely = 0;
           }
         }
-      } else if (area[i]->type == ENTITY_SPIKE) {
+      } else if (area[i]->type >= ENTITY_SPIKE_DOWN && area[i]->type <= ENTITY_SPIKE_RIGHT) {
         _processPop();
       } else if (area[i]->type == ENTITY_DEFLATOR) {
         _collideBlockVer(rectBall, rectEntity);

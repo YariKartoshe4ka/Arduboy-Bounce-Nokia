@@ -9,7 +9,10 @@ enum EntityType : uint8_t {
   ENTITY_BLOCK,
   ENTITY_CRYS,
   ENTITY_CRYS_BALL,
-  ENTITY_SPIKE,
+  ENTITY_SPIKE_DOWN,
+  ENTITY_SPIKE_LEFT,
+  ENTITY_SPIKE_UP,
+  ENTITY_SPIKE_RIGHT,
   ENTITY_RING_VER,
   ENTITY_RING_HOR,
   ENTITY_BIG_RING_VER,
@@ -80,10 +83,31 @@ struct CrysBall : Entity {
   }
 };
 
-struct Spike : Entity {
-  Spike(int16_t x, int16_t y) : Entity(x, y) {
-    type = ENTITY_SPIKE;
-    image = IMAGE_SPIKE;
+struct SpikeDown : Entity {
+  SpikeDown(int16_t x, int16_t y) : Entity(x, y) {
+    type = ENTITY_SPIKE_DOWN;
+    image = IMAGE_SPIKE_DOWN;
+  }
+};
+
+struct SpikeLeft : Entity {
+  SpikeLeft(int16_t x, int16_t y) : Entity(x, y) {
+    type = ENTITY_SPIKE_LEFT;
+    image = IMAGE_SPIKE_LEFT;
+  }
+};
+
+struct SpikeUp : Entity {
+  SpikeUp(int16_t x, int16_t y) : Entity(x, y) {
+    type = ENTITY_SPIKE_UP;
+    image = IMAGE_SPIKE_UP;
+  }
+};
+
+struct SpikeRight : Entity {
+  SpikeRight(int16_t x, int16_t y) : Entity(x, y) {
+    type = ENTITY_SPIKE_RIGHT;
+    image = IMAGE_SPIKE_RIGHT;
   }
 };
 

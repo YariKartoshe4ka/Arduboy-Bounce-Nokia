@@ -5,6 +5,10 @@
 #include "level.h"
 
 Rect Entity::rect() {
+  if (type == ENTITY_SPIKE_LEFT) return Rect(x, y + 2, 8, 3);
+
+  if (type == ENTITY_SPIKE_RIGHT) return Rect(x, y + 3, 8, 3);
+
   if (type == ENTITY_RING_HOR)
     return Rect(x, y + 2, pgm_read_byte(&image[0]), pgm_read_byte(&image[1]) - 4);
 
