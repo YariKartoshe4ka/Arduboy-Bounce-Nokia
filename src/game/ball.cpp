@@ -161,6 +161,21 @@ void Ball::collideHor() {
           vely = 0;
         }
       } else if (area[i]->type >= ENTITY_RING_VER && area[i]->type <= ENTITY_BIG_RING_HOR) {
+        if (area[i]->type == ENTITY_RING_VER || area[i]->type == ENTITY_BIG_RING_VER) {
+          Rect rectBorder = Rect(rectEntity.x, rectEntity.y, rectEntity.width, 2);
+          if (arduboy.collide(rectBall, rectBorder)) _collideBlockHor(rectBall, rectBorder);
+        }
+
+        if (area[i]->type == ENTITY_RING_HOR || area[i]->type == ENTITY_BIG_RING_HOR) {
+          Rect rectLeftBorder = Rect(rectEntity.x, rectEntity.y, 2, rectEntity.height),
+               rectRightBorder =
+                 Rect(rectEntity.x + rectEntity.width - 2, rectEntity.y, 2, rectEntity.height);
+
+          if (arduboy.collide(rectBall, rectLeftBorder)) _collideBlockHor(rectBall, rectLeftBorder);
+          if (arduboy.collide(rectBall, rectRightBorder))
+            _collideBlockHor(rectBall, rectRightBorder);
+        }
+
         if (!level.states.get(area[i])) {
           level.states.set(area[i], 1);
           --level.rings;
@@ -246,6 +261,32 @@ void Ball::collideVer() {
             rectBall.y = rectEntity.y + rectEntity.height - rectBall.height - h;
             if (!velx && rectBall.x >= rectEntity.x) velx = max(vely, 1.9) / 2;
             vely = 0;
+          }
+        }
+      } else if (area[i]->type >= ENTITY_RING_VER && area[i]->type <= ENTITY_BIG_RING_HOR) {
+        if (area[i]->type == ENTITY_RING_VER || area[i]->type == ENTITY_BIG_RING_VER) {
+          Rect rectBorder = Rect(rectEntity.x, rectEntity.y, rectEntity.width, 2);
+          if (arduboy.collide(rectBall, rectBorder)) _collideBlockVer(rectBall, rectBorder);
+        }
+
+        if (area[i]->type == ENTITY_RING_HOR || area[i]->type == ENTITY_BIG_RING_HOR) {
+          Rect rectLeftBorder = Rect(rectEntity.x, rectEntity.y, 2, rectEntity.height),
+               rectRightBorder =
+                 Rect(rectEntity.x + rectEntity.width - 2, rectEntity.y, 2, rectEntity.height);
+
+          if (arduboy.collide(rectBall, rectLeftBorder)) _collideBlockVer(rectBall, rectLeftBorder);
+          if (arduboy.collide(rectBall, rectRightBorder))
+            _collideBlockVer(rectBall, rectRightBorder);
+        }
+
+        if (!level.states.get(area[i])) {
+          level.states.set(area[i], 1);
+          --level.rings;
+          level.score += SCORE_RING;
+
+          if (!level.rings) {
+            Entity entityEnd = Entity(level.endX * 8l, level.endY * 8l);
+            level.states.set(&entityEnd, 1);
           }
         }
       } else if (area[i]->type >= ENTITY_SPIKE_DOWN && area[i]->type <= ENTITY_SPIKE_RIGHT) {
