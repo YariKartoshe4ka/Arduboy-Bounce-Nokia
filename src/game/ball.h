@@ -2,6 +2,8 @@
 
 #include <Arduboy2.h>
 
+#include "objects.h"
+
 enum class BallRect : uint8_t { SMALL_RE_VER, SMALL_RE_HOR, SMALL_SQ, END_SEQ };
 
 const BallRect RECTS_SMALL_HOR[] PROGMEM = {
@@ -42,9 +44,12 @@ struct Ball {
   bool _rectIter(Rect &rectBall, const BallRect *seq);
   void _adjustRect(Rect &rectBall);
 
+  void _collideBlock(Rect &rectBall, Rect &rectBlock, bool isHor);
   void _collideBlockHor(Rect &rectBall, Rect &rectBlock);
   void _collideBlockVer(Rect &rectBall, Rect &rectBlock);
   void _processPop();
+
+  void _collideRing(Rect &rectBall, Entity *ring, Rect &rectRing, bool isHor);
 };
 
 extern Ball ball;

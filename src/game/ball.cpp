@@ -108,6 +108,11 @@ void Ball::moveHor() {
   x += velx;
 };
 
+void Ball::_collideBlock(Rect &rectBall, Rect &rectBlock, bool isHor) {
+  if (isHor) _collideBlockHor(rectBall, rectBlock);
+  else _collideBlockVer(rectBall, rectBlock);
+}
+
 void Ball::_collideBlockHor(Rect &rectBall, Rect &rectBlock) {
   if (rectBall.x + rectBall.width / 2 > rectBlock.x + rectBlock.width / 2) {  // Left collision
     rectBall.x = rectBlock.x + rectBlock.width;
@@ -161,31 +166,7 @@ void Ball::collideHor() {
           vely = 0;
         }
       } else if (area[i]->type >= ENTITY_RING_VER && area[i]->type <= ENTITY_BIG_RING_HOR) {
-        if (area[i]->type == ENTITY_RING_VER || area[i]->type == ENTITY_BIG_RING_VER) {
-          Rect rectBorder = Rect(rectEntity.x, rectEntity.y, rectEntity.width, 2);
-          if (arduboy.collide(rectBall, rectBorder)) _collideBlockHor(rectBall, rectBorder);
-        }
-
-        if (area[i]->type == ENTITY_RING_HOR || area[i]->type == ENTITY_BIG_RING_HOR) {
-          Rect rectLeftBorder = Rect(rectEntity.x, rectEntity.y, 2, rectEntity.height),
-               rectRightBorder =
-                 Rect(rectEntity.x + rectEntity.width - 2, rectEntity.y, 2, rectEntity.height);
-
-          if (arduboy.collide(rectBall, rectLeftBorder)) _collideBlockHor(rectBall, rectLeftBorder);
-          if (arduboy.collide(rectBall, rectRightBorder))
-            _collideBlockHor(rectBall, rectRightBorder);
-        }
-
-        if (!level.states.get(area[i])) {
-          level.states.set(area[i], 1);
-          --level.rings;
-          level.score += SCORE_RING;
-
-          if (!level.rings) {
-            Entity entityEnd = Entity(level.endX * 8l, level.endY * 8l);
-            level.states.set(&entityEnd, 1);
-          }
-        }
+        _collideRing(rectBall, area[i], rectEntity, 1);
       } else if (area[i]->type == ENTITY_CRYS && !level.states.get(area[i])) {
         level.states.set(area[i], 1);
         cx = area[i]->x;
@@ -264,31 +245,7 @@ void Ball::collideVer() {
           }
         }
       } else if (area[i]->type >= ENTITY_RING_VER && area[i]->type <= ENTITY_BIG_RING_HOR) {
-        if (area[i]->type == ENTITY_RING_VER || area[i]->type == ENTITY_BIG_RING_VER) {
-          Rect rectBorder = Rect(rectEntity.x, rectEntity.y, rectEntity.width, 2);
-          if (arduboy.collide(rectBall, rectBorder)) _collideBlockVer(rectBall, rectBorder);
-        }
-
-        if (area[i]->type == ENTITY_RING_HOR || area[i]->type == ENTITY_BIG_RING_HOR) {
-          Rect rectLeftBorder = Rect(rectEntity.x, rectEntity.y, 2, rectEntity.height),
-               rectRightBorder =
-                 Rect(rectEntity.x + rectEntity.width - 2, rectEntity.y, 2, rectEntity.height);
-
-          if (arduboy.collide(rectBall, rectLeftBorder)) _collideBlockVer(rectBall, rectLeftBorder);
-          if (arduboy.collide(rectBall, rectRightBorder))
-            _collideBlockVer(rectBall, rectRightBorder);
-        }
-
-        if (!level.states.get(area[i])) {
-          level.states.set(area[i], 1);
-          --level.rings;
-          level.score += SCORE_RING;
-
-          if (!level.rings) {
-            Entity entityEnd = Entity(level.endX * 8l, level.endY * 8l);
-            level.states.set(&entityEnd, 1);
-          }
-        }
+        _collideRing(rectBall, area[i], rectEntity, 0);
       } else if (area[i]->type >= ENTITY_SPIKE_DOWN && area[i]->type <= ENTITY_SPIKE_RIGHT) {
         _processPop();
       } else if (area[i]->type >= ENTITY_DEFLATOR_DOWN && area[i]->type <= ENTITY_DEFLATOR_RIGHT) {
@@ -319,6 +276,32 @@ void Ball::collideVer() {
     }
   }
 };
+
+void Ball::_collideRing(Rect &rectBall, Entity *ring, Rect &rectRing, bool isHor) {
+  if (ring->type == ENTITY_RING_VER || ring->type == ENTITY_BIG_RING_VER) {
+    Rect rectBorder = Rect(rectRing.x, rectRing.y, rectRing.width, 2);
+    if (arduboy.collide(rectBall, rectBorder)) _collideBlock(rectBall, rectBorder, isHor);
+  }
+
+  if (ring->type == ENTITY_RING_HOR || ring->type == ENTITY_BIG_RING_HOR) {
+    Rect rectLeftBorder = Rect(rectRing.x, rectRing.y, 2, rectRing.height),
+         rectRightBorder = Rect(rectRing.x + rectRing.width - 2, rectRing.y, 2, rectRing.height);
+
+    if (arduboy.collide(rectBall, rectLeftBorder)) _collideBlock(rectBall, rectLeftBorder, isHor);
+    if (arduboy.collide(rectBall, rectRightBorder)) _collideBlock(rectBall, rectRightBorder, isHor);
+  }
+
+  if (!level.states.get(ring)) {
+    level.states.set(ring, 1);
+    --level.rings;
+    level.score += SCORE_RING;
+
+    if (!level.rings) {
+      Entity entityEnd = Entity(level.endX * 8l, level.endY * 8l);
+      level.states.set(&entityEnd, 1);
+    }
+  }
+}
 
 void Ball::draw() {
   sprites.drawPlusMask(level.offsetX + SURFACE_X + round(x), level.offsetY + round(y), image, 0);
