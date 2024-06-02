@@ -4,13 +4,28 @@
 
 #include "objects.h"
 
-enum class BallRect : uint8_t { SMALL_RE_VER, SMALL_RE_HOR, SMALL_SQ, END_SEQ };
+enum class BallRect : uint8_t {
+  SMALL_RE_VER,
+  SMALL_RE_HOR,
+  SMALL_SQ,
+  BIG_RE_VER_BG,
+  BIG_RE_VER_SM,
+  BIG_RE_HOR_BG,
+  BIG_RE_HOR_SM,
+  END_SEQ
+};
 
 const BallRect RECTS_SMALL_HOR[] PROGMEM = {
   BallRect::SMALL_RE_HOR, BallRect::SMALL_SQ, BallRect::END_SEQ
 };
 const BallRect RECTS_SMALL_VER[] PROGMEM = {
   BallRect::SMALL_RE_VER, BallRect::SMALL_SQ, BallRect::END_SEQ
+};
+const BallRect RECTS_BIG_HOR[] PROGMEM = {
+  BallRect::BIG_RE_HOR_BG, BallRect::BIG_RE_HOR_SM, BallRect::END_SEQ
+};
+const BallRect RECTS_BIG_VER[] PROGMEM = {
+  BallRect::BIG_RE_VER_BG, BallRect::BIG_RE_VER_SM, BallRect::END_SEQ
 };
 
 struct Ball {
@@ -52,6 +67,7 @@ struct Ball {
   void _collideRing(Rect &rectBall, Entity *ring, Rect &rectRing, bool isHor);
   void _collideCrys(Entity *crys);
   void _collideCrysBall(Entity *crysBall);
+  bool _collideInflator(Rect &rectBall, Rect &rectInflator, bool isHor);
   bool _collideEnd(Rect &rectBall, Entity *end, Rect &rectEnd, bool isHor);
 };
 

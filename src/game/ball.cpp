@@ -66,6 +66,14 @@ Rect Ball::rect() {
       return Rect(roundX, roundY + 2, 8, 4);
     case BallRect::SMALL_SQ:
       return Rect(roundX + 1, roundY + 1, 6, 6);
+    case BallRect::BIG_RE_VER_BG:
+      return Rect(roundX + 3, roundY, 5, 11);
+    case BallRect::BIG_RE_VER_SM:
+      return Rect(roundX + 2, roundY + 1, 7, 9);
+    case BallRect::BIG_RE_HOR_BG:
+      return Rect(roundX, roundY + 3, 11, 5);
+    case BallRect::BIG_RE_HOR_SM:
+      return Rect(roundX + 1, roundY + 2, 9, 7);
     default:
       goto default_rect;
   }
@@ -75,6 +83,8 @@ default_rect:
 }
 
 void Ball::_adjustRect(Rect &rectBall) {
+  if (rectType == nullptr) return;
+
   Rect oldRectBall = rect();
   if (!memcmp(&oldRectBall, &rectBall, sizeof(Rect))) return;
 
@@ -92,6 +102,26 @@ void Ball::_adjustRect(Rect &rectBall) {
     case BallRect::SMALL_SQ: {
       x = rectBall.x - 1;
       y = rectBall.y - 1;
+      break;
+    }
+    case BallRect::BIG_RE_VER_BG: {
+      x = rectBall.x - 3;
+      y = rectBall.y;
+      break;
+    }
+    case BallRect::BIG_RE_VER_SM: {
+      x = rectBall.x - 2;
+      y = rectBall.y - 1;
+      break;
+    }
+    case BallRect::BIG_RE_HOR_BG: {
+      x = rectBall.x;
+      y = rectBall.y - 3;
+      break;
+    }
+    case BallRect::BIG_RE_HOR_SM: {
+      x = rectBall.x - 1;
+      y = rectBall.y - 2;
       break;
     }
   }
@@ -143,7 +173,7 @@ void Ball::_processPop() {
 void Ball::collideHor() {
   Rect rectBall;
 
-  while (_rectIter(rectBall, RECTS_SMALL_HOR)) {
+  while (_rectIter(rectBall, (state & BALL_STATE_BIG ? RECTS_BIG_HOR : RECTS_SMALL_HOR))) {
     uint8_t collideAreaSize = level.buildCollideArea();
 
     for (uint8_t i = 0; i < collideAreaSize; ++i) {
@@ -177,7 +207,7 @@ void Ball::collideHor() {
       } else if (area[i]->type >= ENTITY_DEFLATOR_DOWN && area[i]->type <= ENTITY_DEFLATOR_RIGHT) {
         _collideBlockHor(rectBall, rectEntity);
       } else if (area[i]->type >= ENTITY_INFLATOR_DOWN && area[i]->type <= ENTITY_INFLATOR_RIGHT) {
-        _collideBlockHor(rectBall, rectEntity);
+        if (_collideInflator(rectBall, rectEntity, 1)) break;
       } else if (area[i]->type == ENTITY_END) {
         if (_collideEnd(rectBall, area[i], rectEntity, 1)) break;
       }
@@ -197,7 +227,7 @@ void Ball::moveVer() {
 void Ball::collideVer() {
   Rect rectBall;
 
-  while (_rectIter(rectBall, RECTS_SMALL_VER)) {
+  while (_rectIter(rectBall, (state & BALL_STATE_BIG ? RECTS_BIG_VER : RECTS_SMALL_VER))) {
     uint8_t collideAreaSize = level.buildCollideArea();
 
     for (uint8_t i = 0; i < collideAreaSize; ++i) {
@@ -246,7 +276,7 @@ void Ball::collideVer() {
       } else if (area[i]->type >= ENTITY_DEFLATOR_DOWN && area[i]->type <= ENTITY_DEFLATOR_RIGHT) {
         _collideBlockVer(rectBall, rectEntity);
       } else if (area[i]->type >= ENTITY_INFLATOR_DOWN && area[i]->type <= ENTITY_INFLATOR_RIGHT) {
-        _collideBlockVer(rectBall, rectEntity);
+        if (_collideInflator(rectBall, rectEntity, 0)) break;
       } else if (area[i]->type == ENTITY_END) {
         if (_collideEnd(rectBall, area[i], rectEntity, 0)) break;
       }
@@ -306,6 +336,24 @@ void Ball::_collideCrysBall(Entity *crysBall) {
   level.states.set(crysBall, 1);
   lives = min(5, lives + 1);
   level.score += SCORE_CRYS_BALL;
+}
+
+bool Ball::_collideInflator(Rect &rectBall, Rect &rectInflator, bool isHor) {
+  if (state & BALL_STATE_BIG) {
+    _collideBlock(rectBall, rectInflator, isHor);
+    return 0;
+  }
+
+  float centerX = rectBall.x + rectBall.width / 2., centerY = rectBall.y + rectBall.height / 2.;
+
+  state |= BALL_STATE_BIG;
+  image = IMAGE_BIG_BALL;
+  x = centerX - 11 / 2.;
+  y = centerY - 11 / 2.;
+
+  // Re-run collision check with new rect model
+  rectType = nullptr;
+  return 1;
 }
 
 bool Ball::_collideEnd(Rect &rectBall, Entity *end, Rect &rectEnd, bool isHor) {
