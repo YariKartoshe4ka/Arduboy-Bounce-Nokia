@@ -207,9 +207,9 @@ void Ball::collideHor() {
         _processPop();
         break;
       } else if (area[i]->type >= ENTITY_DEFLATOR_DOWN && area[i]->type <= ENTITY_DEFLATOR_RIGHT) {
-        _collideBlockHor(rectBall, rectEntity);
+        if (_collideInflatorAndDeflator(rectBall, rectEntity, 0, 1)) break;
       } else if (area[i]->type >= ENTITY_INFLATOR_DOWN && area[i]->type <= ENTITY_INFLATOR_RIGHT) {
-        if (_collideInflator(rectBall, rectEntity, 1)) break;
+        if (_collideInflatorAndDeflator(rectBall, rectEntity, 1, 1)) break;
       } else if (area[i]->type == ENTITY_END) {
         if (_collideEnd(rectBall, area[i], rectEntity, 1)) break;
       }
@@ -279,9 +279,9 @@ void Ball::collideVer() {
         _processPop();
         break;
       } else if (area[i]->type >= ENTITY_DEFLATOR_DOWN && area[i]->type <= ENTITY_DEFLATOR_RIGHT) {
-        _collideBlockVer(rectBall, rectEntity);
+        if (_collideInflatorAndDeflator(rectBall, rectEntity, 0, 0)) break;
       } else if (area[i]->type >= ENTITY_INFLATOR_DOWN && area[i]->type <= ENTITY_INFLATOR_RIGHT) {
-        if (_collideInflator(rectBall, rectEntity, 0)) break;
+        if (_collideInflatorAndDeflator(rectBall, rectEntity, 1, 0)) break;
       } else if (area[i]->type == ENTITY_END) {
         if (_collideEnd(rectBall, area[i], rectEntity, 0)) break;
       }
@@ -343,18 +343,27 @@ void Ball::_collideCrysBall(Entity *crysBall) {
   level.score += SCORE_CRYS_BALL;
 }
 
-bool Ball::_collideInflator(Rect &rectBall, Rect &rectInflator, bool isHor) {
-  if (state & BALL_STATE_BIG) {
-    _collideBlock(rectBall, rectInflator, isHor);
+bool Ball::_collideInflatorAndDeflator(
+  Rect &rectBall, Rect &rectEntity, bool isInflator, bool isHor
+) {
+  if ((state & BALL_STATE_BIG) == isInflator) {
+    _collideBlock(rectBall, rectEntity, isHor);
     return 0;
   }
 
   float centerX = rectBall.x + rectBall.width / 2., centerY = rectBall.y + rectBall.height / 2.;
 
-  state |= BALL_STATE_BIG;
-  image = IMAGE_BIG_BALL;
-  x = centerX - 11 / 2.;
-  y = centerY - 11 / 2.;
+  if (isInflator) {
+    state |= BALL_STATE_BIG;
+    image = IMAGE_BIG_BALL;
+    x = centerX - 11 / 2.;
+    y = centerY - 11 / 2.;
+  } else {
+    state &= ~BALL_STATE_BIG;
+    image = IMAGE_BALL;
+    x = centerX - 8 / 2.;
+    y = centerY - 8 / 2.;
+  }
 
   // Re-run collision check with new rect model
   rectType = nullptr;

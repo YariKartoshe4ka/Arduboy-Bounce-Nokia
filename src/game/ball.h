@@ -67,7 +67,7 @@ struct Ball {
   void _collideRing(Rect &rectBall, Entity *ring, Rect &rectRing, bool isHor);
   void _collideCrys(Entity *crys);
   void _collideCrysBall(Entity *crysBall);
-  bool _collideInflator(Rect &rectBall, Rect &rectInflator, bool isHor);
+  bool _collideInflatorAndDeflator(Rect &rectBall, Rect &rectEntity, bool isInflator, bool isHor);
   bool _collideEnd(Rect &rectBall, Entity *end, Rect &rectEnd, bool isHor);
 };
 
