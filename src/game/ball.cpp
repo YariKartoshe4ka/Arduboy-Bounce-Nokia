@@ -38,8 +38,10 @@ void Ball::checkEvents() {
   else acx = 0;
 
   if (state & UP_BUTTON && !(this->state & BALL_STATE_JUMP)) {
-    state |= BALL_STATE_JUMP;
-    vely = -BALL_MAX_VEL_Y;
+    this->state |= BALL_STATE_JUMP;
+
+    if (this->state & BALL_STATE_BIG) vely = -BALL_BIG_MAX_VEL_Y_UP;
+    else vely = -BALL_MAX_VEL_Y;
   }
 };
 
@@ -218,9 +220,12 @@ void Ball::collideHor() {
 };
 
 void Ball::moveVer() {
-  vely += BALL_AC_Y;
-  y += vely;
+  if (state & BALL_STATE_BIG) {
+    if (vely < 0) vely += BALL_BIG_AC_Y;
+    else vely = min(vely + BALL_BIG_AC_Y, BALL_BIG_MAX_VEL_Y_DOWN);
+  } else vely += BALL_AC_Y;
 
+  y += vely;
   state |= BALL_STATE_JUMP;
 };
 

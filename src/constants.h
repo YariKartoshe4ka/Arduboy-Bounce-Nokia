@@ -43,6 +43,9 @@ enum class Scene : uint8_t {
 #define BALL_AC_Y .3
 #define BALL_MAX_VEL_X 2.5
 #define BALL_MAX_VEL_Y 4.6
+#define BALL_BIG_AC_Y 0.135
+#define BALL_BIG_MAX_VEL_Y_UP 3.86
+#define BALL_BIG_MAX_VEL_Y_DOWN 1.65
 
 #define BALL_STATE_BIG (1 << 0)
 #define BALL_STATE_JUMP (1 << 1)
