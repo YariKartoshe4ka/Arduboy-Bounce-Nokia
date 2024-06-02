@@ -50,6 +50,9 @@ struct Ball {
   void _processPop();
 
   void _collideRing(Rect &rectBall, Entity *ring, Rect &rectRing, bool isHor);
+  void _collideCrys(Entity *crys);
+  void _collideCrysBall(Entity *crysBall);
+  bool _collideEnd(Rect &rectBall, Entity *end, Rect &rectEnd, bool isHor);
 };
 
 extern Ball ball;
