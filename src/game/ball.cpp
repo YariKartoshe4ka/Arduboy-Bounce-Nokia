@@ -303,6 +303,12 @@ void Ball::collideVer() {
 };
 
 void Ball::_collideRing(Rect &rectBall, Entity *ring, Rect &rectRing, bool isHor) {
+  if ((state & BALL_STATE_BIG)
+      && (ring->type == ENTITY_RING_VER || ring->type == ENTITY_RING_HOR)) {
+    _collideBlock(rectBall, rectRing, isHor);
+    return;
+  }
+
   if (ring->type == ENTITY_RING_VER || ring->type == ENTITY_BIG_RING_VER) {
     Rect rectBorder = Rect(rectRing.x, rectRing.y, rectRing.width, 2);
     if (arduboy.collide(rectBall, rectBorder)) _collideBlock(rectBall, rectBorder, isHor);
