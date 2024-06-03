@@ -14,18 +14,18 @@ extern Sprites sprites;
 
 Ball ball;
 
-void Ball::init(int16_t x, int16_t y, uint8_t lives) {
-  image = IMAGE_BALL;
+void Ball::init(int16_t x, int16_t y, uint8_t lives, uint8_t state) {
   velx = vely = acx = 0;
   this->lives = lives;
   this->x = cx = x;
   this->y = cy = y;
-  state = 0;
+  this->state = cstate = state;
+  image = (state & BALL_STATE_BIG ? IMAGE_BIG_BALL : IMAGE_BALL);
   rectType = nullptr;
 };
 
 void Ball::reset() {
-  init(cx, cy, lives - 1);
+  init(cx, cy, lives - 1, cstate);
 };
 
 void Ball::checkEvents() {
@@ -339,6 +339,7 @@ void Ball::_collideCrys(Entity *crys) {
   level.states.set(crys, 1);
   cx = crys->x;
   cy = crys->y;
+  cstate = state & BALL_STATE_BIG;
   level.score += SCORE_CRYS;
 }
 

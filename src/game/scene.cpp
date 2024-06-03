@@ -20,7 +20,10 @@ void sceneInitGame() {
   if (prevScene == Scene::NEW_GAME) level.init(menuNewGame.choice - 1, 0);
   else level.init(level.levelNo + 1, level.score);
 
-  ball.init(level[0] * 8, level[1] * 8, prevScene == Scene::NEW_GAME ? 3 : ball.lives);
+  ball.init(
+    level[0] * 8, level[1] * 8, prevScene == Scene::NEW_GAME ? 3 : ball.lives,
+    BALL_STATE_BIG * level[2]
+  );
 
   spiders.init(level);
 

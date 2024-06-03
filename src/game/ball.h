@@ -34,13 +34,13 @@ struct Ball {
 
   int16_t cx, cy;
 
-  uint8_t state;
+  uint8_t state, cstate;
   const uint8_t *image;
 
   BallRect *rectType;
 
   Ball() = default;
-  void init(int16_t x, int16_t y, uint8_t lives);
+  void init(int16_t x, int16_t y, uint8_t lives, uint8_t state);
 
   void reset();
 
