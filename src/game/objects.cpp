@@ -10,132 +10,54 @@ void loadEntity(Entity &entity, uint16_t x, uint16_t y) {
   x *= 8;
   y *= 8;
 
+#define ADD_ENTITY(code, name, x, y)                    \
+  case (code): {                                        \
+    entity = Entity(x, y, ENTITY_##name, IMAGE_##name); \
+    break;                                              \
+  }
+
   switch (entityByte) {
     case 0x00: {
       entity = Entity(0, 0);
       break;
     }
-    case 0x01: {
-      entity = Entity(x, y, ENTITY_BLOCK, IMAGE_BLOCK);
-      break;
-    }
-    case 0x02: {
-      entity = Entity(x, y, ENTITY_RAMP_TL, IMAGE_RAMP_TL);
-      break;
-    }
-    case 0x03: {
-      entity = Entity(x, y, ENTITY_RAMP_TR, IMAGE_RAMP_TR);
-      break;
-    }
+      ADD_ENTITY(0x01, BLOCK, x, y)
+      ADD_ENTITY(0x02, RAMP_TL, x, y)
+      ADD_ENTITY(0x03, RAMP_TR, x, y)
     case 0x04:
       break;  // RampBL
     case 0x05:
       break;  // RampBR
-    case 0x20: {
-      entity = Entity(x + 2, y, ENTITY_SPIKE_DOWN, IMAGE_SPIKE_DOWN);
-      break;
-    }
-    case 0x21: {
-      entity = Entity(x, y, ENTITY_SPIKE_LEFT, IMAGE_SPIKE_LEFT);
-      break;
-    }
-    case 0x22: {
-      entity = Entity(x + 3, y, ENTITY_SPIKE_UP, IMAGE_SPIKE_UP);
-      break;
-    }
-    case 0x23: {
-      entity = Entity(x, y, ENTITY_SPIKE_RIGHT, IMAGE_SPIKE_RIGHT);
-      break;
-    }
-    case 0x07: {
-      entity = Entity(x, y, ENTITY_CRYS, IMAGE_CRYS);
-      break;
-    }
-    case 0x08: {
-      entity = Entity(x, y, ENTITY_CRYS_BALL, IMAGE_CRYS_BALL);
-      break;
-    }
-    case 0x10: {
-      entity = Entity(x + 2, y, ENTITY_RING_VER, IMAGE_RING_VER);
-      break;
-    }
-    case 0x11: {
-      entity = Entity(x + 2, y - 8, ENTITY_RING_VER, IMAGE_RING_VER);
-      break;
-    }
-    case 0x12: {
-      entity = Entity(x, y, ENTITY_RING_HOR, IMAGE_RING_HOR);
-      break;
-    }
-    case 0x13: {
-      entity = Entity(x - 8, y, ENTITY_RING_HOR, IMAGE_RING_HOR);
-      break;
-    }
-    case 0x14: {
-      entity = Entity(x + 2, y, ENTITY_BIG_RING_VER, IMAGE_BIG_RING_VER);
-      break;
-    }
-    case 0x15: {
-      entity = Entity(x + 2, y - 8, ENTITY_BIG_RING_VER, IMAGE_BIG_RING_VER);
-      break;
-    }
-    case 0x16: {
-      entity = Entity(x, y, ENTITY_BIG_RING_HOR, IMAGE_BIG_RING_HOR);
-      break;
-    }
-    case 0x17: {
-      entity = Entity(x - 8, y, ENTITY_BIG_RING_HOR, IMAGE_BIG_RING_HOR);
-      break;
-    }
-    case 0x30: {
-      entity = Entity(x, y, ENTITY_DEFLATOR_DOWN, IMAGE_DEFLATOR_DOWN);
-      break;
-    }
-    case 0x31: {
-      entity = Entity(x, y, ENTITY_DEFLATOR_LEFT, IMAGE_DEFLATOR_LEFT);
-      break;
-    }
-    case 0x32: {
-      entity = Entity(x, y, ENTITY_DEFLATOR_UP, IMAGE_DEFLATOR_UP);
-      break;
-    }
-    case 0x33: {
-      entity = Entity(x, y, ENTITY_DEFLATOR_RIGHT, IMAGE_DEFLATOR_RIGHT);
-      break;
-    }
-    case 0x34: {
-      entity = Entity(x + 3, y, ENTITY_INFLATOR_DOWN, IMAGE_INFLATOR_DOWN);
-      break;
-    }
-    case 0x35: {
-      entity = Entity(x, y, ENTITY_INFLATOR_LEFT, IMAGE_INFLATOR_LEFT);
-      break;
-    }
-    case 0x36: {
-      entity = Entity(x + 2, y, ENTITY_INFLATOR_UP, IMAGE_INFLATOR_UP);
-      break;
-    }
-    case 0x37: {
-      entity = Entity(x, y, ENTITY_INFLATOR_RIGHT, IMAGE_INFLATOR_RIGHT);
-      break;
-    }
-    case 0xe0: {
-      entity = Entity(x, y, ENTITY_END, IMAGE_END);
-      break;
-    }
-    case 0xe1: {
-      entity = Entity(x - 8, y, ENTITY_END, IMAGE_END);
-      break;
-    }
-    case 0xe2: {
-      entity = Entity(x, y - 8, ENTITY_END, IMAGE_END);
-      break;
-    }
-    case 0xe3: {
-      entity = Entity(x - 8, y - 8, ENTITY_END, IMAGE_END);
-      break;
-    }
+
+      ADD_ENTITY(0x20, SPIKE_DOWN, x + 2, y)
+      ADD_ENTITY(0x21, SPIKE_LEFT, x, y)
+      ADD_ENTITY(0x22, SPIKE_UP, x + 3, y)
+      ADD_ENTITY(0x23, SPIKE_RIGHT, x, y)
+
+      ADD_ENTITY(0x07, CRYS, x, y)
+      ADD_ENTITY(0x08, CRYS_BALL, x, y)
+      ADD_ENTITY(0x10, RING_VER, x + 2, y)
+      ADD_ENTITY(0x11, RING_VER, x + 2, y - 8)
+      ADD_ENTITY(0x12, RING_HOR, x, y)
+      ADD_ENTITY(0x13, RING_HOR, x - 8, y)
+      ADD_ENTITY(0x14, BIG_RING_VER, x + 2, y)
+      ADD_ENTITY(0x15, BIG_RING_VER, x + 2, y - 8)
+      ADD_ENTITY(0x16, BIG_RING_HOR, x, y)
+      ADD_ENTITY(0x17, BIG_RING_HOR, x - 8, y)
+      ADD_ENTITY(0x30, DEFLATOR_DOWN, x, y)
+      ADD_ENTITY(0x31, DEFLATOR_LEFT, x, y)
+      ADD_ENTITY(0x32, DEFLATOR_UP, x, y)
+      ADD_ENTITY(0x33, DEFLATOR_RIGHT, x, y)
+      ADD_ENTITY(0x34, INFLATOR_DOWN, x + 3, y)
+      ADD_ENTITY(0x35, INFLATOR_LEFT, x, y)
+      ADD_ENTITY(0x36, INFLATOR_UP, x + 2, y)
+      ADD_ENTITY(0x37, INFLATOR_RIGHT, x, y)
+      ADD_ENTITY(0xe0, END, x, y)
+      ADD_ENTITY(0xe1, END, x - 8, y)
+      ADD_ENTITY(0xe2, END, x, y - 8)
+      ADD_ENTITY(0xe3, END, x - 8, y - 8)
   }
+#undef ADD_ENTITY
 };
 
 Rect Entity::rect() {
