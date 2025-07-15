@@ -61,7 +61,7 @@ def _convert_spiders(spiders):
 
     for i in range(n):
         chunk = spiders[i * 8:(i + 1) * 8]
-        l, t, r, b, h, v, th, tv = chunk
+        l, t, r, b, h, v, th, tv = chunk  # noqa: E741
         dx, dy = r - l - 2, b - t - 2
 
         res += bytes([l, t, dx, dy, th, tv])
