@@ -32,14 +32,14 @@ struct Entity {
   EntityType type;
   int16_t x, y;
 
-  const uint8_t *image;
+  const uint8_t* image;
 
   Entity() = default;
   Entity(int16_t x, int16_t y) : type(ENTITY_EMPTY), x(x), y(y) {};
-  Entity(int16_t x, int16_t y, EntityType type, const uint8_t *image)
+  Entity(int16_t x, int16_t y, EntityType type, const uint8_t* image)
       : type(type), x(x), y(y), image(image) {};
 
   Rect rect();
 };
 
-void loadEntity(Entity &entity, uint16_t x, uint16_t y);
+void loadEntity(Entity& entity, uint16_t x, uint16_t y);
