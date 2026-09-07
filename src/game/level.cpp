@@ -15,17 +15,17 @@ extern Arduboy2 arduboy;
 extern Sprites sprites;
 
 Level level;
-Entity *area[COLLIDE_AREA_SIZE];
+Entity* area[COLLIDE_AREA_SIZE];
 
 void States::init() {
   size = 0;
 };
 
-uint16_t States::getKey(Entity *entity) {
+uint16_t States::getKey(Entity* entity) {
   return (entity->y / 8 << 8) + entity->x / 8;
 };
 
-uint8_t States::get(Entity *entity) {
+uint8_t States::get(Entity* entity) {
   uint16_t key = getKey(entity);
 
   for (uint8_t i = 0; i < size; ++i) {
@@ -34,7 +34,7 @@ uint8_t States::get(Entity *entity) {
   return 0;
 };
 
-void States::set(Entity *entity, uint8_t state) {
+void States::set(Entity* entity, uint8_t state) {
   uint16_t key = getKey(entity);
   table[size++] = {key, state};
 }
@@ -144,7 +144,7 @@ uint8_t Level::buildCollideArea() {
   }
 
   for (uint8_t i = 1; i < COLLIDE_AREA_SIZE; ++i) {  // Insertion sort
-    Entity *tmp = area[i];
+    Entity* tmp = area[i];
     int8_t j = i - 1;
     for (; j >= 0 && area[j]->type > tmp->type; --j) {
       area[j + 1] = area[j];

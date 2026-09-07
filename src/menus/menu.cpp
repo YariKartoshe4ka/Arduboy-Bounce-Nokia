@@ -14,7 +14,7 @@ bool MenuBase::justPressedOnce(uint8_t button) {
   return pressed;
 };
 
-int8_t MenuBase::centerFString(char *str) {
+int8_t MenuBase::centerFString(char* str) {
   uint8_t length = strlen_P(str), width = CHAR_WIDTH * length + CHAR_SPACING * (length - 1);
 
   return (SCREEN_W - width) / 2;
@@ -26,7 +26,7 @@ void MenuBase::checkEvents() {
   if (justPressedOnce(B_BUTTON)) scene = (Scene)pgm_read_byte(scenes);
 };
 
-void MenuBase::drawTitle(char *title) {
+void MenuBase::drawTitle(char* title) {
   arduboy.setTextColor(BLACK);
 
   arduboy.fillRect(0, 0, SCREEN_W, CHAR_HEIGHT + LINE_SPACING * 3);

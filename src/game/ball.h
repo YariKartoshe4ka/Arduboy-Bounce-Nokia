@@ -35,9 +35,9 @@ struct Ball {
   int16_t cx, cy;
 
   uint8_t state, cstate;
-  const uint8_t *image;
+  const uint8_t* image;
 
-  BallRect *rectType;
+  BallRect* rectType;
 
   Ball() = default;
   void init(int16_t x, int16_t y, uint8_t lives, uint8_t state);
@@ -56,19 +56,19 @@ struct Ball {
 
   Rect rect();
 
-  bool _rectIter(Rect &rectBall, const BallRect *seq);
-  void _adjustRect(Rect &rectBall);
+  bool _rectIter(Rect& rectBall, const BallRect* seq);
+  void _adjustRect(Rect& rectBall);
 
-  void _collideBlock(Rect &rectBall, Rect &rectBlock, bool isHor);
-  void _collideBlockHor(Rect &rectBall, Rect &rectBlock);
-  void _collideBlockVer(Rect &rectBall, Rect &rectBlock);
+  void _collideBlock(Rect& rectBall, Rect& rectBlock, bool isHor);
+  void _collideBlockHor(Rect& rectBall, Rect& rectBlock);
+  void _collideBlockVer(Rect& rectBall, Rect& rectBlock);
   void _processPop();
 
-  void _collideRing(Rect &rectBall, Entity *ring, Rect &rectRing, bool isHor);
-  void _collideCrys(Entity *crys);
-  void _collideCrysBall(Entity *crysBall);
-  bool _collideInflatorAndDeflator(Rect &rectBall, Rect &rectEntity, bool isInflator, bool isHor);
-  bool _collideEnd(Rect &rectBall, Entity *end, Rect &rectEnd, bool isHor);
+  void _collideRing(Rect& rectBall, Entity* ring, Rect& rectRing, bool isHor);
+  void _collideCrys(Entity* crys);
+  void _collideCrysBall(Entity* crysBall);
+  bool _collideInflatorAndDeflator(Rect& rectBall, Rect& rectEntity, bool isInflator, bool isHor);
+  bool _collideEnd(Rect& rectBall, Entity* end, Rect& rectEnd, bool isHor);
 };
 
 extern Ball ball;
