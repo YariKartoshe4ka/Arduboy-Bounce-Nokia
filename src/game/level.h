@@ -13,14 +13,14 @@ class States {
 
   uint8_t size;
 
-  uint16_t getKey(Entity *entity);
+  uint16_t getKey(Entity* entity);
 
  public:
   States() = default;
   void init();
 
-  uint8_t get(Entity *entity);
-  void set(Entity *entity, uint8_t state);
+  uint8_t get(Entity* entity);
+  void set(Entity* entity, uint8_t state);
 };
 
 class Level {
@@ -57,5 +57,5 @@ class Level {
 };
 
 extern Level level;
-extern Entity *area[COLLIDE_AREA_SIZE];
+extern Entity* area[COLLIDE_AREA_SIZE];
 extern uint32_t highScore;

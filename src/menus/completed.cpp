@@ -9,7 +9,7 @@
 
 extern Arduboy2 arduboy;
 
-MenuScore menuCompleted((char **)&COMPLETED_TEXT, (uint8_t *)&COMPLETED_SCENES, &level.score);
+MenuScore menuCompleted((char**)&COMPLETED_TEXT, (uint8_t*)&COMPLETED_SCENES, &level.score);
 
 void sceneInitCompleted() {
   storageUpdateHighScore(level.score);
