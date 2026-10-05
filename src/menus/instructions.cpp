@@ -33,7 +33,7 @@ void _MenuInstructions::checkEvents() {
 void _MenuInstructions::drawInstructions() {
   arduboy.setTextColor(BLACK);
 
-  char **ptr = (char **)pgm_read_word(text + 1);
+  char** ptr = (char**)pgm_read_word(text + 1);
 
   int16_t normalizedOffsetY = offsetY % LINE_HEIGHT;
 
@@ -60,7 +60,7 @@ void _MenuInstructions::sceneUpdate() {
   arduboy.display();
 };
 
-_MenuInstructions menuInstructions((char **)&INSTRUCTIONS_TEXT, (uint8_t *)&INSTRUCTIONS_SCENES);
+_MenuInstructions menuInstructions((char**)&INSTRUCTIONS_TEXT, (uint8_t*)&INSTRUCTIONS_SCENES);
 
 void sceneInitInstructions() {
   menuInstructions.sceneInit();
