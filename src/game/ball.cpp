@@ -45,8 +45,8 @@ void Ball::checkEvents() {
   }
 };
 
-bool Ball::_rectIter(Rect &rectBall, const BallRect *seq) {
-  if (rectType == nullptr) rectType = const_cast<BallRect *>(seq);
+bool Ball::_rectIter(Rect& rectBall, const BallRect* seq) {
+  if (rectType == nullptr) rectType = const_cast<BallRect*>(seq);
   else if (static_cast<BallRect>(pgm_read_byte(++rectType)) == BallRect::END_SEQ) {
     rectType = nullptr;
     return 0;
@@ -84,7 +84,7 @@ default_rect:
   return Rect(roundX, roundY, pgm_read_byte(&image[0]), pgm_read_byte(&image[1]));
 }
 
-void Ball::_adjustRect(Rect &rectBall) {
+void Ball::_adjustRect(Rect& rectBall) {
   if (rectType == nullptr) return;
 
   Rect oldRectBall = rect();
@@ -140,12 +140,12 @@ void Ball::moveHor() {
   x += velx;
 };
 
-void Ball::_collideBlock(Rect &rectBall, Rect &rectBlock, bool isHor) {
+void Ball::_collideBlock(Rect& rectBall, Rect& rectBlock, bool isHor) {
   if (isHor) _collideBlockHor(rectBall, rectBlock);
   else _collideBlockVer(rectBall, rectBlock);
 }
 
-void Ball::_collideBlockHor(Rect &rectBall, Rect &rectBlock) {
+void Ball::_collideBlockHor(Rect& rectBall, Rect& rectBlock) {
   if (rectBall.x + rectBall.width / 2 > rectBlock.x + rectBlock.width / 2) {  // Left collision
     rectBall.x = rectBlock.x + rectBlock.width;
     velx = -velx / 1.6;
@@ -155,7 +155,7 @@ void Ball::_collideBlockHor(Rect &rectBall, Rect &rectBlock) {
   }
 };
 
-void Ball::_collideBlockVer(Rect &rectBall, Rect &rectBlock) {
+void Ball::_collideBlockVer(Rect& rectBall, Rect& rectBlock) {
   if (rectBall.y + rectBall.height / 2 > rectBlock.y + rectBlock.height / 2) {
     rectBall.y = rectBlock.y + rectBlock.height;
     vely = 0;
@@ -292,7 +292,7 @@ void Ball::collideVer() {
 
   // Collide spiders
   rectBall = rect();
-  for (Spider &spider : spiders) {
+  for (Spider& spider : spiders) {
     Rect rectSpider = Rect(spider.getX(), spider.getY(), 16, 16);
 
     if (arduboy.collide(rectBall, rectSpider)) {
@@ -302,9 +302,10 @@ void Ball::collideVer() {
   }
 };
 
-void Ball::_collideRing(Rect &rectBall, Entity *ring, Rect &rectRing, bool isHor) {
-  if ((state & BALL_STATE_BIG)
-      && (ring->type == ENTITY_RING_VER || ring->type == ENTITY_RING_HOR)) {
+void Ball::_collideRing(Rect& rectBall, Entity* ring, Rect& rectRing, bool isHor) {
+  if (
+    (state & BALL_STATE_BIG) && (ring->type == ENTITY_RING_VER || ring->type == ENTITY_RING_HOR)
+  ) {
     _collideBlock(rectBall, rectRing, isHor);
     return;
   }
@@ -334,7 +335,7 @@ void Ball::_collideRing(Rect &rectBall, Entity *ring, Rect &rectRing, bool isHor
   }
 }
 
-void Ball::_collideCrys(Entity *crys) {
+void Ball::_collideCrys(Entity* crys) {
   if (level.states.get(crys)) return;
   level.states.set(crys, 1);
   cx = crys->x;
@@ -343,7 +344,7 @@ void Ball::_collideCrys(Entity *crys) {
   level.score += SCORE_CRYS;
 }
 
-void Ball::_collideCrysBall(Entity *crysBall) {
+void Ball::_collideCrysBall(Entity* crysBall) {
   if (level.states.get(crysBall)) return;
   level.states.set(crysBall, 1);
   lives = min(5, lives + 1);
@@ -351,7 +352,7 @@ void Ball::_collideCrysBall(Entity *crysBall) {
 }
 
 bool Ball::_collideInflatorAndDeflator(
-  Rect &rectBall, Rect &rectEntity, bool isInflator, bool isHor
+  Rect& rectBall, Rect& rectEntity, bool isInflator, bool isHor
 ) {
   if ((state & BALL_STATE_BIG) == isInflator) {
     _collideBlock(rectBall, rectEntity, isHor);
@@ -377,7 +378,7 @@ bool Ball::_collideInflatorAndDeflator(
   return 1;
 }
 
-bool Ball::_collideEnd(Rect &rectBall, Entity *end, Rect &rectEnd, bool isHor) {
+bool Ball::_collideEnd(Rect& rectBall, Entity* end, Rect& rectEnd, bool isHor) {
   if (level.states.get(end)) {
     scene = Scene::COMPLETED;
     level.score += SCORE_LEVEL_COMPLETED;
