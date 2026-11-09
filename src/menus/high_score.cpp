@@ -7,9 +7,7 @@
 #include "../storage.h"
 #include "menu.h"
 
-MenuScore menuHighScore(
-  (char **)&HIGH_SCORE_TEXT, (uint8_t *)&HIGH_SCORE_SCENES, &storage_highScore
-);
+MenuScore menuHighScore((char**)&HIGH_SCORE_TEXT, (uint8_t*)&HIGH_SCORE_SCENES, &storage_highScore);
 
 void sceneInitHighScore() {
   menuHighScore.sceneInit();
