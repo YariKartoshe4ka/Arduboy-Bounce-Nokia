@@ -15,7 +15,7 @@ extern Arduboy2 arduboy;
 void sceneInitGame() {
   if (prevScene == Scene::BOUNCE) return;
 
-  menuBounce = MenuOptions(PAUSE_TEXT_SIZE, (char **)&PAUSE_TEXT, (uint8_t *)&PAUSE_SCENES);
+  menuBounce = MenuOptions(PAUSE_TEXT_SIZE, (char**)&PAUSE_TEXT, (uint8_t*)&PAUSE_SCENES);
 
   if (prevScene == Scene::NEW_GAME) level.init(menuNewGame.choice - 1, 0);
   else level.init(level.levelNo + 1, level.score);
