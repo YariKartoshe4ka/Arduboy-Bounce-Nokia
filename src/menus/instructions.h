@@ -4,7 +4,7 @@
 #include "../constants.h"
 #include "bounce.h"
 
-const char *const INSTRUCTIONS_TEXT[] PROGMEM = {TEXT_INSTRUCTIONS, (char *)TEXT_INSTRUCTIONS_LONG};
+const char* const INSTRUCTIONS_TEXT[] PROGMEM = {TEXT_INSTRUCTIONS, (char*)TEXT_INSTRUCTIONS_LONG};
 const Scene INSTRUCTIONS_SCENES[] PROGMEM = {Scene::BOUNCE};
 
 class _MenuInstructions : MenuBase {
@@ -19,7 +19,7 @@ class _MenuInstructions : MenuBase {
   void sceneInit();
   void sceneUpdate();
 
-  _MenuInstructions(char **text, uint8_t *scenes) : MenuBase(text, scenes) {}
+  _MenuInstructions(char** text, uint8_t* scenes) : MenuBase(text, scenes) {}
 };
 
 void sceneInitInstructions();

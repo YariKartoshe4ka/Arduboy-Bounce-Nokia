@@ -9,11 +9,11 @@
 
 extern Arduboy2 arduboy;
 
-MenuScore menuGameOver((char **)&GAME_OVER_TEXT, (uint8_t *)&GAME_OVER_SCENES, &level.score);
+MenuScore menuGameOver((char**)&GAME_OVER_TEXT, (uint8_t*)&GAME_OVER_SCENES, &level.score);
 
 void sceneInitGameOver() {
   storageUpdateHighScore(level.score);
-  menuBounce = MenuOptions(BOUNCE_TEXT_SIZE, (char **)&BOUNCE_TEXT, (uint8_t *)&BOUNCE_SCENES);
+  menuBounce = MenuOptions(BOUNCE_TEXT_SIZE, (char**)&BOUNCE_TEXT, (uint8_t*)&BOUNCE_SCENES);
   menuGameOver.sceneInit();
 };
 

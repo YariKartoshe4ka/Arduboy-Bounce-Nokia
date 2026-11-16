@@ -4,7 +4,7 @@
 
 #include "level.h"
 
-void loadEntity(Entity &entity, uint16_t x, uint16_t y) {
+void loadEntity(Entity& entity, uint16_t x, uint16_t y) {
   uint8_t entityByte = level[8 + y * level.width + x];
 
   x *= 8;
